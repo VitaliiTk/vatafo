@@ -24,3 +24,26 @@ export const categories = [
     img: '/public/categories/work.png'
   }
 ]
+
+export const popularCars = [
+  {
+    name: 'Honda',
+    img: '/public/popular-cars/honda.webp'
+  },
+  {
+    name: 'Mersedes-Benz',
+    img: '/public/popular-cars/mers.webp'
+  },
+  {
+    name: 'Toyota',
+    img: '/public/popular-cars/toyota.webp'
+  },
+  {
+    name: 'Volkswagen',
+    img: '/public/popular-cars/volkswagen.webp'
+  },
+  {
+    name: 'Daewoo',
+    img: '/public/popular-cars/daewoo.webp'
+  }
+]
