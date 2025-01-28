@@ -1,13 +1,19 @@
 .card {
   display: block;
-  background-color: #4e4e4e;
-  width: 230px;
+  background-color: var(--theme-accent-color);
+  width: 250px;
   border-radius: 10px;
   overflow: hidden;
+  transition: all 0.3s;
+}
+
+.card:hover {
+  box-shadow: 0 0 15px var(--select-color);
 }
 
 .card__img {
   width: 100%;
+  border-radius: 10px;
 }
 
 .card__info {

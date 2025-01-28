@@ -9,19 +9,9 @@ export function CardsList() {
         <div className="cards-list__wrapper">
           <h2>Новые объявления - Кыргызстан</h2>
           <div className="cards-list__box">
-            <CardsListItem />
-            <CardsListItem />
-            <CardsListItem />
-            <CardsListItem />
-            <CardsListItem />
-            <CardsListItem />
-            <CardsListItem />
-            <CardsListItem />
-            <CardsListItem />
-            <CardsListItem />
-            <CardsListItem />
-            <CardsListItem />
-            <CardsListItem />
+            {Array.from({ length: 150 }, (_, i) => (
+              <CardsListItem key={i} />
+            ))}
           </div>
         </div>
       </div>

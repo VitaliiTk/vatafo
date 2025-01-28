@@ -1,8 +1,12 @@
 .header {
   box-shadow: 0 0 10px #000;
   padding: 10px 0;
-  position: relative;
-  z-index: 1;
+  position: fixed;
+  z-index: 100;
+  left: 0;
+  right: 0;
+  top: 0;
+  background-color: var(--theme-accent-color);
 }
 
 .header__wrapper {

@@ -17,6 +17,7 @@
   --accent-color: #ff447d;
   --theme-color: #292d3e;
   --theme-accent-color: #282828;
+  --select-color: #15b2f1;
 }
 
 * {
@@ -31,10 +32,11 @@ a {
 
 body {
   margin: 0;
+  margin-top: 80px;
 }
 
 .container {
-  max-width: 1400px;
+  max-width: 1630px;
   margin: 0 auto;
   padding: 0 15px;
 }
