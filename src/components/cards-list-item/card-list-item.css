@@ -1,0 +1,70 @@
+.card {
+  display: block;
+  background-color: #4e4e4e;
+  width: 230px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.card__img {
+  width: 100%;
+}
+
+.card__info {
+  padding: 10px;
+}
+
+.card__price-old {
+  font-size: 14px;
+  text-decoration: line-through;
+}
+
+.card__price {
+  color: #15b2f1;
+  font-weight: 700;
+}
+
+.card__subcategory-name {
+  color: #858585;
+  font-size: 14px;
+}
+
+.card__avatar-img {
+  height: 30px;
+  width: 30px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.card__bottom-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.card__bottom-info-left-side {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.card__ac-status {
+  background-color: #15b2f1;
+  border-radius: 7px;
+  padding: 0 5px;
+}
+
+.card__bottom-info-right-side {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.card__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+}

@@ -4,6 +4,7 @@ import { CategoryList } from '../category-list/CategoryList'
 import { PopularListHorizontal } from '../popular-list-horizontal/PopularListHorizontal'
 
 import './App.css'
+import { CardsList } from '../cards-list/CardsList'
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
       <SearchPanel />
       <CategoryList />
       <PopularListHorizontal />
+      <CardsList />
     </>
   )
 }
