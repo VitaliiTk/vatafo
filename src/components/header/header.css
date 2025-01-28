@@ -1,0 +1,21 @@
+.header {
+  box-shadow: 0 0 10px #000;
+  padding: 10px 0;
+}
+
+.header__wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.header__left-side {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.header__right-side {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
