@@ -1,0 +1,9 @@
+#category-list {
+  margin: 25px 0;
+}
+
+.category-list__wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}

@@ -1,0 +1,32 @@
+.category-item {
+  background-color: var(--theme-accent-color);
+  width: 136px;
+  height: 136px;
+  border-radius: 10px;
+  padding: 10px 10px 10px 15px;
+  position: relative;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.category-item:hover {
+  transform: scale(1.07);
+  box-shadow: 0 0 15px #161616;
+}
+
+.category-item:hover .category-item__text {
+  font-weight: 700;
+}
+
+.category-item__text {
+  font-size: 14px;
+  transition: all 0.3s;
+}
+
+.category-item__img {
+  width: 86px;
+  height: 86px;
+  position: absolute;
+  bottom: 0;
+  right: 5px;
+}
