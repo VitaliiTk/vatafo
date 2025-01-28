@@ -1,6 +1,8 @@
 .header {
   box-shadow: 0 0 10px #000;
   padding: 10px 0;
+  position: relative;
+  z-index: 1;
 }
 
 .header__wrapper {
