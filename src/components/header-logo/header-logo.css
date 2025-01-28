@@ -13,4 +13,6 @@
 .header__logo-text {
   color: var(--primary-color);
   font-size: 26px;
+  line-height: 1;
+  cursor: pointer;
 }

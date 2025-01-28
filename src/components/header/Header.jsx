@@ -1,5 +1,7 @@
 import { HeaderLogo } from '../header-logo/HeaderLogo'
 
+import { Burger } from '../burger/Burger'
+
 import './header.css'
 
 export function Header() {
@@ -9,8 +11,8 @@ export function Header() {
         <div className="header__wrapper">
           <div className="header__left-side">
             <HeaderLogo />
-            <div className="burger">X</div>
-            <div className="tag">Buisnes</div>
+            <Burger />
+            <div className="header__tag">Buisnes</div>
           </div>
           <div className="header__right-side">
             <div className="like">💗</div>
