@@ -8,7 +8,7 @@ export function CardsListItem() {
     <a href="#" className="card">
       <img
         className="card__img"
-        src="/public/cards-img/card-img.webp"
+        src="/cards-img/card-img.webp"
         alt=""
       />
       <div className="card__info">
@@ -24,7 +24,7 @@ export function CardsListItem() {
           <div className="card__bottom-info-left-side">
             <img
               className="card__avatar-img"
-              src="/public/avatars/avatar.jpeg"
+              src="/avatars/avatar.jpeg"
               alt=""
             />
             <div className="card__ac-status">PRO</div>
