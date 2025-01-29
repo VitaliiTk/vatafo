@@ -3,23 +3,17 @@ import { CiHeart } from 'react-icons/ci'
 
 import './card-list-item.css'
 
-export function CardsListItem() {
+export function CardsListItem({ card }) {
+  const title = card.title.slice(0, 40)
+
   return (
     <a href="#" className="card">
-      <img
-        className="card__img"
-        src="/cards-img/card-img.webp"
-        alt=""
-      />
+      <img className="card__img" src={card.images[0]} alt="" />
       <div className="card__info">
-        <div className="card__price-old">1600</div>
-        <div className="card__price">1500 KGS</div>
-        <div className="card__subcategory-name">
-          Посуточная аренда квартир
-        </div>
-        <div className="card__descr">
-          Посуточно, Суточные, квартиры, посуточно
-        </div>
+        {/* <div className="card__price-old">1600</div> */}
+        <div className="card__price">{card.price} KGS</div>
+        <div className="card__subcategory-name">{card.category}</div>
+        <div className="card__descr">{title} ... </div>
         <div className="card__bottom-info">
           <div className="card__bottom-info-left-side">
             <img

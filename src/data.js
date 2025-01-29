@@ -50,13 +50,15 @@ export const popularCars = [
 
 export const cards = [
   {
+    id: 0,
     author: 'John Doe',
     number: '+996557184916',
     title: 'Ford F-150: 2023г. 2,7л. Автомат, Бензин',
-    category: 'auto-sale',
+    category: 'Продаю автомобиль',
     price: 5421900,
     moneySymbol: 'KGS',
     info: 'some info text',
+    car: 'Ford',
     model: 'F-150',
     year: 2023,
     gear: 'automatic',
