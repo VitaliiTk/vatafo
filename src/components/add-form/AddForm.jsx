@@ -31,11 +31,21 @@ export function AddForm() {
                 <h3>Валюта</h3>
                 <div className="checkbox__wrapper">
                   <span>
-                    <input type="checkbox" name="" id="kgs" />
+                    <input
+                      type="radio"
+                      name="moneySymbol"
+                      id="kgs"
+                      value="KGS"
+                    />
                     <label htmlFor="kgs">KGS</label>
                   </span>
                   <span>
-                    <input type="checkbox" name="" id="usd" />
+                    <input
+                      type="radio"
+                      name="moneySymbol"
+                      id="usd"
+                      value="USD"
+                    />
                     <label htmlFor="usd">USD</label>
                   </span>
                 </div>
