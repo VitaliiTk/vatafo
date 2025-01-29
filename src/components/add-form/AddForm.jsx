@@ -1,6 +1,6 @@
 import { Button } from '../button/Button'
 
-export function AddNew() {
+export function AddForm() {
   return (
     <section id="add-new">
       <h2>Разместить БЕСПЛАТНОЕ объявление просто!</h2>
