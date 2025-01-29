@@ -5,11 +5,13 @@ import { PopularListHorizontal } from '../popular-list-horizontal/PopularListHor
 import { CardsList } from '../cards-list/CardsList'
 
 import './App.css'
+import { Banner } from '../bunner/Banner'
 
 function App() {
   return (
     <>
       <Header />
+      <Banner />
       <SearchPanel />
       <CategoryList />
       <PopularListHorizontal />

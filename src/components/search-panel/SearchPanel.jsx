@@ -11,7 +11,7 @@ export function SearchPanel() {
         <div className="search-panel__wrapper">
           <div className="search-category__wrapper">
             <TfiLayoutGrid3 />
-            <span>All categories</span>
+            <span>Все категории</span>
             <IoIosArrowDown />
           </div>
           <div className="search-input__wrapper">
@@ -22,8 +22,9 @@ export function SearchPanel() {
               className="search-input"
               type="text"
               placeholder="search..."
+              name="search-input"
             />
-            <button>Search</button>
+            <button className="search-panel__btn">Поиск</button>
           </div>
         </div>
       </div>
