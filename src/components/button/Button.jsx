@@ -1,6 +1,8 @@
 // import './buttons.css'
 
-export function Button({ children, color }) {
+export function Button({ children, color, onHandleClick }) {
+  //
+  // css styles
   const btnStyle = {
     backgroundColor: color,
     borderRadius: '30px',
@@ -9,5 +11,9 @@ export function Button({ children, color }) {
   }
   //
 
-  return <button style={btnStyle}>{children}</button>
+  return (
+    <button onClick={onHandleClick} style={btnStyle}>
+      {children}
+    </button>
+  )
 }

@@ -6,7 +6,7 @@ import { Burger } from '../burger/Burger'
 import './header.css'
 import { Button } from '../button/Button'
 
-export function Header() {
+export function Header({ onHandleClick, isForm }) {
   return (
     <header className="header">
       <div className="container">
@@ -21,7 +21,13 @@ export function Header() {
               <CiHeart />
             </span>
             <div className="login__btn">Войти</div>
-            <Button color="#ff2366">Подать объявление</Button>
+
+            <Button
+              onHandleClick={onHandleClick}
+              color={!isForm ? '#ff2366' : ''}
+            >
+              {!isForm ? 'Подать объявление' : 'Закрыть'}
+            </Button>
           </div>
         </div>
       </div>
