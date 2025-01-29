@@ -1,5 +1,3 @@
-import { useState } from 'react'
-
 import { CardsListItem } from '../cards-list-item/CardsListItem'
 
 import './cards-list.css'
