@@ -9,11 +9,15 @@ export function CardsListItem({ card }) {
   return (
     <a href="#" className="card">
       <img className="card__img" src={card.images[0]} alt="" />
-      <div className="card__info">
-        {/* <div className="card__price-old">1600</div> */}
-        <div className="card__price">{card.price} KGS</div>
-        <div className="card__subcategory-name">{card.category}</div>
-        <div className="card__descr">{title} ... </div>
+      <div className="card__content">
+        <div className="card__info">
+          {/* <div className="card__price-old">1600</div> */}
+          <div className="card__price">{card.price} KGS</div>
+          <div className="card__subcategory-name">
+            {card.category}
+          </div>
+          <div className="card__descr">{title} ... </div>
+        </div>
         <div className="card__bottom-info">
           <div className="card__bottom-info-left-side">
             <img

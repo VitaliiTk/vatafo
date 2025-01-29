@@ -69,11 +69,11 @@ export const cards = [
     docs: 'растаможен',
     ride: 9760,
     body: 'пикап',
-    fuel: 'бензин',
+    fuels: 'бензин',
     color: 'черный',
     drive: 'полный',
     isAvailability: true,
-    payMethod: ['Оплата наличными', 'Расрочка'],
+    payMethods: ['Оплата наличными', 'Расрочка'],
     vinCode: true,
     images: [
       'https://media.ed.edmunds-media.com/ford/f-150/2023/oem/2023_ford_f-150_crew-cab-pickup_lariat_fq_oem_1_1280.jpg',

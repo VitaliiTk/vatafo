@@ -8,10 +8,20 @@ import { PopularListHorizontal } from '../popular-list-horizontal/PopularListHor
 import { CardsList } from '../cards-list/CardsList'
 import { AddForm } from '../add-form/AddForm'
 
+import { cards } from '../../data'
+
 import './App.css'
 
 function App() {
   const [isForm, setIsForm] = useState(false)
+  const [cardItems, setCardItems] = useState(cards)
+
+  const addNewObjectToCards = obj => {
+    console.log(obj)
+
+    setCardItems(prev => [...prev, obj])
+    setIsForm(false)
+  }
 
   return (
     <>
@@ -20,14 +30,14 @@ function App() {
         isForm={isForm}
       />
       {isForm ? (
-        <AddForm />
+        <AddForm onAddNew={addNewObjectToCards} />
       ) : (
         <>
           <Banner />
           <SearchPanel />
           <CategoryList />
           <PopularListHorizontal />
-          <CardsList />
+          <CardsList data={cardItems} />
         </>
       )}
     </>
