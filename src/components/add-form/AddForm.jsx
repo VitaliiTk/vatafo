@@ -14,6 +14,14 @@ export function AddForm({ onAddNew }) {
     const payData = new FormData(e.target)
     const selectedPayMethods = payData.getAll('payMethod') // Получает все значения с одинаковым name payMethod
 
+    if (
+      selectedFuels.length === 0 ||
+      selectedPayMethods.length === 0
+    ) {
+      alert('Выберите хотя бы один пункт!') // Выводим предупреждение
+      return
+    }
+
     const newObj = {
       id: uuidv4(),
       images: e.target.imageUrl.value
@@ -61,18 +69,24 @@ export function AddForm({ onAddNew }) {
           >
             <div>
               <h3>Загрузите фото* (до 30 фото)</h3>
-              <input type="url" name="imageUrl" id="image-url" />
+              <input
+                type="url"
+                name="imageUrl"
+                id="image-url"
+                required
+              />
             </div>
             <div>
               <h3>Описание*</h3>
-              <textarea name="info" id="info"></textarea>
+              <textarea name="info" id="info" required></textarea>
             </div>
             <div>
-              <h3>Катенория*</h3>
+              <h3>Категория*</h3>
               <select
                 name="category"
                 id="category"
                 defaultValue="Продаю автомобиль"
+                required
               >
                 <option value="Продаю автомобиль">
                   Продаю автомобиль
@@ -84,7 +98,7 @@ export function AddForm({ onAddNew }) {
             </div>
             <div>
               <h3>Город*</h3>
-              <select name="city" id="city">
+              <select name="city" id="city" required>
                 <option value="bishkek">Бишкек</option>
                 <option value="osh">ОШ</option>
               </select>
@@ -92,7 +106,12 @@ export function AddForm({ onAddNew }) {
             <div className="inputs__table">
               <div>
                 <h3>Цена</h3>
-                <input type="number" name="price" id="price" />
+                <input
+                  type="number"
+                  name="price"
+                  id="price"
+                  required
+                />
               </div>
               <div>
                 <h3>Валюта</h3>
@@ -120,7 +139,7 @@ export function AddForm({ onAddNew }) {
               </div>
               <div>
                 <h3>Модель</h3>
-                <select name="model" id="model">
+                <select name="model" id="model" required>
                   <option value="ford">Ford</option>
                   <option value="honda">Honda</option>
                   <option value="toyota">Toyota</option>
@@ -128,7 +147,7 @@ export function AddForm({ onAddNew }) {
               </div>
               <div>
                 <h3>Год</h3>
-                <select name="year" id="year">
+                <select name="year" id="year" required>
                   {Array.from({ length: 25 }, (_, i) => {
                     return (
                       <option key={i} value={i}>
@@ -140,7 +159,7 @@ export function AddForm({ onAddNew }) {
               </div>
               <div>
                 <h3>Пробег (км.)</h3>
-                <input type="number" name="ride" id="ride" />
+                <input type="number" name="ride" id="ride" required />
               </div>
               <div>
                 <h3>Топливо</h3>
@@ -195,14 +214,14 @@ export function AddForm({ onAddNew }) {
               </div>
               <div>
                 <h3>Состояние</h3>
-                <select name="condition" id="condition">
+                <select name="condition" id="condition" required>
                   <option value="bu">Б/У</option>
                   <option value="new">Новое</option>
                 </select>
               </div>
               <div>
                 <h3>Кузов</h3>
-                <select name="body" id="body">
+                <select name="body" id="body" required>
                   <option value="bus">Бус</option>
                   <option value="pikap">Пикап</option>
                   <option value="sedan">Седан</option>
@@ -210,7 +229,7 @@ export function AddForm({ onAddNew }) {
               </div>
               <div>
                 <h3>Коробка передач</h3>
-                <select name="gear" id="gear">
+                <select name="gear" id="gear" required>
                   <option value="auto">Автомат</option>
                   <option value="variator">Вариатор</option>
                   <option value="mech">Механика</option>
@@ -220,14 +239,18 @@ export function AddForm({ onAddNew }) {
               </div>
               <div>
                 <h3>Руль</h3>
-                <select name="stearingWheel" id="stearingWheel">
+                <select
+                  name="stearingWheel"
+                  id="stearingWheel"
+                  required
+                >
                   <option value="left">Слева</option>
                   <option value="right">Справа</option>
                 </select>
               </div>
               <div>
                 <h3>Привод</h3>
-                <select name="drive" id="drive">
+                <select name="drive" id="drive" required>
                   <option value="4wd">4WD, полный</option>
                   <option value="Awd">AWD, полный</option>
                   <option value="FR">Задний</option>
@@ -236,7 +259,7 @@ export function AddForm({ onAddNew }) {
               </div>
               <div>
                 <h3>Цвет</h3>
-                <select name="color" id="color">
+                <select name="color" id="color" required>
                   <option value="red">Красный</option>
                   <option value="blue">Синий</option>
                   <option value="black">Черный</option>
@@ -245,7 +268,11 @@ export function AddForm({ onAddNew }) {
               </div>
               <div>
                 <h3>Объем двигателя</h3>
-                <select name="engineVolume" id="engineVolume">
+                <select
+                  name="engineVolume"
+                  id="engineVolume"
+                  required
+                >
                   <option value="0.1">0.1</option>
                   <option value="0.2">0.2</option>
                   <option value="0.3">0.3</option>
@@ -264,14 +291,18 @@ export function AddForm({ onAddNew }) {
               </div>
               <div>
                 <h3>VIN код</h3>
-                <select name="vinCode" id="vinCode">
+                <select name="vinCode" id="vinCode" required>
                   <option value="true">с VIN кодом</option>
                   <option value="false">без VIN кода</option>
                 </select>
               </div>
               <div>
                 <h3>Техническое состояние</h3>
-                <select name="techCondition" id="techCondition">
+                <select
+                  name="techCondition"
+                  id="techCondition"
+                  required
+                >
                   <option value="good">Хорошее</option>
                   <option value="bad">Аварийное</option>
                   <option value="ideal">Идеальное</option>
@@ -281,14 +312,18 @@ export function AddForm({ onAddNew }) {
               </div>
               <div>
                 <h3>Растаможка</h3>
-                <select name="docs" id="docs">
+                <select name="docs" id="docs" required>
                   <option value="true">Растаможен</option>
                   <option value="false">Не растаможен</option>
                 </select>
               </div>
               <div>
                 <h3>Наличие</h3>
-                <select name="isAvailability" id="isAvailability">
+                <select
+                  name="isAvailability"
+                  id="isAvailability"
+                  required
+                >
                   <option value="true">В наличие</option>
                   <option value="false">На заказ</option>
                 </select>
@@ -347,9 +382,9 @@ export function AddForm({ onAddNew }) {
             </div>
             <div>
               <h3>Телефон</h3>
-              <input type="tel" name="tel" id="tel" />
+              <input type="tel" name="tel" id="tel" required />
               <span>
-                <input type="hidden" name="hideTel" value="no" />
+                {/* <input type="hidden" name="hideTel" value="no" /> */}
                 <input
                   type="checkbox"
                   name="hideTel"
