@@ -1,8 +1,10 @@
 import { HeaderLogo } from '../header-logo/HeaderLogo'
+import { CiHeart } from 'react-icons/ci'
 
 import { Burger } from '../burger/Burger'
 
 import './header.css'
+import { Button } from '../button/Button'
 
 export function Header() {
   return (
@@ -12,12 +14,14 @@ export function Header() {
           <div className="header__left-side">
             <HeaderLogo />
             <Burger />
-            <div className="header__tag">Buisnes</div>
+            <div className="header__tag">Для бизнеса</div>
           </div>
           <div className="header__right-side">
-            <div className="like">💗</div>
-            <div className="login__btn">Login</div>
-            <button>Submit an ad</button>
+            <span className="like">
+              <CiHeart />
+            </span>
+            <div className="login__btn">Войти</div>
+            <Button color="#ff2366">Подать объявление</Button>
           </div>
         </div>
       </div>

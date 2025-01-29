@@ -29,3 +29,8 @@
   align-items: center;
   gap: 20px;
 }
+
+.like {
+  line-height: 1;
+  font-size: 22px;
+}
