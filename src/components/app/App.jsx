@@ -7,6 +7,7 @@ import { CategoryList } from '../category-list/CategoryList'
 import { PopularListHorizontal } from '../popular-list-horizontal/PopularListHorizontal'
 import { CardsList } from '../cards-list/CardsList'
 import { AddForm } from '../add-form/AddForm'
+import { FavoritesPage } from '../favorites-page/FavoritesPage'
 
 import { cards } from '../../data'
 
@@ -16,6 +17,8 @@ function App() {
   const [isForm, setIsForm] = useState(false)
   const [cardItems, setCardItems] = useState(cards)
   const [isLoged, setIsLoged] = useState(true)
+  const [favoritesPage, setFavoritesPage] = useState(false)
+  const [mainPage, setMainPage] = useState(true)
 
   const addNewObjectToCards = obj => {
     console.log(obj)
@@ -24,19 +27,59 @@ function App() {
     setIsForm(false)
   }
 
+  const mainPageOpenLogic = () => {
+    setMainPage(true)
+    setFavoritesPage(false)
+    setIsForm(false)
+  }
+
   const handleClickOnAddButton = () => {
-    if (!isLoged) return alert('Войдите в акаунт')
+    if (!isLoged) {
+      alert('Войдите в акаунт!')
+      return
+    }
     setIsForm(open => !open)
+    setFavoritesPage(false)
+    setMainPage(false)
+  }
+
+  const onFavoriteIconClickLogic = () => {
+    if (!isLoged) {
+      alert('Войдите в акаунт!')
+      return
+    }
+    console.log('favorite page')
+    setFavoritesPage(true)
+    setIsForm(false)
+    setMainPage(false)
   }
 
   return (
     <>
       <Header
-        onHandleClick={handleClickOnAddButton}
+        onHandleClick={
+          !isForm ? handleClickOnAddButton : mainPageOpenLogic
+        }
         isForm={isForm}
         isLoged={isLoged}
+        onFavoriteIconClickLogic={onFavoriteIconClickLogic}
+        mainPageOpenLogic={mainPageOpenLogic}
       />
-      {isForm ? (
+
+      {mainPage && (
+        <>
+          <Banner />
+          <SearchPanel />
+          <CategoryList />
+          <PopularListHorizontal />
+          <CardsList data={cardItems} />
+        </>
+      )}
+
+      {isForm && <AddForm onAddNew={addNewObjectToCards} />}
+
+      {favoritesPage && <FavoritesPage />}
+      {/* {isForm ? (
         <AddForm onAddNew={addNewObjectToCards} />
       ) : (
         <>
@@ -46,7 +89,7 @@ function App() {
           <PopularListHorizontal />
           <CardsList data={cardItems} />
         </>
-      )}
+      )} */}
     </>
   )
 }

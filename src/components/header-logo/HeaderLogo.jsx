@@ -1,10 +1,12 @@
 import './header-logo.css'
 
-export function HeaderLogo() {
+export function HeaderLogo({ mainPageOpenLogic }) {
   return (
     <div className="header__logo-box">
       {/* <img className="header__logo-img" src="/wolf_logo.png" alt="" /> */}
-      <a className="header__logo-text">VATAFO</a>
+      <a className="header__logo-text" onClick={mainPageOpenLogic}>
+        VATAFO
+      </a>
     </div>
   )
 }

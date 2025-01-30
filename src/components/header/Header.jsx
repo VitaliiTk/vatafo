@@ -7,20 +7,26 @@ import { Button } from '../button/Button'
 
 import './header.css'
 
-export function Header({ onHandleClick, isForm, isLoged }) {
+export function Header({
+  onHandleClick,
+  isForm,
+  isLoged,
+  onFavoriteIconClickLogic,
+  mainPageOpenLogic
+}) {
   return (
     <header className="header">
       <div className="container">
         <div className="header__wrapper">
           <div className="header__left-side">
-            <HeaderLogo />
+            <HeaderLogo mainPageOpenLogic={mainPageOpenLogic} />
             <Burger />
             <div className="header__tag">Для бизнеса</div>
           </div>
 
           {/* right side */}
           <div className="header__right-side">
-            <span className="like" onClick={onHandleClick}>
+            <span className="like" onClick={onFavoriteIconClickLogic}>
               <CiHeart />
             </span>
 
