@@ -15,6 +15,7 @@ import './App.css'
 function App() {
   const [isForm, setIsForm] = useState(false)
   const [cardItems, setCardItems] = useState(cards)
+  const [isLoged, setIsLoged] = useState(false)
 
   const addNewObjectToCards = obj => {
     console.log(obj)
@@ -23,11 +24,17 @@ function App() {
     setIsForm(false)
   }
 
+  const handleClickOnAddButton = () => {
+    if (!isLoged) return alert('Войдите в акаунт')
+    setIsForm(open => !open)
+  }
+
   return (
     <>
       <Header
-        onHandleClick={() => setIsForm(open => !open)}
+        onHandleClick={handleClickOnAddButton}
         isForm={isForm}
+        isLoged={isLoged}
       />
       {isForm ? (
         <AddForm onAddNew={addNewObjectToCards} />
