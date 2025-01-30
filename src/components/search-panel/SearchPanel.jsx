@@ -26,7 +26,12 @@ export function SearchPanel({ cardsSearching }) {
             <IoIosArrowDown />
           </div> */}
           <div className="search-input__wrapper">
-            <form onSubmit={handleSubmit} className="search-form">
+            <form
+              onSubmit={handleSubmit}
+              className="search-form"
+              id="search-form"
+              autoComplete="off"
+            >
               <span className="search-icon">
                 <CiSearch />
               </span>

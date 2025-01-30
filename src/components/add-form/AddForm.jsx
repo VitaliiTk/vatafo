@@ -41,6 +41,8 @@ export function AddForm({ onAddNew }) {
             method="POST"
             className="add-form"
             onSubmit={handleSubmit}
+            id="add-form"
+            autoComplete="off"
           >
             <div>
               <h3>Загрузите фото* (до 30 фото)</h3>

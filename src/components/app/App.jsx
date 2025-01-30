@@ -25,13 +25,13 @@ function App() {
   // const searchedCards = cardsSearching
 
   const cardsSearching = searchValue => {
-    console.log(searchValue)
+    // console.log(searchValue)
     setSearchedCards(
       cardItems.filter(item =>
         item.info.toLowerCase().includes(searchValue.toLowerCase())
       )
     )
-    console.log(searchedCards)
+    // console.log(searchedCards)
     setIsForm(false)
     setMainPage(false)
     setFavoritesPage(false)
@@ -62,6 +62,7 @@ function App() {
     setIsForm(open => !open)
     setFavoritesPage(false)
     setMainPage(false)
+    setSearchedCards(null)
   }
 
   const onFavoriteIconClickLogic = () => {
