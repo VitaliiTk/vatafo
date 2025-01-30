@@ -4,7 +4,18 @@ import { CiSearch } from 'react-icons/ci'
 
 import './search-panel.css'
 
-export function SearchPanel() {
+export function SearchPanel({ cardsSearching }) {
+  //
+  // search logic
+  const handleSubmit = e => {
+    e.preventDefault()
+    const formData = new FormData(e.target)
+    const searchValue = formData.get('search-input')
+
+    // if (!searchValue) return
+    cardsSearching(searchValue)
+  }
+
   return (
     <div className="search-panel">
       <div className="container">
@@ -15,16 +26,18 @@ export function SearchPanel() {
             <IoIosArrowDown />
           </div> */}
           <div className="search-input__wrapper">
-            <span className="search-icon">
-              <CiSearch />
-            </span>
-            <input
-              className="search-input"
-              type="text"
-              placeholder="search..."
-              name="search-input"
-            />
-            <button className="search-panel__btn">Поиск</button>
+            <form onSubmit={handleSubmit} className="search-form">
+              <span className="search-icon">
+                <CiSearch />
+              </span>
+              <input
+                className="search-input"
+                type="text"
+                placeholder="search..."
+                name="search-input"
+              />
+              <button className="search-panel__btn">Поиск</button>
+            </form>
           </div>
         </div>
       </div>

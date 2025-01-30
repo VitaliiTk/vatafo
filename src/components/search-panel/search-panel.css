@@ -9,7 +9,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 50px;
+  padding: 10px;
   background-color: var(--theme-color);
   gap: 20px;
 }
@@ -33,6 +33,11 @@
   gap: 3px;
   position: relative;
   width: 100%;
+}
+
+.search-form {
+  width: 100%;
+  position: relative;
 }
 
 .search-input {

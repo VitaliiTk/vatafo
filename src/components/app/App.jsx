@@ -8,6 +8,7 @@ import { PopularListHorizontal } from '../popular-list-horizontal/PopularListHor
 import { CardsList } from '../cards-list/CardsList'
 import { AddForm } from '../add-form/AddForm'
 import { FavoritesPage } from '../favorites-page/FavoritesPage'
+import { SearchPage } from '../search-page/SearchPage'
 
 import { cards } from '../../data'
 
@@ -19,18 +20,38 @@ function App() {
   const [isLoged, setIsLoged] = useState(true)
   const [favoritesPage, setFavoritesPage] = useState(false)
   const [mainPage, setMainPage] = useState(true)
+  const [searchedCards, setSearchedCards] = useState(null)
+
+  // const searchedCards = cardsSearching
+
+  const cardsSearching = searchValue => {
+    console.log(searchValue)
+    setSearchedCards(
+      cardItems.filter(item =>
+        item.info.toLowerCase().includes(searchValue.toLowerCase())
+      )
+    )
+    console.log(searchedCards)
+    setIsForm(false)
+    setMainPage(false)
+    setFavoritesPage(false)
+  }
 
   const addNewObjectToCards = obj => {
-    console.log(obj)
+    // console.log(obj)
 
     setCardItems(prev => [...prev, obj])
     setIsForm(false)
+    setSearchedCards(null)
+    setFavoritesPage(false)
+    setMainPage(true)
   }
 
   const mainPageOpenLogic = () => {
     setMainPage(true)
     setFavoritesPage(false)
     setIsForm(false)
+    setSearchedCards(null)
   }
 
   const handleClickOnAddButton = () => {
@@ -52,6 +73,7 @@ function App() {
     setFavoritesPage(true)
     setIsForm(false)
     setMainPage(false)
+    setSearchedCards(null)
   }
 
   return (
@@ -69,27 +91,25 @@ function App() {
       {mainPage && (
         <>
           <Banner />
-          <SearchPanel />
+          <SearchPanel cardsSearching={cardsSearching} />
           <CategoryList />
           <PopularListHorizontal />
-          <CardsList data={cardItems} />
+          <CardsList data={cardItems}>
+            Новые объявления - Кыргызстан
+          </CardsList>
         </>
       )}
 
       {isForm && <AddForm onAddNew={addNewObjectToCards} />}
 
       {favoritesPage && <FavoritesPage />}
-      {/* {isForm ? (
-        <AddForm onAddNew={addNewObjectToCards} />
-      ) : (
-        <>
-          <Banner />
-          <SearchPanel />
-          <CategoryList />
-          <PopularListHorizontal />
-          <CardsList data={cardItems} />
-        </>
-      )} */}
+
+      {searchedCards && (
+        <SearchPage
+          data={searchedCards}
+          cardsSearching={cardsSearching}
+        />
+      )}
     </>
   )
 }
