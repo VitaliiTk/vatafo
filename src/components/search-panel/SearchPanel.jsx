@@ -1,5 +1,5 @@
-import { TfiLayoutGrid3 } from 'react-icons/tfi'
-import { IoIosArrowDown } from 'react-icons/io'
+// import { TfiLayoutGrid3 } from 'react-icons/tfi'
+// import { IoIosArrowDown } from 'react-icons/io'
 import { CiSearch } from 'react-icons/ci'
 
 import './search-panel.css'
@@ -9,11 +9,11 @@ export function SearchPanel() {
     <div className="search-panel">
       <div className="container">
         <div className="search-panel__wrapper">
-          <div className="search-category__wrapper">
+          {/* <div className="search-category__wrapper">
             <TfiLayoutGrid3 />
             <span>Все категории</span>
             <IoIosArrowDown />
-          </div>
+          </div> */}
           <div className="search-input__wrapper">
             <span className="search-icon">
               <CiSearch />

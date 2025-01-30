@@ -8,53 +8,28 @@ export function AddForm({ onAddNew }) {
     e.preventDefault() // Предотвращаем перезагрузку страницы
 
     // Получаем все отмеченные чекбоксы
-    const fuelData = new FormData(e.target)
-    const selectedFuels = fuelData.getAll('fuel') // Получает все значения с одинаковым name fuel
+    const formData = new FormData(e.target) // получаем доступ к инпутам
 
-    const payData = new FormData(e.target)
-    const selectedPayMethods = payData.getAll('payMethod') // Получает все значения с одинаковым name payMethod
+    const selectedFuels = formData.getAll('fuel') // Получает все значения с одинаковым name fuel *array
+    const selectedPayMethods = formData.getAll('payMethod') // Получает все значения с одинаковым name payMethod *array
+    const imagesFromInputValue = formData.getAll('images') // *array
 
-    if (
-      selectedFuels.length === 0 ||
-      selectedPayMethods.length === 0
-    ) {
-      alert('Выберите хотя бы один пункт!') // Выводим предупреждение
+    const formValues = Object.fromEntries(formData) // преобразовать в обьект все данные из формы *object
+
+    if (imagesFromInputValue[0] === '') {
+      alert('Загрузите картинку')
       return
     }
 
-    const newObj = {
-      id: uuidv4(),
-      images: e.target.imageUrl.value
-        ? [e.target.imageUrl.value]
-        : [
-            'https://img.freepik.com/premium-vector/default-image-icon-vector-missing-picture-page-website-design-mobile-app-no-photo-available_87543-11093.jpg'
-          ],
-      category: e.target.category.value,
-      title: e.target.info.value,
-      city: e.target.city.value,
-      price: e.target.price.value,
-      moneySymbol: e.target.moneySymbol.value,
-      model: e.target.model.value,
-      year: e.target.year.value,
-      ride: e.target.ride.value,
+    const allFormValues = {
+      ...formValues,
+      images: imagesFromInputValue,
       fuels: selectedFuels,
-      condition: e.target.condition.value,
-      body: e.target.body.value,
-      gear: e.target.gear.value,
-      stearingWheel: e.target.stearingWheel.value,
-      drive: e.target.drive.value,
-      color: e.target.color.value,
-      engineVolume: e.target.engineVolume.value,
-      vinCode: e.target.vinCode.value,
-      techCondition: e.target.techCondition.value,
-      docs: e.target.docs.value,
-      isAvailability: e.target.isAvailability.value,
       payMethods: selectedPayMethods,
-      tel: e.target.tel.value,
-      hideTel: e.target.hideTel.value
+      id: uuidv4()
     }
 
-    onAddNew(newObj)
+    onAddNew(allFormValues)
   }
 
   return (
@@ -69,12 +44,7 @@ export function AddForm({ onAddNew }) {
           >
             <div>
               <h3>Загрузите фото* (до 30 фото)</h3>
-              <input
-                type="url"
-                name="imageUrl"
-                id="image-url"
-                required
-              />
+              <input type="url" name="images" id="images" />
             </div>
             <div>
               <h3>Описание*</h3>

@@ -4,7 +4,7 @@ import { CiHeart } from 'react-icons/ci'
 import './card-list-item.css'
 
 export function CardsListItem({ card }) {
-  const title = card.title.slice(0, 40)
+  const title = card.info.slice(0, 40)
 
   return (
     <a href="#" className="card">
