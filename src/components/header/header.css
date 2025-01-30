@@ -33,4 +33,9 @@
 .like {
   line-height: 1;
   font-size: 22px;
+  cursor: pointer;
+}
+
+.login__btn {
+  cursor: pointer;
 }

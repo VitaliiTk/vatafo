@@ -1,12 +1,13 @@
 import { HeaderLogo } from '../header-logo/HeaderLogo'
 import { CiHeart } from 'react-icons/ci'
+import { CiMail } from 'react-icons/ci'
 
 import { Burger } from '../burger/Burger'
-
-import './header.css'
 import { Button } from '../button/Button'
 
-export function Header({ onHandleClick, isForm }) {
+import './header.css'
+
+export function Header({ onHandleClick, isForm, isLoged }) {
   return (
     <header className="header">
       <div className="container">
@@ -16,11 +17,28 @@ export function Header({ onHandleClick, isForm }) {
             <Burger />
             <div className="header__tag">Для бизнеса</div>
           </div>
+
+          {/* right side */}
           <div className="header__right-side">
-            <span className="like">
+            <span className="like" onClick={onHandleClick}>
               <CiHeart />
             </span>
-            <div className="login__btn">Войти</div>
+
+            {isLoged && (
+              <>
+                <span className="like">
+                  <CiMail />
+                </span>
+                <span>AVATAR IMG</span>
+                <span>Username</span>
+              </>
+            )}
+
+            {!isLoged && (
+              <div className="login__btn" onClick={onHandleClick}>
+                Войти
+              </div>
+            )}
 
             <Button
               onHandleClick={onHandleClick}
@@ -30,6 +48,7 @@ export function Header({ onHandleClick, isForm }) {
             </Button>
           </div>
         </div>
+        {/* right side end */}
       </div>
     </header>
   )

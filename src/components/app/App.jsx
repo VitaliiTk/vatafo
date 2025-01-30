@@ -15,7 +15,7 @@ import './App.css'
 function App() {
   const [isForm, setIsForm] = useState(false)
   const [cardItems, setCardItems] = useState(cards)
-  const [isLoged, setIsLoged] = useState(false)
+  const [isLoged, setIsLoged] = useState(true)
 
   const addNewObjectToCards = obj => {
     console.log(obj)
