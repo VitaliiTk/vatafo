@@ -6,6 +6,8 @@ import { v4 as uuid } from 'uuid'
 // css
 import './drag-drop-image-uploader.css'
 
+const maxUploadFilesAmount = 30
+
 // component
 export function DragDropImageUploader({ images, setImages, mainImage, onMainImageSelect }) {
   const [isDragging, setIsDragging] = useState(false)
@@ -21,8 +23,10 @@ export function DragDropImageUploader({ images, setImages, mainImage, onMainImag
   const addFiles = filesRaw => {
     const files = Array.from(filesRaw) // Преобразуем FileList в массив
 
+    const resizedArrayFiles = files.slice(0, maxUploadFilesAmount)
+
     // Фильтруем только изображения
-    const imageFiles = files.filter(file => file.type.startsWith('image/'))
+    const imageFiles = resizedArrayFiles.filter(file => file.type.startsWith('image/'))
 
     if (imageFiles.length > 0) {
       setImages(prevImages => {
