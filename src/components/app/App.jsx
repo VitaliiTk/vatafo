@@ -9,6 +9,7 @@ import { CardsList } from '../cards-list/CardsList'
 import { AddForm } from '../add-form/AddForm'
 import { FavoritesPage } from '../favorites-page/FavoritesPage'
 import { SearchPage } from '../search-page/SearchPage'
+import { DragDropImageUploader } from '../drag-drop-image-uploader/DragDropImageUploader'
 
 import { cards } from '../../data'
 

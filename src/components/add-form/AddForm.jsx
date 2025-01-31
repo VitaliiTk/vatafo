@@ -1,6 +1,9 @@
 import { v4 as uuidv4 } from 'uuid'
 
 import { Button } from '../button/Button'
+import { DragDropImageUploader } from '../drag-drop-image-uploader/DragDropImageUploader'
+
+import './add-form.css'
 
 export function AddForm({ onAddNew }) {
   //
@@ -37,6 +40,7 @@ export function AddForm({ onAddNew }) {
       <div className="container">
         <div className="add__wrapper">
           <h2>Разместить БЕСПЛАТНОЕ объявление просто!</h2>
+          {/* <DragDropImageUploader /> */}
           <form
             method="POST"
             className="add-form"
@@ -46,26 +50,18 @@ export function AddForm({ onAddNew }) {
           >
             <div>
               <h3>Загрузите фото* (до 30 фото)</h3>
-              <input type="url" name="images" id="images" />
+              {/* <input type="url" name="images" id="images" /> */}
+              <DragDropImageUploader />
             </div>
             <div>
               <h3>Описание*</h3>
-              <textarea name="info" id="info" required></textarea>
+              <textarea className="info-area" name="info" id="info" required></textarea>
             </div>
             <div>
               <h3>Категория*</h3>
-              <select
-                name="category"
-                id="category"
-                defaultValue="Продаю автомобиль"
-                required
-              >
-                <option value="Продаю автомобиль">
-                  Продаю автомобиль
-                </option>
-                <option value="Продаю квартиру">
-                  Продаю квартиру
-                </option>
+              <select name="category" id="category" defaultValue="Продаю автомобиль" required>
+                <option value="Продаю автомобиль">Продаю автомобиль</option>
+                <option value="Продаю квартиру">Продаю квартиру</option>
               </select>
             </div>
             <div>
@@ -78,33 +74,17 @@ export function AddForm({ onAddNew }) {
             <div className="inputs__table">
               <div>
                 <h3>Цена</h3>
-                <input
-                  type="number"
-                  name="price"
-                  id="price"
-                  required
-                />
+                <input type="number" name="price" id="price" required />
               </div>
               <div>
                 <h3>Валюта</h3>
                 <div className="checkbox__wrapper">
                   <span>
-                    <input
-                      type="radio"
-                      name="moneySymbol"
-                      id="kgs"
-                      value="KGS"
-                      defaultChecked
-                    />
+                    <input type="radio" name="moneySymbol" id="kgs" value="KGS" defaultChecked />
                     <label htmlFor="kgs">KGS</label>
                   </span>
                   <span>
-                    <input
-                      type="radio"
-                      name="moneySymbol"
-                      id="usd"
-                      value="USD"
-                    />
+                    <input type="radio" name="moneySymbol" id="usd" value="USD" />
                     <label htmlFor="usd">USD</label>
                   </span>
                 </div>
@@ -147,39 +127,19 @@ export function AddForm({ onAddNew }) {
                     <label htmlFor="gazoline">Бензин</label>
                   </span>
                   <span>
-                    <input
-                      type="checkbox"
-                      name="fuel"
-                      id="gaz"
-                      value="gaz"
-                    />
+                    <input type="checkbox" name="fuel" id="gaz" value="gaz" />
                     <label htmlFor="gaz">Газ</label>
                   </span>
                   <span>
-                    <input
-                      type="checkbox"
-                      name="fuel"
-                      id="electro"
-                      value="electro"
-                    />
+                    <input type="checkbox" name="fuel" id="electro" value="electro" />
                     <label htmlFor="electro">Электро</label>
                   </span>
                   <span>
-                    <input
-                      type="checkbox"
-                      name="fuel"
-                      id="hybrid"
-                      value="hybrid"
-                    />
+                    <input type="checkbox" name="fuel" id="hybrid" value="hybrid" />
                     <label htmlFor="hybrid">Гибрид</label>
                   </span>
                   <span>
-                    <input
-                      type="checkbox"
-                      name="fuel"
-                      id="diesel"
-                      value="diesel"
-                    />
+                    <input type="checkbox" name="fuel" id="diesel" value="diesel" />
                     <label htmlFor="diesel">Дизель</label>
                   </span>
                 </div>
@@ -211,11 +171,7 @@ export function AddForm({ onAddNew }) {
               </div>
               <div>
                 <h3>Руль</h3>
-                <select
-                  name="stearingWheel"
-                  id="stearingWheel"
-                  required
-                >
+                <select name="stearingWheel" id="stearingWheel" required>
                   <option value="left">Слева</option>
                   <option value="right">Справа</option>
                 </select>
@@ -240,11 +196,7 @@ export function AddForm({ onAddNew }) {
               </div>
               <div>
                 <h3>Объем двигателя</h3>
-                <select
-                  name="engineVolume"
-                  id="engineVolume"
-                  required
-                >
+                <select name="engineVolume" id="engineVolume" required>
                   <option value="0.1">0.1</option>
                   <option value="0.2">0.2</option>
                   <option value="0.3">0.3</option>
@@ -270,11 +222,7 @@ export function AddForm({ onAddNew }) {
               </div>
               <div>
                 <h3>Техническое состояние</h3>
-                <select
-                  name="techCondition"
-                  id="techCondition"
-                  required
-                >
+                <select name="techCondition" id="techCondition" required>
                   <option value="good">Хорошее</option>
                   <option value="bad">Аварийное</option>
                   <option value="ideal">Идеальное</option>
@@ -291,11 +239,7 @@ export function AddForm({ onAddNew }) {
               </div>
               <div>
                 <h3>Наличие</h3>
-                <select
-                  name="isAvailability"
-                  id="isAvailability"
-                  required
-                >
+                <select name="isAvailability" id="isAvailability" required>
                   <option value="true">В наличие</option>
                   <option value="false">На заказ</option>
                 </select>
@@ -314,39 +258,19 @@ export function AddForm({ onAddNew }) {
                     <label htmlFor="1">Возможен обмен</label>
                   </span>
                   <span>
-                    <input
-                      type="checkbox"
-                      name="payMethod"
-                      id="2"
-                      value="Кредит"
-                    />
+                    <input type="checkbox" name="payMethod" id="2" value="Кредит" />
                     <label htmlFor="2">Кредит</label>
                   </span>
                   <span>
-                    <input
-                      type="checkbox"
-                      name="payMethod"
-                      id="3"
-                      value="Обмена нет"
-                    />
+                    <input type="checkbox" name="payMethod" id="3" value="Обмена нет" />
                     <label htmlFor="3">Обмена нет</label>
                   </span>
                   <span>
-                    <input
-                      type="checkbox"
-                      name="payMethod"
-                      id="4"
-                      value="Оплата наличными"
-                    />
+                    <input type="checkbox" name="payMethod" id="4" value="Оплата наличными" />
                     <label htmlFor="4">Оплата наличными</label>
                   </span>
                   <span>
-                    <input
-                      type="checkbox"
-                      name="payMethod"
-                      id="5"
-                      value="Расрочка"
-                    />
+                    <input type="checkbox" name="payMethod" id="5" value="Расрочка" />
                     <label htmlFor="5">Расрочка</label>
                   </span>
                 </div>
@@ -357,12 +281,7 @@ export function AddForm({ onAddNew }) {
               <input type="tel" name="tel" id="tel" required />
               <span>
                 {/* <input type="hidden" name="hideTel" value="no" /> */}
-                <input
-                  type="checkbox"
-                  name="hideTel"
-                  id="hideTel"
-                  value="yes"
-                />
+                <input type="checkbox" name="hideTel" id="hideTel" value="yes" />
                 <label htmlFor="hideTel">Скрыть номер</label>
               </span>
             </div>
