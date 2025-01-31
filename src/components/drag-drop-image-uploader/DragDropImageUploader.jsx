@@ -8,14 +8,15 @@ import './drag-drop-image-uploader.css'
 
 // component
 export function DragDropImageUploader({ images, setImages }) {
-  // const [images, setImages] = useState([])
   const [isDragging, setIsDragging] = useState(false)
   const fileInputRef = useRef(null)
+  // const [mainImage, setMainImage] = useState(images[0])
 
   const fileSelectHandler = () => {
     fileInputRef.current.click()
   }
 
+  // add files logic
   const addFiles = filesRaw => {
     const files = Array.from(filesRaw) // Преобразуем FileList в массив
 
@@ -51,7 +52,6 @@ export function DragDropImageUploader({ images, setImages }) {
 
   const onFileSelect = e => {
     const files = e.target.files // берем загружаемые файлы в переменную
-
     addFiles(files)
   }
 
@@ -75,8 +75,7 @@ export function DragDropImageUploader({ images, setImages }) {
   const onDropHandler = e => {
     e.preventDefault()
     setIsDragging(false)
-    const files = Array.from(e.dataTransfer.files)
-
+    const files = e.dataTransfer.files
     addFiles(files)
   }
 

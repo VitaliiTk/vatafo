@@ -17,7 +17,6 @@ export function AddForm({ onAddNew }) {
 
     const selectedFuels = formData.getAll('fuel') // Получает все значения с одинаковым name fuel *array
     const selectedPayMethods = formData.getAll('payMethod') // Получает все значения с одинаковым name payMethod *array
-    const imagesFromInputValue = formData.getAll('images') // *array
 
     const formValues = Object.fromEntries(formData) // преобразовать в обьект все данные из формы *object
 
@@ -28,7 +27,7 @@ export function AddForm({ onAddNew }) {
 
     const allFormValues = {
       ...formValues,
-      images: imagesFromInputValue,
+      images: images,
       fuels: selectedFuels,
       payMethods: selectedPayMethods,
       id: uuidv4()
