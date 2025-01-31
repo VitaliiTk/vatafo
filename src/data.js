@@ -75,10 +75,12 @@ export const cards = [
     payMethods: ['Оплата наличными', 'Расрочка'],
     vinCode: true,
     images: [
-      'https://media.ed.edmunds-media.com/ford/f-150/2023/oem/2023_ford_f-150_crew-cab-pickup_lariat_fq_oem_1_1280.jpg',
-      'https://www.clickheretesting.com/AshevilleFord/research/2023/f150/images/trim-2023-f150-raptor.jpg',
-      'https://www.kbb.com/wp-content/uploads/2021/10/2021-Ford-F150-Hybrid-front-right-3qtr-4x3-1.jpg',
-      'https://ddztmb1ahc6o7.cloudfront.net/oakridgeford/wp-content/uploads/2023/04/03121741/Interier-1.jpg'
+      {
+        id: '6254654',
+        name: 'Ford image',
+        size: '755',
+        url: 'https://media.ed.edmunds-media.com/ford/f-150/2023/oem/2023_ford_f-150_crew-cab-pickup_lariat_fq_oem_1_1280.jpg'
+      }
     ]
   }
 ]

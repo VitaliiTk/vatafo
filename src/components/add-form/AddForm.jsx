@@ -4,8 +4,10 @@ import { Button } from '../button/Button'
 import { DragDropImageUploader } from '../drag-drop-image-uploader/DragDropImageUploader'
 
 import './add-form.css'
+import { useState } from 'react'
 
 export function AddForm({ onAddNew }) {
+  const [images, setImages] = useState([])
   //
   const handleSubmit = e => {
     e.preventDefault() // Предотвращаем перезагрузку страницы
@@ -19,8 +21,8 @@ export function AddForm({ onAddNew }) {
 
     const formValues = Object.fromEntries(formData) // преобразовать в обьект все данные из формы *object
 
-    if (imagesFromInputValue[0] === '') {
-      alert('Загрузите картинку')
+    if (images.length === 0) {
+      alert('Загрузите хотябы одну картинку!')
       return
     }
 
@@ -34,6 +36,10 @@ export function AddForm({ onAddNew }) {
 
     onAddNew(allFormValues)
   }
+
+  // const takeImagesFromDragDropper = items => {
+  //   console.log(items)
+  // }
 
   return (
     <section id="add-section">
@@ -51,7 +57,7 @@ export function AddForm({ onAddNew }) {
             <div>
               <h3>Загрузите фото* (до 30 фото)</h3>
               {/* <input type="url" name="images" id="images" /> */}
-              <DragDropImageUploader />
+              <DragDropImageUploader images={images} setImages={setImages} />
             </div>
             <div>
               <h3>Описание*</h3>

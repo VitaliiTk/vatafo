@@ -9,7 +9,6 @@ import { CardsList } from '../cards-list/CardsList'
 import { AddForm } from '../add-form/AddForm'
 import { FavoritesPage } from '../favorites-page/FavoritesPage'
 import { SearchPage } from '../search-page/SearchPage'
-import { DragDropImageUploader } from '../drag-drop-image-uploader/DragDropImageUploader'
 
 import { cards } from '../../data'
 
@@ -28,9 +27,7 @@ function App() {
   const cardsSearching = searchValue => {
     // console.log(searchValue)
     setSearchedCards(
-      cardItems.filter(item =>
-        item.info.toLowerCase().includes(searchValue.toLowerCase())
-      )
+      cardItems.filter(item => item.info.toLowerCase().includes(searchValue.toLowerCase()))
     )
     // console.log(searchedCards)
     setIsForm(false)
@@ -81,9 +78,7 @@ function App() {
   return (
     <>
       <Header
-        onHandleClick={
-          !isForm ? handleClickOnAddButton : mainPageOpenLogic
-        }
+        onHandleClick={!isForm ? handleClickOnAddButton : mainPageOpenLogic}
         isForm={isForm}
         isLoged={isLoged}
         onFavoriteIconClickLogic={onFavoriteIconClickLogic}
@@ -96,9 +91,7 @@ function App() {
           <SearchPanel cardsSearching={cardsSearching} />
           <CategoryList />
           <PopularListHorizontal />
-          <CardsList data={cardItems}>
-            Новые объявления - Кыргызстан
-          </CardsList>
+          <CardsList data={cardItems}>Новые объявления - Кыргызстан</CardsList>
         </>
       )}
 
@@ -106,12 +99,7 @@ function App() {
 
       {favoritesPage && <FavoritesPage />}
 
-      {searchedCards && (
-        <SearchPage
-          data={searchedCards}
-          cardsSearching={cardsSearching}
-        />
-      )}
+      {searchedCards && <SearchPage data={searchedCards} cardsSearching={cardsSearching} />}
     </>
   )
 }
