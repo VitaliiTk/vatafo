@@ -8,7 +8,7 @@ export function CardsListItem({ card }) {
 
   return (
     <a href="#" className="card">
-      <img className="card__img" src={card.images[0].url} alt={card.images[0].name} />
+      <img className="card__img" src={card.mainImage.url} alt={card.images[0].name} />
       <div className="card__content">
         <div className="card__info">
           {/* <div className="card__price-old">1600</div> */}

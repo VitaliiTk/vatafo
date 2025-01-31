@@ -81,6 +81,12 @@ export const cards = [
         size: '755',
         url: 'https://media.ed.edmunds-media.com/ford/f-150/2023/oem/2023_ford_f-150_crew-cab-pickup_lariat_fq_oem_1_1280.jpg'
       }
-    ]
+    ],
+    mainImage: {
+      id: '6254654',
+      name: 'Ford image',
+      size: '755',
+      url: 'https://media.ed.edmunds-media.com/ford/f-150/2023/oem/2023_ford_f-150_crew-cab-pickup_lariat_fq_oem_1_1280.jpg'
+    }
   }
 ]

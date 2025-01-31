@@ -92,8 +92,8 @@
 
 .drag-drop-image-uploader .images__wrapper .image__box span {
   position: absolute;
-  top: -2px;
-  right: 9px;
+  top: -7px;
+  right: 5px;
   font-size: 20px;
   cursor: pointer;
 }
@@ -113,5 +113,6 @@
   border: 2px solid transparent;
 }
 .image__box.active {
-  border: 2px solid #0086fe;
+  border: 2px solid #ff447d;
+  border-radius: 7px;
 }

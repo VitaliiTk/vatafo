@@ -7,12 +7,13 @@ import { v4 as uuid } from 'uuid'
 import './drag-drop-image-uploader.css'
 
 // component
-export function DragDropImageUploader({ images, setImages }) {
+export function DragDropImageUploader({ images, setImages, mainImage, onMainImageSelect }) {
   const [isDragging, setIsDragging] = useState(false)
   const fileInputRef = useRef(null)
-  // const [mainImage, setMainImage] = useState(images[0])
+  // const [mainImage, setMainImage] = useState(null)
 
   const fileSelectHandler = () => {
+    fileInputRef.current.value = null //сброс згачения перед загрузкой фойлов, фиксит невозможность загрузить повторно файлы
     fileInputRef.current.click()
   }
 
@@ -30,7 +31,7 @@ export function DragDropImageUploader({ images, setImages }) {
           file => !prevImages.some(img => img.name === file.name && img.size === file.size)
         )
 
-        return [
+        const newArray = [
           ...prevImages,
           ...newImages.map(file => ({
             id: uuid(),
@@ -39,6 +40,8 @@ export function DragDropImageUploader({ images, setImages }) {
             url: URL.createObjectURL(file)
           }))
         ]
+
+        return newArray
       })
 
       // Освобождаем URL после использования (чтобы не было утечек памяти)
@@ -46,7 +49,6 @@ export function DragDropImageUploader({ images, setImages }) {
         const objectURL = URL.createObjectURL(file)
         setTimeout(() => URL.revokeObjectURL(objectURL), 5000)
       })
-      console.log(images)
     }
   }
 
@@ -59,6 +61,7 @@ export function DragDropImageUploader({ images, setImages }) {
   const deleteImageHandler = id => {
     const newArray = images.filter(item => item.id !== id)
     setImages(newArray)
+    if (mainImage?.id === id) onMainImageSelect(null) // если удалил выбраную на главную картинку
   }
 
   const onDragOverHandler = e => {
@@ -77,6 +80,10 @@ export function DragDropImageUploader({ images, setImages }) {
     setIsDragging(false)
     const files = e.dataTransfer.files
     addFiles(files)
+  }
+
+  const selectMainImage = image => {
+    onMainImageSelect(image)
   }
 
   return (
@@ -104,17 +111,22 @@ export function DragDropImageUploader({ images, setImages }) {
           className="file"
           multiple
           ref={fileInputRef}
-          onChange={e => onFileSelect(e)}
+          onChange={onFileSelect}
+          // required
         />
       </div>
       <div>
+        {images.length > 1 && <p>Выберите главное фото</p>}
         <div className="images__wrapper">
           {images.map(image => (
-            <div className="image__box" key={image.id}>
+            <div
+              className={mainImage?.id === image.id ? 'image__box active' : 'image__box'}
+              key={image.id}
+            >
               <span className="delete" onClick={() => deleteImageHandler(image.id)}>
                 &times;
               </span>
-              <img src={image.url} alt={image.name} />
+              <img src={image.url} alt={image.name} onClick={() => selectMainImage(image)} />
             </div>
           ))}
         </div>

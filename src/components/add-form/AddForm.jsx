@@ -8,6 +8,8 @@ import { useState } from 'react'
 
 export function AddForm({ onAddNew }) {
   const [images, setImages] = useState([])
+  const [mainImage, setMainImage] = useState(null)
+
   //
   const handleSubmit = e => {
     e.preventDefault() // Предотвращаем перезагрузку страницы
@@ -30,7 +32,8 @@ export function AddForm({ onAddNew }) {
       images: images,
       fuels: selectedFuels,
       payMethods: selectedPayMethods,
-      id: uuidv4()
+      id: uuidv4(),
+      mainImage: mainImage || images[0]
     }
 
     onAddNew(allFormValues)
@@ -39,6 +42,10 @@ export function AddForm({ onAddNew }) {
   // const takeImagesFromDragDropper = items => {
   //   console.log(items)
   // }
+
+  const onMainImageSelect = image => {
+    setMainImage(image)
+  }
 
   return (
     <section id="add-section">
@@ -56,7 +63,12 @@ export function AddForm({ onAddNew }) {
             <div>
               <h3>Загрузите фото* (до 30 фото)</h3>
               {/* <input type="url" name="images" id="images" /> */}
-              <DragDropImageUploader images={images} setImages={setImages} />
+              <DragDropImageUploader
+                images={images}
+                setImages={setImages}
+                mainImage={mainImage}
+                onMainImageSelect={onMainImageSelect}
+              />
             </div>
             <div>
               <h3>Описание*</h3>
