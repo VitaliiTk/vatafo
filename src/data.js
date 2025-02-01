@@ -568,6 +568,46 @@ export const cards = [
       size: '755',
       url: 'https://hips.hearstapps.com/hmg-prod/images/2025-ford-expedition-stealth-performance-exterior-108-66fadf15d18f2.jpg'
     }
+  },
+  {
+    id: 14,
+    author: 'Daston',
+    tel: '+996557184916',
+    info: 'Ford Mustang GT 5.0 - SWS Cars',
+    category: 'Продаю автомобиль',
+    price: 37800,
+    moneySymbol: 'KGS',
+    brand: 'Ford',
+    model: 'Mustang',
+    year: 2022,
+    gear: 'automatic',
+    engineVolume: 3.5,
+    stearingWheel: 'left',
+    condition: 'Б/У',
+    techCondition: 'Хорошее',
+    docs: 'растаможен',
+    ride: 9760,
+    body: 'пикап',
+    fuels: 'бензин',
+    color: 'черный',
+    drive: 'полный',
+    isAvailability: true,
+    payMethods: ['Оплата наличными', 'Расрочка'],
+    vinCode: true,
+    images: [
+      {
+        id: '6254654',
+        name: 'bmw',
+        size: '755',
+        url: 'https://sws-cars.pl/wp-content/uploads/2021/11/ford-mustang-image.jpg'
+      }
+    ],
+    mainImage: {
+      id: '6254654',
+      name: 'bmw',
+      size: '755',
+      url: 'https://sws-cars.pl/wp-content/uploads/2021/11/ford-mustang-image.jpg'
+    }
   }
 ]
 
