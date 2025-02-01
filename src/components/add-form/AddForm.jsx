@@ -1,10 +1,12 @@
 import { v4 as uuidv4 } from 'uuid'
+import { useState } from 'react'
 
 import { Button } from '../button/Button'
 import { DragDropImageUploader } from '../drag-drop-image-uploader/DragDropImageUploader'
 
 import './add-form.css'
-import { useState } from 'react'
+
+import { carBrands } from '../../data'
 
 export function AddForm({ onAddNew }) {
   const [images, setImages] = useState([])
@@ -109,9 +111,11 @@ export function AddForm({ onAddNew }) {
               <div>
                 <h3>Модель</h3>
                 <select name="model" id="model" required>
-                  <option value="ford">Ford</option>
-                  <option value="honda">Honda</option>
-                  <option value="toyota">Toyota</option>
+                  {carBrands.map((item, index) => (
+                    <option key={index} value={item}>
+                      {item}
+                    </option>
+                  ))}
                 </select>
               </div>
               <div>

@@ -4,13 +4,13 @@ import { Header } from '../header/Header'
 import { Banner } from '../bunner/Banner'
 import { SearchPanel } from '../search-panel/SearchPanel'
 import { CategoryList } from '../category-list/CategoryList'
-import { PopularListHorizontal } from '../popular-list-horizontal/PopularListHorizontal'
+import { CarBrandsList } from '../popular-list-horizontal/CarBrandsList'
 import { CardsList } from '../cards-list/CardsList'
 import { AddForm } from '../add-form/AddForm'
 import { FavoritesPage } from '../favorites-page/FavoritesPage'
 import { SearchPage } from '../search-page/SearchPage'
 
-import { cards } from '../../data'
+import { cards, carBrands } from '../../data'
 
 import './App.css'
 
@@ -21,23 +21,26 @@ function App() {
   const [favoritesPage, setFavoritesPage] = useState(false)
   const [mainPage, setMainPage] = useState(true)
   const [searchedCards, setSearchedCards] = useState(null)
+  const [selectBrand, setSelectBrand] = useState('All')
 
-  // const searchedCards = cardsSearching
+  const filteredCarsByBrand =
+    selectBrand === 'All' ? cardItems : cardItems.filter(item => item.car === selectBrand)
+
+  // brand select
+  const brandSelectHandler = brand => {
+    setSelectBrand(brand)
+  }
 
   const cardsSearching = searchValue => {
-    // console.log(searchValue)
     setSearchedCards(
       cardItems.filter(item => item.info.toLowerCase().includes(searchValue.toLowerCase()))
     )
-    // console.log(searchedCards)
     setIsForm(false)
     setMainPage(false)
     setFavoritesPage(false)
   }
 
   const addNewObjectToCards = obj => {
-    // console.log(obj)
-
     setCardItems(prev => [...prev, obj])
     setIsForm(false)
     setSearchedCards(null)
@@ -90,8 +93,12 @@ function App() {
           <Banner />
           <SearchPanel cardsSearching={cardsSearching} />
           <CategoryList />
-          <PopularListHorizontal />
-          <CardsList data={cardItems}>Новые объявления - Кыргызстан</CardsList>
+          <CarBrandsList
+            selectBrand={selectBrand}
+            onBrandSelect={brandSelectHandler}
+            carBrands={carBrands}
+          />
+          <CardsList data={filteredCarsByBrand}>Новые объявления - Кыргызстан</CardsList>
         </>
       )}
 

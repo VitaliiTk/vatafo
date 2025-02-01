@@ -1,0 +1,28 @@
+.brand__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--theme-color);
+  border-radius: 10px;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.3s;
+  padding: 5px 0;
+}
+
+.brand__item:hover {
+  transform: scale(1.04);
+  background-color: #0086fe;
+  color: #fff;
+}
+
+.brand__item.active {
+  background-color: var(--select-color);
+  transform: scale(1.04);
+}
+
+.brand__img {
+  border-radius: 10px;
+  object-fit: cover;
+  width: 100%;
+}
