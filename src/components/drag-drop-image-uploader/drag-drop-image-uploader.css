@@ -1,10 +1,10 @@
 .drag-drop-image-uploader {
-  background-color: #fff;
+  background-color: #2e2e2e;
   padding: 10px;
-  box-shadow: 0 0 5px #ffdfdf;
+  box-shadow: 0 0 2px #ffdfdf;
   border-radius: 5px;
   overflow: hidden;
-  max-width: 500px;
+  /* max-width: 500px; */
 }
 
 .drag-drop-image-uploader .top {
@@ -28,7 +28,7 @@
   border-radius: 5px;
   border: 2px dashed #0086fe;
   color: #0086fe;
-  background-color: #f4f3f9;
+  background-color: #2e2e2e;
   display: flex;
   justify-content: center;
   align-items: center;

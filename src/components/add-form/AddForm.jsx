@@ -50,10 +50,10 @@ export function AddForm({ onAddNew }) {
   }
 
   return (
-    <section id="add-section">
+    <section id="add-form-section">
       <div className="container">
         <div className="add__wrapper">
-          <h2>Разместить БЕСПЛАТНОЕ объявление просто!</h2>
+          <h2 className="title">Разместить БЕСПЛАТНОЕ объявление просто!</h2>
           {/* <DragDropImageUploader /> */}
           <form
             method="POST"
@@ -62,40 +62,48 @@ export function AddForm({ onAddNew }) {
             id="add-form"
             autoComplete="off"
           >
-            <div>
-              <h3>Загрузите фото* (до 30 фото)</h3>
-              {/* <input type="url" name="images" id="images" /> */}
-              <DragDropImageUploader
-                images={images}
-                setImages={setImages}
-                mainImage={mainImage}
-                onMainImageSelect={onMainImageSelect}
-              />
+            {/* info top wrapper */}
+            <div className="add-form__info-top-wrapper">
+              <div className="inputs__wrapper" id="add-info__box">
+                <h3>Описание*</h3>
+                <textarea className="info-area" name="info" id="info" required></textarea>
+              </div>
+
+              <div className="inputs__wrapper" id="add-foto__box">
+                <h3>Загрузите фото* (до 30 фото)</h3>
+                {/* <input type="url" name="images" id="images" /> */}
+                <DragDropImageUploader
+                  images={images}
+                  setImages={setImages}
+                  mainImage={mainImage}
+                  onMainImageSelect={onMainImageSelect}
+                />
+              </div>
             </div>
-            <div>
-              <h3>Описание*</h3>
-              <textarea className="info-area" name="info" id="info" required></textarea>
-            </div>
-            <div>
-              <h3>Категория*</h3>
-              <select name="category" id="category" defaultValue="Продаю автомобиль" required>
-                <option value="Продаю автомобиль">Продаю автомобиль</option>
-                <option value="Продаю квартиру">Продаю квартиру</option>
-              </select>
-            </div>
-            <div>
-              <h3>Город*</h3>
-              <select name="city" id="city" required>
-                <option value="bishkek">Бишкек</option>
-                <option value="osh">ОШ</option>
-              </select>
-            </div>
+
+            {/* inputs table */}
             <div className="inputs__table">
-              <div>
+              <div className="inputs__wrapper">
+                <h3>Категория*</h3>
+                <select name="category" id="category" defaultValue="Продаю автомобиль" required>
+                  <option value="Продаю автомобиль">Продаю автомобиль</option>
+                  <option value="Продаю квартиру">Продаю квартиру</option>
+                </select>
+              </div>
+
+              <div className="inputs__wrapper">
+                <h3>Город*</h3>
+                <select name="city" id="city" required>
+                  <option value="bishkek">Бишкек</option>
+                  <option value="osh">ОШ</option>
+                </select>
+              </div>
+
+              <div className="inputs__wrapper">
                 <h3>Цена</h3>
                 <input type="number" name="price" id="price" required />
               </div>
-              <div>
+              <div className="inputs__wrapper">
                 <h3>Валюта</h3>
                 <div className="checkbox__wrapper">
                   <span>
@@ -108,7 +116,7 @@ export function AddForm({ onAddNew }) {
                   </span>
                 </div>
               </div>
-              <div>
+              <div className="inputs__wrapper">
                 <h3>Модель</h3>
                 <select name="brand" id="brand" required>
                   {carBrands.map((item, index) => (
@@ -118,7 +126,7 @@ export function AddForm({ onAddNew }) {
                   ))}
                 </select>
               </div>
-              <div>
+              <div className="inputs__wrapper">
                 <h3>Год</h3>
                 <select name="year" id="year" required>
                   {Array.from({ length: 25 }, (_, i) => {
@@ -130,11 +138,11 @@ export function AddForm({ onAddNew }) {
                   })}
                 </select>
               </div>
-              <div>
+              <div className="inputs__wrapper">
                 <h3>Пробег (км.)</h3>
                 <input type="number" name="ride" id="ride" required />
               </div>
-              <div>
+              <div className="inputs__wrapper">
                 <h3>Топливо</h3>
                 <div>
                   <span>
@@ -165,14 +173,14 @@ export function AddForm({ onAddNew }) {
                   </span>
                 </div>
               </div>
-              <div>
+              <div className="inputs__wrapper">
                 <h3>Состояние</h3>
                 <select name="condition" id="condition" required>
                   <option value="bu">Б/У</option>
                   <option value="new">Новое</option>
                 </select>
               </div>
-              <div>
+              <div className="inputs__wrapper">
                 <h3>Кузов</h3>
                 <select name="body" id="body" required>
                   <option value="bus">Бус</option>
@@ -180,7 +188,7 @@ export function AddForm({ onAddNew }) {
                   <option value="sedan">Седан</option>
                 </select>
               </div>
-              <div>
+              <div className="inputs__wrapper">
                 <h3>Коробка передач</h3>
                 <select name="gear" id="gear" required>
                   <option value="auto">Автомат</option>
@@ -190,14 +198,14 @@ export function AddForm({ onAddNew }) {
                   <option value="tiptronic">Типтроник</option>
                 </select>
               </div>
-              <div>
+              <div className="inputs__wrapper">
                 <h3>Руль</h3>
                 <select name="stearingWheel" id="stearingWheel" required>
                   <option value="left">Слева</option>
                   <option value="right">Справа</option>
                 </select>
               </div>
-              <div>
+              <div className="inputs__wrapper">
                 <h3>Привод</h3>
                 <select name="drive" id="drive" required>
                   <option value="4wd">4WD, полный</option>
@@ -206,7 +214,7 @@ export function AddForm({ onAddNew }) {
                   <option value="FF">Передний</option>
                 </select>
               </div>
-              <div>
+              <div className="inputs__wrapper">
                 <h3>Цвет</h3>
                 <select name="color" id="color" required>
                   <option value="red">Красный</option>
@@ -215,7 +223,7 @@ export function AddForm({ onAddNew }) {
                   <option value="white">Белый</option>
                 </select>
               </div>
-              <div>
+              <div className="inputs__wrapper">
                 <h3>Объем двигателя</h3>
                 <select name="engineVolume" id="engineVolume" required>
                   <option value="0.1">0.1</option>
@@ -234,14 +242,14 @@ export function AddForm({ onAddNew }) {
                   <option value="4.0">4.0</option>
                 </select>
               </div>
-              <div>
+              <div className="inputs__wrapper">
                 <h3>VIN код</h3>
                 <select name="vinCode" id="vinCode" required>
                   <option value="true">с VIN кодом</option>
                   <option value="false">без VIN кода</option>
                 </select>
               </div>
-              <div>
+              <div className="inputs__wrapper">
                 <h3>Техническое состояние</h3>
                 <select name="techCondition" id="techCondition" required>
                   <option value="good">Хорошее</option>
@@ -251,21 +259,21 @@ export function AddForm({ onAddNew }) {
                   <option value="forParts">На запчасти</option>
                 </select>
               </div>
-              <div>
+              <div className="inputs__wrapper">
                 <h3>Растаможка</h3>
                 <select name="docs" id="docs" required>
                   <option value="true">Растаможен</option>
                   <option value="false">Не растаможен</option>
                 </select>
               </div>
-              <div>
+              <div className="inputs__wrapper">
                 <h3>Наличие</h3>
                 <select name="isAvailability" id="isAvailability" required>
                   <option value="true">В наличие</option>
                   <option value="false">На заказ</option>
                 </select>
               </div>
-              <div>
+              <div className="inputs__wrapper">
                 <h3>Расчет</h3>
                 <div>
                   <span>
@@ -296,17 +304,17 @@ export function AddForm({ onAddNew }) {
                   </span>
                 </div>
               </div>
+              <div className="inputs__wrapper">
+                <h3>Телефон</h3>
+                <input type="tel" name="tel" id="tel" required />
+                <span className="add-form__hideTel-label">
+                  {/* <input type="hidden" name="hideTel" value="no" /> */}
+                  <input type="checkbox" name="hideTel" id="hideTel" value="yes" />
+                  <label htmlFor="hideTel">Скрыть номер</label>
+                </span>
+              </div>
             </div>
-            <div>
-              <h3>Телефон</h3>
-              <input type="tel" name="tel" id="tel" required />
-              <span>
-                {/* <input type="hidden" name="hideTel" value="no" /> */}
-                <input type="checkbox" name="hideTel" id="hideTel" value="yes" />
-                <label htmlFor="hideTel">Скрыть номер</label>
-              </span>
-            </div>
-            <Button>Опубликовать</Button>
+            <Button className={'add-dorm__btn'}>Опубликовать</Button>
           </form>
         </div>
       </div>
