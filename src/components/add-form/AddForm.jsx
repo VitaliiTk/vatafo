@@ -110,7 +110,7 @@ export function AddForm({ onAddNew }) {
               </div>
               <div>
                 <h3>Модель</h3>
-                <select name="model" id="model" required>
+                <select name="brand" id="brand" required>
                   {carBrands.map((item, index) => (
                     <option key={index} value={item}>
                       {item}

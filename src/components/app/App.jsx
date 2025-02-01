@@ -27,15 +27,18 @@ function App() {
   // brand select
   const brandSelectHandler = brand => {
     setSelectBrand(brand)
-    const newArray = cardItems.filter(item => (brand === 'All' ? item : item.car === brand))
+    const newArray = cardItems.filter(item => (brand === 'All' ? item : item.brand === brand))
     setFilteredData(newArray)
   }
 
   const cardsSearching = searchValue => {
     console.log(searchValue)
 
-    const result = cardItems.filter(item =>
-      item.info.toLowerCase().includes(searchValue.toLowerCase())
+    const result = cardItems.filter(
+      item =>
+        selectBrand === 'All' ||
+        (item.brand === selectBrand &&
+          item.item.info.toLowerCase().includes(searchValue.toLowerCase()))
     )
 
     setFilteredData(result)
@@ -45,6 +48,7 @@ function App() {
   }
 
   const addNewObjectToCards = obj => {
+    console.log(obj)
     setCardItems(prev => [...prev, obj])
     setIsForm(false)
     setFavoritesPage(false)

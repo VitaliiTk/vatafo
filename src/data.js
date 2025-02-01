@@ -57,7 +57,7 @@ export const cards = [
     category: 'Продаю автомобиль',
     price: 5421900,
     moneySymbol: 'KGS',
-    car: 'Ford',
+    brand: 'Ford',
     model: 'F-150',
     year: 2023,
     gear: 'automatic',
