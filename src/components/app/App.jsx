@@ -8,7 +8,7 @@ import { CarBrandsList } from '../popular-list-horizontal/CarBrandsList'
 import { CardsList } from '../cards-list/CardsList'
 import { AddForm } from '../add-form/AddForm'
 import { FavoritesPage } from '../favorites-page/FavoritesPage'
-import { SearchPage } from '../search-page/SearchPage'
+// import { SearchPage } from '../search-page/SearchPage'
 
 import { cards, carBrands } from '../../data'
 
@@ -20,10 +20,10 @@ function App() {
   const [isLoged, setIsLoged] = useState(true)
   const [favoritesPage, setFavoritesPage] = useState(false)
   const [mainPage, setMainPage] = useState(true)
-  const [searchedCards, setSearchedCards] = useState(null)
+  const [searchedCards, setSearchedCards] = useState(cardItems)
   const [selectBrand, setSelectBrand] = useState('All')
 
-  const filteredCarsByBrand =
+  const filteredData =
     selectBrand === 'All' ? cardItems : cardItems.filter(item => item.car === selectBrand)
 
   // brand select
@@ -32,9 +32,11 @@ function App() {
   }
 
   const cardsSearching = searchValue => {
+    console.log(searchValue)
     setSearchedCards(
-      cardItems.filter(item => item.info.toLowerCase().includes(searchValue.toLowerCase()))
+      filteredData.filter(item => item.info.toLowerCase().includes(searchValue.toLowerCase()))
     )
+    // console.log(searchedCards)
     setIsForm(false)
     setMainPage(false)
     setFavoritesPage(false)
@@ -88,25 +90,25 @@ function App() {
         mainPageOpenLogic={mainPageOpenLogic}
       />
 
-      {mainPage && (
-        <>
-          <Banner />
-          <SearchPanel cardsSearching={cardsSearching} />
-          <CategoryList />
-          <CarBrandsList
-            selectBrand={selectBrand}
-            onBrandSelect={brandSelectHandler}
-            carBrands={carBrands}
-          />
-          <CardsList data={filteredCarsByBrand}>Новые объявления - Кыргызстан</CardsList>
-        </>
-      )}
+      <Banner />
+      <SearchPanel
+        cardsSearching={cardsSearching}
+        // searchInputValue={searchInputValue}
+        // setSearchInputValue={setSearchInputValue}
+      />
+      <CategoryList />
+      <CarBrandsList
+        selectBrand={selectBrand}
+        onBrandSelect={brandSelectHandler}
+        carBrands={carBrands}
+      />
+      <CardsList data={filteredData}>Новые объявления - Кыргызстан</CardsList>
 
       {isForm && <AddForm onAddNew={addNewObjectToCards} />}
 
       {favoritesPage && <FavoritesPage />}
 
-      {searchedCards && <SearchPage data={searchedCards} cardsSearching={cardsSearching} />}
+      {/* {searchedCards && <SearchPage data={searchedCards} cardsSearching={cardsSearching} />} */}
     </>
   )
 }
