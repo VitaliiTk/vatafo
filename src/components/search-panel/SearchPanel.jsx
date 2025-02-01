@@ -10,7 +10,7 @@ export function SearchPanel({ cardsSearching }) {
   const handleSubmit = e => {
     e.preventDefault()
     cardsSearching(searchInputValue)
-    // setSearchInputValue('')
+    setSearchInputValue('')
   }
 
   return (

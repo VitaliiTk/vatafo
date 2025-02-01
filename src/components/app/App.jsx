@@ -58,6 +58,8 @@ function App() {
   const mainPageOpenLogic = () => {
     setFavoritesPage(false)
     setIsForm(false)
+    setSelectBrand('All')
+    setFilteredData(cardItems)
   }
 
   const handleClickOnAddButton = () => {
