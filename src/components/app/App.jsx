@@ -36,9 +36,8 @@ function App() {
 
     const result = cardItems.filter(
       item =>
-        selectBrand === 'All' ||
-        (item.brand === selectBrand &&
-          item.item.info.toLowerCase().includes(searchValue.toLowerCase()))
+        (selectBrand === 'All' || item.brand === selectBrand) &&
+        item.info.toLowerCase().includes(searchValue.toLowerCase())
     )
 
     setFilteredData(result)
@@ -50,6 +49,8 @@ function App() {
   const addNewObjectToCards = obj => {
     console.log(obj)
     setCardItems(prev => [...prev, obj])
+    setFilteredData([...cardItems, obj])
+    setSelectBrand('All')
     setIsForm(false)
     setFavoritesPage(false)
   }
@@ -87,15 +88,19 @@ function App() {
         onFavoriteIconClickLogic={onFavoriteIconClickLogic}
         mainPageOpenLogic={mainPageOpenLogic}
       />
-      <Banner />
-      <SearchPanel cardsSearching={cardsSearching} />
-      <CategoryList />
-      <CarBrandsList
-        selectBrand={selectBrand}
-        onBrandSelect={brandSelectHandler}
-        carBrands={carBrands}
-      />
-      <CardsList data={filteredData}>Новые объявления - Кыргызстан</CardsList>
+      {!isForm && (
+        <>
+          <Banner />
+          <SearchPanel cardsSearching={cardsSearching} />
+          <CategoryList />
+          <CarBrandsList
+            selectBrand={selectBrand}
+            onBrandSelect={brandSelectHandler}
+            carBrands={carBrands}
+          />
+          <CardsList data={filteredData}>Новые объявления - Кыргызстан</CardsList>
+        </>
+      )}
 
       {isForm && <AddForm onAddNew={addNewObjectToCards} />}
 
