@@ -19,42 +19,40 @@ function App() {
   const [cardItems, setCardItems] = useState(cards)
   const [isLoged, setIsLoged] = useState(true)
   const [favoritesPage, setFavoritesPage] = useState(false)
-  const [mainPage, setMainPage] = useState(true)
-  const [searchedCards, setSearchedCards] = useState(cardItems)
   const [selectBrand, setSelectBrand] = useState('All')
+  const [filteredData, setFilteredData] = useState(cardItems)
 
-  const filteredData =
-    selectBrand === 'All' ? cardItems : cardItems.filter(item => item.car === selectBrand)
+  console.log(filteredData)
 
   // brand select
   const brandSelectHandler = brand => {
     setSelectBrand(brand)
+    const newArray = cardItems.filter(item => (brand === 'All' ? item : item.car === brand))
+    setFilteredData(newArray)
   }
 
   const cardsSearching = searchValue => {
     console.log(searchValue)
-    setSearchedCards(
-      filteredData.filter(item => item.info.toLowerCase().includes(searchValue.toLowerCase()))
+
+    const result = cardItems.filter(item =>
+      item.info.toLowerCase().includes(searchValue.toLowerCase())
     )
-    // console.log(searchedCards)
+
+    setFilteredData(result)
+
     setIsForm(false)
-    setMainPage(false)
     setFavoritesPage(false)
   }
 
   const addNewObjectToCards = obj => {
     setCardItems(prev => [...prev, obj])
     setIsForm(false)
-    setSearchedCards(null)
     setFavoritesPage(false)
-    setMainPage(true)
   }
 
   const mainPageOpenLogic = () => {
-    setMainPage(true)
     setFavoritesPage(false)
     setIsForm(false)
-    setSearchedCards(null)
   }
 
   const handleClickOnAddButton = () => {
@@ -64,8 +62,6 @@ function App() {
     }
     setIsForm(open => !open)
     setFavoritesPage(false)
-    setMainPage(false)
-    setSearchedCards(null)
   }
 
   const onFavoriteIconClickLogic = () => {
@@ -76,8 +72,6 @@ function App() {
     console.log('favorite page')
     setFavoritesPage(true)
     setIsForm(false)
-    setMainPage(false)
-    setSearchedCards(null)
   }
 
   return (
@@ -89,13 +83,8 @@ function App() {
         onFavoriteIconClickLogic={onFavoriteIconClickLogic}
         mainPageOpenLogic={mainPageOpenLogic}
       />
-
       <Banner />
-      <SearchPanel
-        cardsSearching={cardsSearching}
-        // searchInputValue={searchInputValue}
-        // setSearchInputValue={setSearchInputValue}
-      />
+      <SearchPanel cardsSearching={cardsSearching} />
       <CategoryList />
       <CarBrandsList
         selectBrand={selectBrand}
@@ -107,8 +96,6 @@ function App() {
       {isForm && <AddForm onAddNew={addNewObjectToCards} />}
 
       {favoritesPage && <FavoritesPage />}
-
-      {/* {searchedCards && <SearchPage data={searchedCards} cardsSearching={cardsSearching} />} */}
     </>
   )
 }
