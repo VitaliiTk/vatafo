@@ -8,7 +8,6 @@ import { CarBrandsList } from '../popular-list-horizontal/CarBrandsList'
 import { CardsList } from '../cards-list/CardsList'
 import { AddForm } from '../add-form/AddForm'
 import { FavoritesPage } from '../favorites-page/FavoritesPage'
-// import { SearchPage } from '../search-page/SearchPage'
 
 import { cards, carBrands } from '../../data'
 
@@ -21,6 +20,7 @@ function App() {
   const [favoritesPage, setFavoritesPage] = useState(false)
   const [selectBrand, setSelectBrand] = useState('All')
   const [filteredData, setFilteredData] = useState(cardItems)
+  const [searchValue, setSearchValue] = useState('')
 
   // console.log(filteredData)
 
@@ -29,6 +29,7 @@ function App() {
     setSelectBrand(brand)
     const newArray = cardItems.filter(item => (brand === 'All' ? item : item.brand === brand))
     setFilteredData(newArray)
+    setSearchValue('')
   }
 
   const cardsSearching = searchValue => {
@@ -44,6 +45,8 @@ function App() {
 
     setIsForm(false)
     setFavoritesPage(false)
+
+    setSearchValue(searchValue)
   }
 
   const addNewObjectToCards = obj => {
@@ -100,7 +103,14 @@ function App() {
             onBrandSelect={brandSelectHandler}
             carBrands={carBrands}
           />
-          <CardsList data={filteredData}>Новые объявления - Кыргызстан</CardsList>
+          <CardsList data={filteredData}>
+            {filteredData.length === 0
+              ? `По запросу ${searchValue || selectBrand} ничего не найдено`
+              : `По запросу ${
+                  searchValue || selectBrand ? searchValue || selectBrand : 'Все'
+                } найдено ${filteredData.length} объявлений`}
+            {/* Новые объявления - Кыргызстан */}
+          </CardsList>
         </>
       )}
 
