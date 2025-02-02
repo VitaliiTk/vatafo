@@ -1,12 +1,14 @@
 .category-item {
   background-color: var(--theme-accent-color);
-  width: 136px;
-  height: 136px;
+  /* width: 136px; */
+  min-width: 173px;
+  height: 120px;
   border-radius: 10px;
   padding: 10px 10px 10px 15px;
   position: relative;
   cursor: pointer;
   transition: all 0.3s;
+  flex: 1;
 }
 
 .category-item:hover {

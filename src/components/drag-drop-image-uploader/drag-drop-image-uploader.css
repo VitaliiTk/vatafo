@@ -116,3 +116,9 @@
   border: 2px solid #ff447d;
   border-radius: 7px;
 }
+
+@media (max-width: 370px) {
+  .drag-drop-image-uploader .drag-area {
+    flex-direction: column;
+  }
+}

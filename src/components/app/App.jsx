@@ -22,7 +22,7 @@ function App() {
   const [selectBrand, setSelectBrand] = useState('All')
   const [filteredData, setFilteredData] = useState(cardItems)
 
-  console.log(filteredData)
+  // console.log(filteredData)
 
   // brand select
   const brandSelectHandler = brand => {
