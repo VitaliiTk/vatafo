@@ -1,10 +1,19 @@
 import { CiMail } from 'react-icons/ci'
 import { CiHeart } from 'react-icons/ci'
 
+import { users } from '../../users'
+
 import './card-list-item.css'
 
 export function CardsListItem({ card }) {
   const title = card.info.slice(0, 40)
+
+  const userInfo = users.find(user => user.id === card.userId)
+
+  const cardCreatorInfo = {
+    avatarImage: userInfo.avatarURL,
+    status: userInfo.status
+  }
 
   return (
     <a href="#" className="card">
@@ -18,8 +27,8 @@ export function CardsListItem({ card }) {
         </div>
         <div className="card__bottom-info">
           <div className="card__bottom-info-left-side">
-            <img className="card__avatar-img" src="/avatars/avatar.jpeg" alt="" />
-            <div className="card__ac-status">PRO</div>
+            <img className="card__avatar-img" src={cardCreatorInfo.avatarImage} alt="" />
+            {cardCreatorInfo.status === 'pro' && <div className="card__ac-status">PRO</div>}
           </div>
           <div className="card__bottom-info-right-side">
             <span className="card__icon">
