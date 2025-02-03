@@ -12,6 +12,8 @@ export function AddForm({ onAddNew, user }) {
   const [images, setImages] = useState([])
   const [mainImage, setMainImage] = useState(null)
 
+  // console.log(user)
+
   //
   const handleSubmit = e => {
     e.preventDefault() // Предотвращаем перезагрузку страницы
@@ -29,17 +31,17 @@ export function AddForm({ onAddNew, user }) {
       return
     }
 
-    const allFormValues = {
+    const newCarPost = {
       ...formValues,
       images: images,
       fuels: selectedFuels,
       payMethods: selectedPayMethods,
       id: uuidv4(),
       mainImage: mainImage || images[0],
-      userId: user.userId
+      userId: user.id
     }
 
-    onAddNew(allFormValues)
+    onAddNew(newCarPost)
   }
 
   // const takeImagesFromDragDropper = items => {

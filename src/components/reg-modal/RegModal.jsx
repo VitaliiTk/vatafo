@@ -5,16 +5,11 @@ import { IoMdClose } from 'react-icons/io'
 
 import { Button } from '../button/Button'
 
-import { users } from '../../users'
-
 import styles from './reg-modal.module.css'
 
-export function RegModal({ onCloseRegModal, onLoginSuccess }) {
-  const [testUsers, setTestUsers] = useState(users) // масив users для теста
+export function RegModal({ onCloseRegModal, onLoginSuccess, testUsers, addNewUserToTestUsers }) {
   const [isRegView, setIsRegView] = useState(false)
   const [formWarning, setFormWarning] = useState(null)
-
-  // console.log(testUsers)
 
   // событие закрытия модалки
   function closeHandler(event) {
@@ -28,8 +23,6 @@ export function RegModal({ onCloseRegModal, onLoginSuccess }) {
     if (!isRegView) {
       const email = formData.get('email')
       const password = formData.get('password')
-
-      console.log(typeof password)
 
       // если поля не заполнены проверка
       if (!email || !password) {
@@ -95,13 +88,14 @@ export function RegModal({ onCloseRegModal, onLoginSuccess }) {
       first_name: `User first name`,
       last_name: 'User last name',
       email,
-      password: password,
-      avatarURL: '',
+      password,
+      avatarURL:
+        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSR6-Y6uY-VKr_TPEiri-UILWJyBDFUnE-jyw&s',
       status: 'free',
       created_at: 'auto create time from DB'
     }
 
-    setTestUsers(prev => [...prev, newUser])
+    addNewUserToTestUsers(newUser)
   }
 
   // Переключить форму на другую

@@ -8,11 +8,12 @@ import { CarBrandsList } from '../popular-list-horizontal/CarBrandsList'
 import { CardsList } from '../cards-list/CardsList'
 import { AddForm } from '../add-form/AddForm'
 import { FavoritesPage } from '../favorites-page/FavoritesPage'
+import { RegModal } from '../reg-modal/RegModal'
 
 import { cards, carBrands } from '../../data'
+import { users } from '../../users'
 
 import './App.css'
-import { RegModal } from '../reg-modal/RegModal'
 
 function App() {
   const [isForm, setIsForm] = useState(false)
@@ -23,6 +24,7 @@ function App() {
   const [filteredData, setFilteredData] = useState(cardItems)
   const [searchValue, setSearchValue] = useState('')
   const [isRegModalOpen, setIsRegModalOpen] = useState(false)
+  const [testUsers, setTestUsers] = useState(users) // масив users для теста
   const [user, setUser] = useState(null)
 
   // brand select
@@ -34,8 +36,6 @@ function App() {
   }
 
   const cardsSearching = searchValue => {
-    console.log(searchValue)
-
     const result = cardItems.filter(
       item =>
         (selectBrand === 'All' || item.brand === selectBrand) &&
@@ -48,7 +48,7 @@ function App() {
   }
 
   const addNewObjectToCards = obj => {
-    console.log(obj)
+    // console.log(obj)
     setCardItems(prev => [...prev, obj])
     setFilteredData([...cardItems, obj])
     setSelectBrand('All')
@@ -102,9 +102,13 @@ function App() {
   }
 
   function onLoginSuccess(user) {
-    console.log(user)
+    // console.log(user)
     setUser(user)
     setIsLoged(true)
+  }
+
+  function addNewUserToTestUsers(newUser) {
+    setTestUsers(prev => [...prev, newUser])
   }
 
   return (
@@ -136,7 +140,7 @@ function App() {
             onBrandSelect={brandSelectHandler}
             carBrands={carBrands}
           />
-          <CardsList data={filteredData}>
+          <CardsList data={filteredData} testUsers={testUsers}>
             {filteredData.length === 0
               ? `По запросу ${searchValue || selectBrand} ничего не найдено`
               : `По запросу ${
@@ -152,7 +156,12 @@ function App() {
       {favoritesPage && <FavoritesPage />}
 
       {isRegModalOpen && (
-        <RegModal onCloseRegModal={closeRegModal} onLoginSuccess={onLoginSuccess} />
+        <RegModal
+          onCloseRegModal={closeRegModal}
+          onLoginSuccess={onLoginSuccess}
+          testUsers={testUsers}
+          addNewUserToTestUsers={addNewUserToTestUsers}
+        />
       )}
     </>
   )
