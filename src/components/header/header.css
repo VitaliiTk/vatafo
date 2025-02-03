@@ -18,16 +18,23 @@
   display: flex;
   align-items: center;
   gap: 20px;
+  flex: 1;
 }
 
 .header__tag {
   cursor: pointer;
 }
 
+.header__center-side {
+  flex: 1;
+}
+
 .header__right-side {
   display: flex;
   align-items: center;
+  justify-content: end;
   gap: 20px;
+  flex: 1;
 }
 
 .like {

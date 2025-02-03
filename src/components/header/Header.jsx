@@ -2,7 +2,7 @@ import { HeaderLogo } from '../header-logo/HeaderLogo'
 import { CiHeart } from 'react-icons/ci'
 import { CiMail } from 'react-icons/ci'
 
-import { Burger } from '../burger/Burger'
+// import { Burger } from '../burger/Burger'
 import { Button } from '../button/Button'
 
 import './header.css'
@@ -22,12 +22,14 @@ export function Header({
           {/* left side */}
           <div className="header__left-side">
             <HeaderLogo mainPageOpenLogic={mainPageOpenLogic} />
-            <Burger />
-            <div className="header__tag">Для бизнеса</div>
+            {/* <Burger /> */}
+            {/* <div className="header__tag">Для бизнеса</div> */}
           </div>
 
-          {/* center side */}
-          {children}
+          <div className="header__center-side">
+            {/* center side */}
+            {children}
+          </div>
 
           {/* right side */}
           <div className="header__right-side">
@@ -56,7 +58,6 @@ export function Header({
             </Button>
           </div>
         </div>
-        {/* right side end */}
       </div>
     </header>
   )

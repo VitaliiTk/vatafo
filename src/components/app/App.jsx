@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 import { Header } from '../header/Header'
 import { Banner } from '../bunner/Banner'
-import { SearchPanel } from '../search-panel/SearchPanel'
+import { SearchForm } from '../search-form/SearchForm'
 import { CategoryList } from '../category-list/CategoryList'
 import { CarBrandsList } from '../popular-list-horizontal/CarBrandsList'
 import { CardsList } from '../cards-list/CardsList'
@@ -16,7 +16,7 @@ import './App.css'
 function App() {
   const [isForm, setIsForm] = useState(false)
   const [cardItems, setCardItems] = useState(cards)
-  const [isLoged, setIsLoged] = useState(true)
+  const [isLoged, setIsLoged] = useState(false)
   const [favoritesPage, setFavoritesPage] = useState(false)
   const [selectBrand, setSelectBrand] = useState('All')
   const [filteredData, setFilteredData] = useState(cardItems)
@@ -88,11 +88,18 @@ function App() {
         onFavoriteIconClickLogic={onFavoriteIconClickLogic}
         mainPageOpenLogic={mainPageOpenLogic}
       >
-        <SearchPanel cardsSearching={cardsSearching} />
+        <SearchForm
+          cardsSearching={cardsSearching}
+          btnBgColor="#43d262"
+          btnTextColor="#000"
+          inputBgColor="#292D3E"
+          inputFontColor="#fff"
+          searchIconColor="#fff"
+        />
       </Header>
       {!isForm && (
         <>
-          <Banner />
+          {/* <Banner /> */}
           <CategoryList />
           <CarBrandsList
             selectBrand={selectBrand}
