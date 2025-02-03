@@ -92,7 +92,7 @@ export const cards = [
   },
   {
     id: 2,
-    userId: '001',
+    userId: '056',
     author: 'John Doe',
     tel: '+996557184916',
     info: 'BMW M3 G80 Sedan Competition - 19 January 2022 - Autogespot',
@@ -133,7 +133,7 @@ export const cards = [
   },
   {
     id: 3,
-    userId: '001',
+    userId: '777',
     author: 'John Doe',
     tel: '+996557184916',
     info: "Here's An Illustrated Look At The 2022 BMW M3 Touring | Carscoops",
