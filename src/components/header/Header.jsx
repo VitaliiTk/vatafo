@@ -56,7 +56,7 @@ export function Header({
                 {/* <span className="like">
                   <CiMail />
                 </span> */}
-                <span className="avatar-img__wrapper">
+                <span className="avatar-img__wrapper" onClick={userMiniModalHandler}>
                   <img className="avatar-img" src={user.avatarURL} alt="" />
                 </span>
                 <span className="username" onClick={userMiniModalHandler}>
@@ -66,7 +66,7 @@ export function Header({
                 {miniUserModal && (
                   <div className="miniUserModal">
                     <span className="miniUserModal__item">Мои объявления</span>
-                    <span className="miniUserModal__item">Настройки</span>
+                    <span className="miniUserModal__item">Профиль</span>
                     <span className="miniUserModal__item" onClick={quitHandler}>
                       Выйти
                     </span>
@@ -82,7 +82,7 @@ export function Header({
             )}
 
             <Button onHandleClick={onAddNewBtnClick} color={!isForm ? '#ff2366' : ''}>
-              {!isForm ? 'Подать объявление' : 'Закрыть'}
+              {isForm && isLoged ? 'Закрыть' : 'Подать объявление'}
             </Button>
           </div>
         </div>

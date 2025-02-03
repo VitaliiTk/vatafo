@@ -85,7 +85,12 @@ function App() {
     if (!isLoged) {
       setIsRegModalOpen(true)
     }
-    if (user) setIsLoged(false)
+    if (user) {
+      setIsLoged(false)
+
+      setIsForm(false)
+      setFavoritesPage(false)
+    }
   }
 
   function closeRegModal() {
@@ -142,7 +147,7 @@ function App() {
         </>
       )}
 
-      {isForm && <AddForm onAddNew={addNewObjectToCards} />}
+      {isForm && isLoged && <AddForm onAddNew={addNewObjectToCards} />}
 
       {favoritesPage && <FavoritesPage />}
 

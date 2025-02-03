@@ -22,5 +22,16 @@ export const users = [
       'https://avatars.mds.yandex.net/get-kinopoisk-image/10893610/c20552af-8349-4182-bfb0-c17bfe2da561/220x330',
     status: 'pro',
     created_at: 'february 03 2025 19:30'
+  },
+  {
+    id: '777',
+    userName: 'Vital',
+    first_name: 'Vitalii',
+    last_name: 'Tkachuk',
+    email: 'tka4uk.gt41@gmail.com',
+    password: '0000',
+    avatarURL: 'https://ae04.alicdn.com/kf/Sc033dd5ec3fa4718971dc98caf46de7f2.jpg',
+    status: 'pro',
+    created_at: 'february 04 2025 01:22'
   }
 ]

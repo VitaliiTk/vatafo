@@ -7,6 +7,7 @@
   right: 0;
   top: 0;
   background-color: var(--theme-accent-color);
+  background-color: #0f0f0f;
 }
 
 .header__wrapper {
@@ -92,6 +93,7 @@
   position: absolute;
   top: 45px;
   gap: 10px;
+  box-shadow: 0 0 5px #000;
 }
 
 .miniUserModal__item {
