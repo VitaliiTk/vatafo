@@ -12,17 +12,22 @@ export function Header({
   isForm,
   isLoged,
   onFavoriteIconClickLogic,
-  mainPageOpenLogic
+  mainPageOpenLogic,
+  children
 }) {
   return (
     <header className="header">
       <div className="container">
         <div className="header__wrapper">
+          {/* left side */}
           <div className="header__left-side">
             <HeaderLogo mainPageOpenLogic={mainPageOpenLogic} />
             <Burger />
             <div className="header__tag">Для бизнеса</div>
           </div>
+
+          {/* center side */}
+          {children}
 
           {/* right side */}
           <div className="header__right-side">
@@ -46,10 +51,7 @@ export function Header({
               </div>
             )}
 
-            <Button
-              onHandleClick={onHandleClick}
-              color={!isForm ? '#ff2366' : ''}
-            >
+            <Button onHandleClick={onHandleClick} color={!isForm ? '#ff2366' : ''}>
               {!isForm ? 'Подать объявление' : 'Закрыть'}
             </Button>
           </div>

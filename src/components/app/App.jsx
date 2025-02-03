@@ -22,8 +22,6 @@ function App() {
   const [filteredData, setFilteredData] = useState(cardItems)
   const [searchValue, setSearchValue] = useState('')
 
-  // console.log(filteredData)
-
   // brand select
   const brandSelectHandler = brand => {
     setSelectBrand(brand)
@@ -40,12 +38,9 @@ function App() {
         (selectBrand === 'All' || item.brand === selectBrand) &&
         item.info.toLowerCase().includes(searchValue.toLowerCase())
     )
-
     setFilteredData(result)
-
     setIsForm(false)
     setFavoritesPage(false)
-
     setSearchValue(searchValue)
   }
 
@@ -92,11 +87,12 @@ function App() {
         isLoged={isLoged}
         onFavoriteIconClickLogic={onFavoriteIconClickLogic}
         mainPageOpenLogic={mainPageOpenLogic}
-      />
+      >
+        <SearchPanel cardsSearching={cardsSearching} />
+      </Header>
       {!isForm && (
         <>
           <Banner />
-          <SearchPanel cardsSearching={cardsSearching} />
           <CategoryList />
           <CarBrandsList
             selectBrand={selectBrand}
