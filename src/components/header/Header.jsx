@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { HeaderLogo } from '../header-logo/HeaderLogo'
 import { CiHeart } from 'react-icons/ci'
 import { CiMail } from 'react-icons/ci'
@@ -8,13 +9,24 @@ import { Button } from '../button/Button'
 import './header.css'
 
 export function Header({
-  onHandleClick,
+  onAddNewBtnClick,
   isForm,
   isLoged,
   onFavoriteIconClickLogic,
   mainPageOpenLogic,
+  onLoginBtnClick,
+  user,
   children
 }) {
+  const [miniUserModal, setMiniUserModal] = useState(false)
+
+  function userNameHover(params) {
+    console.log('user over')
+  }
+  function userNameOut(params) {
+    console.log('user out')
+  }
+
   return (
     <header className="header">
       <div className="container">
@@ -33,27 +45,31 @@ export function Header({
 
           {/* right side */}
           <div className="header__right-side">
-            {/* <span className="like" onClick={onFavoriteIconClickLogic}>
+            <span className="like" onClick={onFavoriteIconClickLogic}>
               <CiHeart />
             </span>
 
             {isLoged && (
-              <>
-                <span className="like">
+              <div className="user-info__wrapper">
+                {/* <span className="like">
                   <CiMail />
+                </span> */}
+                <span className="avatar-img__wrapper">
+                  <img className="avatar-img" src={user.avatarURL} alt="" />
                 </span>
-                <span>AVATAR IMG</span>
-                <span>Username</span>
-              </>
-            )} */}
-
-            {!isLoged && (
-              <div className="login__btn" onClick={onHandleClick}>
-                Войти
+                <span className="username" onMouseEnter={userNameHover} onMouseLeave={userNameOut}>
+                  {user.userName}
+                </span>
               </div>
             )}
 
-            <Button onHandleClick={onHandleClick} color={!isForm ? '#ff2366' : ''}>
+            {/* {!isLoged && ( */}
+            <div className="login__btn" onClick={onLoginBtnClick}>
+              {!isLoged ? 'Войти' : 'Выйти'}
+            </div>
+            {/* )} */}
+
+            <Button onHandleClick={onAddNewBtnClick} color={!isForm ? '#ff2366' : ''}>
               {!isForm ? 'Подать объявление' : 'Закрыть'}
             </Button>
           </div>

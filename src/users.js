@@ -1,17 +1,19 @@
 export const users = [
   {
     id: '001',
+    userName: 'jennaLove',
     first_name: 'Jenna',
     last_name: 'Ortega',
     email: 'ortega@gmail.com',
     password: 'ortega123',
     avatarURL:
-      'https://static.wikia.nocookie.net/timburton/images/8/82/Jenna_Ortega.jpg/revision/latest/thumbnail/width/360/height/360?cb=20230223180141',
+      'https://cdn.britannica.com/56/243656-050-2E4A5036/Jenna-Ortega-2023.jpg?w=400&h=300&c=crop',
     status: 'free',
     created_at: 'february 03 2025 19:28'
   },
   {
     id: '056',
+    userName: 'ЖеняЯ',
     first_name: 'Jenya',
     last_name: 'Ortegova',
     email: 'jenyaortegova@gmail.com',

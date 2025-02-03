@@ -22,6 +22,8 @@ function App() {
   const [selectBrand, setSelectBrand] = useState('All')
   const [filteredData, setFilteredData] = useState(cardItems)
   const [searchValue, setSearchValue] = useState('')
+  const [isRegModalOpen, setIsRegModalOpen] = useState(false)
+  const [user, setUser] = useState(null)
 
   // brand select
   const brandSelectHandler = brand => {
@@ -63,7 +65,7 @@ function App() {
 
   const handleClickOnAddButton = () => {
     if (!isLoged) {
-      alert('Войдите в акаунт!')
+      openRegModal()
       return
     }
     setIsForm(open => !open)
@@ -72,22 +74,44 @@ function App() {
 
   const onFavoriteIconClickLogic = () => {
     if (!isLoged) {
-      alert('Войдите в акаунт!')
+      openRegModal()
       return
     }
-    console.log('favorite page')
     setFavoritesPage(true)
     setIsForm(false)
+  }
+
+  function onLoginBtnClick() {
+    if (!isLoged) {
+      setIsRegModalOpen(true)
+    }
+    if (user) setIsLoged(false)
+  }
+
+  function closeRegModal() {
+    setIsRegModalOpen(false)
+  }
+
+  function openRegModal() {
+    setIsRegModalOpen(true)
+  }
+
+  function onLoginSuccess(user) {
+    console.log(user)
+    setUser(user)
+    setIsLoged(true)
   }
 
   return (
     <>
       <Header
-        onHandleClick={!isForm ? handleClickOnAddButton : mainPageOpenLogic}
+        onAddNewBtnClick={!isForm ? handleClickOnAddButton : mainPageOpenLogic}
         isForm={isForm}
         isLoged={isLoged}
         onFavoriteIconClickLogic={onFavoriteIconClickLogic}
         mainPageOpenLogic={mainPageOpenLogic}
+        onLoginBtnClick={onLoginBtnClick}
+        user={user}
       >
         <SearchForm
           cardsSearching={cardsSearching}
@@ -122,7 +146,9 @@ function App() {
 
       {favoritesPage && <FavoritesPage />}
 
-      <RegModal />
+      {isRegModalOpen && (
+        <RegModal onCloseRegModal={closeRegModal} onLoginSuccess={onLoginSuccess} />
+      )}
     </>
   )
 }

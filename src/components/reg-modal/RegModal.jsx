@@ -9,17 +9,17 @@ import { users } from '../../users'
 
 import styles from './reg-modal.module.css'
 
-export function RegModal() {
+export function RegModal({ onCloseRegModal, onLoginSuccess }) {
   const [testUsers, setTestUsers] = useState(users) // масив users для теста
   const [isRegView, setIsRegView] = useState(false)
   const [formWarning, setFormWarning] = useState(null)
 
-  console.log(testUsers)
+  // console.log(testUsers)
 
   // событие закрытия модалки
   function closeHandler(event) {
     event.stopPropagation()
-    console.log('close handler work')
+    onCloseRegModal()
   }
 
   // событие при отправке формы
@@ -43,10 +43,12 @@ export function RegModal() {
 
       // если user сущестует
       if (userFromData) {
-        console.log(userFromData)
+        // console.log(userFromData)
         setFormWarning('Успешно вошли')
         // нужно отправить данные пользователя для использования и отображении везде в приложении
         // и закрыть модалку
+        onLoginSuccess(userFromData)
+        onCloseRegModal()
         return
       }
 
