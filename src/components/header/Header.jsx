@@ -20,11 +20,13 @@ export function Header({
 }) {
   const [miniUserModal, setMiniUserModal] = useState(false)
 
-  function userNameHover(params) {
-    console.log('user over')
+  function userMiniModalHandler(e) {
+    setMiniUserModal(prev => !prev)
   }
-  function userNameOut(params) {
-    console.log('user out')
+
+  function quitHandler() {
+    setMiniUserModal(false)
+    onLoginBtnClick()
   }
 
   return (
@@ -57,17 +59,27 @@ export function Header({
                 <span className="avatar-img__wrapper">
                   <img className="avatar-img" src={user.avatarURL} alt="" />
                 </span>
-                <span className="username" onMouseEnter={userNameHover} onMouseLeave={userNameOut}>
+                <span className="username" onClick={userMiniModalHandler}>
                   {user.userName}
                 </span>
+
+                {miniUserModal && (
+                  <div className="miniUserModal">
+                    <span className="miniUserModal__item">Мои объявления</span>
+                    <span className="miniUserModal__item">Настройки</span>
+                    <span className="miniUserModal__item" onClick={quitHandler}>
+                      Выйти
+                    </span>
+                  </div>
+                )}
               </div>
             )}
 
-            {/* {!isLoged && ( */}
-            <div className="login__btn" onClick={onLoginBtnClick}>
-              {!isLoged ? 'Войти' : 'Выйти'}
-            </div>
-            {/* )} */}
+            {!isLoged && (
+              <div className="login__btn" onClick={onLoginBtnClick}>
+                Войти
+              </div>
+            )}
 
             <Button onHandleClick={onAddNewBtnClick} color={!isForm ? '#ff2366' : ''}>
               {!isForm ? 'Подать объявление' : 'Закрыть'}

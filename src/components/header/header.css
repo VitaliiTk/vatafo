@@ -76,4 +76,30 @@
   display: flex;
   align-items: center;
   gap: 10px;
+  position: relative;
+}
+
+/* mini user modal */
+
+.miniUserModal {
+  background-color: #1b1e2b;
+  padding: 15px 20px;
+  display: flex;
+  max-width: 500px;
+  /* width: 100%; */
+  flex-direction: column;
+  border-radius: 10px;
+  position: absolute;
+  top: 45px;
+  gap: 10px;
+}
+
+.miniUserModal__item {
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+}
+
+.miniUserModal__item:hover {
+  color: var(--select-color);
 }
