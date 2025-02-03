@@ -12,6 +12,7 @@ import { FavoritesPage } from '../favorites-page/FavoritesPage'
 import { cards, carBrands } from '../../data'
 
 import './App.css'
+import { RegModal } from '../reg-modal/RegModal'
 
 function App() {
   const [isForm, setIsForm] = useState(false)
@@ -120,6 +121,8 @@ function App() {
       {isForm && <AddForm onAddNew={addNewObjectToCards} />}
 
       {favoritesPage && <FavoritesPage />}
+
+      <RegModal />
     </>
   )
 }
