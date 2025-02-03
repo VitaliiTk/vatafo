@@ -57,7 +57,15 @@ export function Header({
                   <CiMail />
                 </span> */}
                 <span className="avatar-img__wrapper" onClick={userMiniModalHandler}>
-                  <img className="avatar-img" src={user.avatarURL} alt="" />
+                  <img
+                    className="avatar-img"
+                    src={
+                      user.avatarURL
+                        ? user.avatarURL
+                        : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSR6-Y6uY-VKr_TPEiri-UILWJyBDFUnE-jyw&s'
+                    }
+                    alt=""
+                  />
                 </span>
                 <span className="username" onClick={userMiniModalHandler}>
                   {user.userName}

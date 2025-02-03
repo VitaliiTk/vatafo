@@ -91,8 +91,9 @@ export function RegModal({ onCloseRegModal, onLoginSuccess }) {
 
     const newUser = {
       id,
-      first_name: `User ${id}`,
-      last_name: '',
+      userName: `User ${id.slice(0, 8)}`,
+      first_name: `User first name`,
+      last_name: 'User last name',
       email,
       password: password,
       avatarURL: '',
