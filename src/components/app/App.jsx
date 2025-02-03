@@ -147,7 +147,7 @@ function App() {
         </>
       )}
 
-      {isForm && isLoged && <AddForm onAddNew={addNewObjectToCards} />}
+      {isForm && isLoged && <AddForm onAddNew={addNewObjectToCards} user={user} />}
 
       {favoritesPage && <FavoritesPage />}
 

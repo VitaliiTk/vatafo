@@ -8,7 +8,7 @@ import './add-form.css'
 
 import { carBrands } from '../../data'
 
-export function AddForm({ onAddNew }) {
+export function AddForm({ onAddNew, user }) {
   const [images, setImages] = useState([])
   const [mainImage, setMainImage] = useState(null)
 
@@ -35,7 +35,8 @@ export function AddForm({ onAddNew }) {
       fuels: selectedFuels,
       payMethods: selectedPayMethods,
       id: uuidv4(),
-      mainImage: mainImage || images[0]
+      mainImage: mainImage || images[0],
+      userId: user.userId
     }
 
     onAddNew(allFormValues)
