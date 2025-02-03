@@ -1,9 +1,9 @@
 import { useState } from 'react'
 
 import { Header } from '../header/Header'
-import { Banner } from '../bunner/Banner'
+// import { Banner } from '../bunner/Banner'
 import { SearchForm } from '../search-form/SearchForm'
-import { CategoryList } from '../category-list/CategoryList'
+// import { CategoryList } from '../category-list/CategoryList'
 import { CarBrandsList } from '../popular-list-horizontal/CarBrandsList'
 import { CardsList } from '../cards-list/CardsList'
 import { AddForm } from '../add-form/AddForm'
@@ -100,7 +100,7 @@ function App() {
       {!isForm && (
         <>
           {/* <Banner /> */}
-          <CategoryList />
+          {/* <CategoryList /> */}
           <CarBrandsList
             selectBrand={selectBrand}
             onBrandSelect={brandSelectHandler}

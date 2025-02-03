@@ -11,14 +11,16 @@
 
 .header__wrapper {
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
+  flex-wrap: wrap;
+  align-items: center;
 }
 
 .header__left-side {
   display: flex;
   align-items: center;
   gap: 20px;
-  flex: 1;
+  /* flex: 1; */
 }
 
 .header__tag {
@@ -26,7 +28,8 @@
 }
 
 .header__center-side {
-  flex: 1;
+  margin: 0 10px;
+  /* flex: 1; */
 }
 
 .header__right-side {

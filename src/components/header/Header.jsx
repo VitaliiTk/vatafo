@@ -33,7 +33,7 @@ export function Header({
 
           {/* right side */}
           <div className="header__right-side">
-            <span className="like" onClick={onFavoriteIconClickLogic}>
+            {/* <span className="like" onClick={onFavoriteIconClickLogic}>
               <CiHeart />
             </span>
 
@@ -45,7 +45,7 @@ export function Header({
                 <span>AVATAR IMG</span>
                 <span>Username</span>
               </>
-            )}
+            )} */}
 
             {!isLoged && (
               <div className="login__btn" onClick={onHandleClick}>
