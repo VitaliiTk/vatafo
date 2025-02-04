@@ -3,7 +3,7 @@ import { CiHeart } from 'react-icons/ci'
 
 import './card-list-item.css'
 
-export function CardsListItem({ card, testUsers }) {
+export function CardsListItem({ card, testUsers, addToFavorites }) {
   const title = card.info.slice(0, 40)
 
   const userInfo = testUsers.find(user => user.id === card.userId)
@@ -14,8 +14,12 @@ export function CardsListItem({ card, testUsers }) {
     // userName: userInfo.userName
   }
 
+  function onFavoriteAddClcik(e) {
+    addToFavorites(card)
+  }
+
   return (
-    <a href="#" className="card">
+    <a /* href="#" */ className="card">
       <img className="card__img" src={card.mainImage.url} alt={card.images[0].name} />
       <div className="card__content">
         <div className="card__info">
@@ -34,7 +38,7 @@ export function CardsListItem({ card, testUsers }) {
             <span className="card__icon">
               <CiMail />
             </span>
-            <span className="card__icon">
+            <span className="card__icon like" onClick={onFavoriteAddClcik}>
               <CiHeart />
             </span>
           </div>

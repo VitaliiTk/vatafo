@@ -26,6 +26,7 @@ function App() {
   const [isRegModalOpen, setIsRegModalOpen] = useState(false)
   const [testUsers, setTestUsers] = useState(users) // масив users для теста
   const [user, setUser] = useState(null)
+  const [favoritesList, setFavoritesList] = useState([])
 
   // brand select
   const brandSelectHandler = brand => {
@@ -119,6 +120,18 @@ function App() {
     setSelectBrand('All')
   }
 
+  function addToFavorites(card) {
+    if (!isLoged) return setIsRegModalOpen(true)
+
+    const newFavoritePost = {
+      userId: user.id,
+      cardId: card.id,
+      created_at: new Date().toLocaleString()
+    }
+    console.log(newFavoritePost)
+    setFavoritesList(prev => [...prev, newFavoritePost])
+  }
+
   return (
     <>
       <Header
@@ -149,7 +162,7 @@ function App() {
             onBrandSelect={brandSelectHandler}
             carBrands={carBrands}
           />
-          <CardsList data={filteredData} testUsers={testUsers}>
+          <CardsList data={filteredData} testUsers={testUsers} addToFavorites={addToFavorites}>
             {filteredData.length === 0
               ? `По запросу ${
                   searchValue || selectBrand

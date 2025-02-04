@@ -85,3 +85,7 @@
   justify-content: center;
   font-size: 22px;
 }
+
+.card__icon.like {
+  cursor: pointer;
+}
