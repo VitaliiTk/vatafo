@@ -122,6 +122,7 @@ function App() {
   function resetFilter() {
     setFilteredData(cardItems)
     setSelectBrand('All')
+    setSearchValue('')
   }
 
   // add new obj in favorites array

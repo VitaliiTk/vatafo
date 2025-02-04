@@ -11,10 +11,10 @@
 }
 
 #cards-list .title__info {
-  display: flex;
+  /* display: flex; */
   /* justify-content: space-between; */
-  align-items: center;
-  flex-wrap: wrap;
+  /* align-items: center; */
+  /* flex-wrap: wrap; */
 }
 
 @media (max-width: 1439px) {
