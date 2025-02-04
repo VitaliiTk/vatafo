@@ -200,7 +200,7 @@ function App() {
 
       {isForm && isLoged && <AddForm onAddNew={addNewObjectToCards} user={user} />}
 
-      {favoritesPage && <FavoritesPage user={user} favoriteList={favoritesList} />}
+      {favoritesPage && <FavoritesPage user={user} favoritesList={favoritesList} />}
 
       {isRegModalOpen && (
         <RegModal

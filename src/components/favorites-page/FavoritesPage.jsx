@@ -1,6 +1,6 @@
 export function FavoritesPage({ user, favoritesList }) {
   // console.log(user)
-  // console.log(favoritesList)
+  console.log(favoritesList)
   return (
     <section id="favorites">
       <div className="container">
