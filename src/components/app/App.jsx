@@ -109,6 +109,9 @@ function App() {
 
   function addNewUserToTestUsers(newUser) {
     setTestUsers(prev => [...prev, newUser])
+    setUser(newUser)
+    setIsRegModalOpen(false)
+    setIsLoged(true)
   }
 
   function resetFilter() {
