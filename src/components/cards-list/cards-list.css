@@ -10,6 +10,13 @@
   width: 100%;
 }
 
+#cards-list .title__info {
+  display: flex;
+  /* justify-content: space-between; */
+  align-items: center;
+  flex-wrap: wrap;
+}
+
 @media (max-width: 1439px) {
   .cards-list__box {
     grid-template-columns: repeat(5, 1fr);

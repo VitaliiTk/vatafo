@@ -105,3 +105,10 @@
 .miniUserModal__item:hover {
   color: var(--select-color);
 }
+
+@media (max-width: 866px) {
+  .header__wrapper {
+    flex-direction: column;
+    gap: 10px;
+  }
+}

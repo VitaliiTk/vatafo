@@ -148,11 +148,12 @@ function App() {
           />
           <CardsList data={filteredData} testUsers={testUsers}>
             {filteredData.length === 0
-              ? `По запросу ${searchValue || selectBrand} ничего не найдено`
+              ? `По запросу ${
+                  searchValue || selectBrand
+                } ничего не найдено в категории ${selectBrand}`
               : `По запросу ${
                   searchValue || selectBrand ? searchValue || selectBrand : 'Все'
-                } найдено ${filteredData.length} объявлений`}
-            {/* Новые объявления - Кыргызстан */}
+                } найдено ${filteredData.length} объявлений в категории ${selectBrand}`}
           </CardsList>
         </>
       )}
