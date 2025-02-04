@@ -9,6 +9,7 @@ import { CardsList } from '../cards-list/CardsList'
 import { AddForm } from '../add-form/AddForm'
 import { FavoritesPage } from '../favorites-page/FavoritesPage'
 import { RegModal } from '../reg-modal/RegModal'
+import { v4 as uuidv4 } from 'uuid'
 
 import { cards, carBrands } from '../../data'
 import { users } from '../../users'
@@ -80,6 +81,7 @@ function App() {
     }
     setFavoritesPage(true)
     setIsForm(false)
+    console.log(favoritesList)
   }
 
   function onLoginBtnClick() {
@@ -88,7 +90,7 @@ function App() {
     }
     if (user) {
       setIsLoged(false)
-
+      setUser(null)
       setIsForm(false)
       setFavoritesPage(false)
     }
@@ -120,10 +122,23 @@ function App() {
     setSelectBrand('All')
   }
 
+  // add new obj in favorites array
   function addToFavorites(card) {
     if (!isLoged) return setIsRegModalOpen(true)
 
+    const findFavorite = favoritesList.find(
+      item => item.userId === user.id && item.cardId === card.id
+    )
+
+    if (findFavorite) {
+      setFavoritesList(prev => prev.filter(item => item.id !== findFavorite.id))
+      console.log(`Запись с id: ${findFavorite.id} удалена`)
+
+      return
+    }
+
     const newFavoritePost = {
+      id: uuidv4(),
       userId: user.id,
       cardId: card.id,
       created_at: new Date().toLocaleString()
@@ -131,6 +146,8 @@ function App() {
     console.log(newFavoritePost)
     setFavoritesList(prev => [...prev, newFavoritePost])
   }
+
+  // console.log(`Favorites from app: `, favoritesList)
 
   return (
     <>
@@ -162,7 +179,14 @@ function App() {
             onBrandSelect={brandSelectHandler}
             carBrands={carBrands}
           />
-          <CardsList data={filteredData} testUsers={testUsers} addToFavorites={addToFavorites}>
+          <CardsList
+            data={filteredData}
+            testUsers={testUsers}
+            addToFavorites={addToFavorites}
+            isLoged={isLoged}
+            favoritesList={favoritesList}
+            user={user}
+          >
             {filteredData.length === 0
               ? `По запросу ${
                   searchValue || selectBrand
@@ -176,7 +200,7 @@ function App() {
 
       {isForm && isLoged && <AddForm onAddNew={addNewObjectToCards} user={user} />}
 
-      {favoritesPage && <FavoritesPage />}
+      {favoritesPage && <FavoritesPage user={user} favoriteList={favoritesList} />}
 
       {isRegModalOpen && (
         <RegModal

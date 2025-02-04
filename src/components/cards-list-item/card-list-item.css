@@ -86,6 +86,9 @@
   font-size: 22px;
 }
 
-.card__icon.like {
+.card__icon.favorite {
   cursor: pointer;
+}
+.card__icon.favorite.like {
+  color: #ff2366;
 }

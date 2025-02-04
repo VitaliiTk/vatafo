@@ -1,9 +1,10 @@
 import { CiMail } from 'react-icons/ci'
-import { CiHeart } from 'react-icons/ci'
+import { GoHeart } from 'react-icons/go'
+import { GoHeartFill } from 'react-icons/go'
 
 import './card-list-item.css'
 
-export function CardsListItem({ card, testUsers, addToFavorites }) {
+export function CardsListItem({ card, testUsers, addToFavorites, isLike }) {
   const title = card.info.slice(0, 40)
 
   const userInfo = testUsers.find(user => user.id === card.userId)
@@ -11,10 +12,10 @@ export function CardsListItem({ card, testUsers, addToFavorites }) {
   const cardCreatorInfo = {
     avatarImage: userInfo.avatarURL,
     status: userInfo.status
-    // userName: userInfo.userName
+    // userName: userInfo.userName // username
   }
 
-  function onFavoriteAddClcik(e) {
+  function onFavoriteIconClcikHandler() {
     addToFavorites(card)
   }
 
@@ -38,8 +39,11 @@ export function CardsListItem({ card, testUsers, addToFavorites }) {
             <span className="card__icon">
               <CiMail />
             </span>
-            <span className="card__icon like" onClick={onFavoriteAddClcik}>
-              <CiHeart />
+            <span
+              className={isLike ? 'card__icon favorite like' : 'card__icon favorite'}
+              onClick={onFavoriteIconClcikHandler}
+            >
+              {isLike ? <GoHeartFill /> : <GoHeart />}
             </span>
           </div>
         </div>
