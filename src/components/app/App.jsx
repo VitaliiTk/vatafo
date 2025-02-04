@@ -111,6 +111,11 @@ function App() {
     setTestUsers(prev => [...prev, newUser])
   }
 
+  function resetFilter() {
+    setFilteredData(cardItems)
+    setSelectBrand('All')
+  }
+
   return (
     <>
       <Header
@@ -129,6 +134,7 @@ function App() {
           inputBgColor="#292D3E"
           inputFontColor="#fff"
           searchIconColor="#fff"
+          resetFilter={resetFilter}
         />
       </Header>
       {!isForm && (

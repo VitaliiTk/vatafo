@@ -10,7 +10,8 @@ export function SearchForm({
   btnTextColor = '#000',
   inputBgColor = '#fff',
   inputFontColor = '#000',
-  searchIconColor = '#000'
+  searchIconColor = '#000',
+  resetFilter
 }) {
   const [searchInputValue, setSearchInputValue] = useState('')
 
@@ -35,6 +36,13 @@ export function SearchForm({
     color: inputFontColor
   }
 
+  // когда наажали крестик в инпуте
+  function resetSearchHandler(e) {
+    if (e.target.value === '') {
+      resetFilter()
+    }
+  }
+
   return (
     <form onSubmit={handleSubmit} className="search-form" id="search-form" autoComplete="off">
       <span className="search-icon" style={searchIconStyleMod}>
@@ -48,6 +56,7 @@ export function SearchForm({
         value={searchInputValue}
         onChange={e => setSearchInputValue(e.target.value)}
         style={inputStyleMod}
+        onInput={resetSearchHandler}
       />
       <button className="search-form__btn" style={btnStyleMod}>
         {btnText}
