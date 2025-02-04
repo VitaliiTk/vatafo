@@ -13,8 +13,8 @@ export function CardsList({
 }) {
   // получаем массив обьектов которые юзер лайкнул
   const logedUserFavoriteList = user ? favoritesList.filter(item => item.userId === user.id) : []
-  if (user) console.log(`${user?.userName} favorites list `, logedUserFavoriteList)
-  if (!user) console.log('User: ', user)
+  // if (user) console.log(`${user?.userName} favorites list `, logedUserFavoriteList)
+  // if (!user) console.log('User: ', user)
 
   function likeHandler(item) {
     return logedUserFavoriteList.some(favotite => favotite.cardId === item.id)

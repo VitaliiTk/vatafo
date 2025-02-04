@@ -81,8 +81,10 @@ function App() {
     }
     setFavoritesPage(true)
     setIsForm(false)
-    console.log(favoritesList)
+    // console.log(favoritesList)
   }
+
+  function allSectionsClose(params) {}
 
   function onLoginBtnClick() {
     if (!isLoged) {
@@ -143,7 +145,7 @@ function App() {
       cardId: card.id,
       created_at: new Date().toLocaleString()
     }
-    console.log(newFavoritePost)
+    // console.log(newFavoritePost)
     setFavoritesList(prev => [...prev, newFavoritePost])
   }
 
@@ -170,7 +172,7 @@ function App() {
           resetFilter={resetFilter}
         />
       </Header>
-      {!isForm && (
+      {!isForm && !favoritesPage && (
         <>
           {/* <Banner /> */}
           {/* <CategoryList /> */}
@@ -207,6 +209,7 @@ function App() {
           testUsers={testUsers}
           addToFavorites={addToFavorites}
           isLoged={isLoged}
+          cardItems={cardItems}
         />
       )}
 
