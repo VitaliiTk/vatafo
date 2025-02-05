@@ -1,7 +1,11 @@
 import './car-brand-item.css'
 
-export function CarBrandItem({ brand, selectBrand, onBrandSelect }) {
+export function CarBrandItem({ brand, selectBrand, onBrandSelect, cardItems }) {
   const isSelect = selectBrand === brand
+
+  const howMachCarsInBrandAmount =
+    brand === 'All' ? cardItems.length : cardItems.filter(item => item.brand === brand).length
+  // const allCarsAmount = cardItems.length
 
   return (
     <div
@@ -9,7 +13,9 @@ export function CarBrandItem({ brand, selectBrand, onBrandSelect }) {
       onClick={() => onBrandSelect(brand)}
     >
       {/* <img className="popular-carlist__img" src={brand} alt="" /> */}
-      <div className="brand__name">{brand}</div>
+      <div className="brand__name">
+        {brand} <span>{howMachCarsInBrandAmount + 'шт.'}</span>
+      </div>
     </div>
   )
 }

@@ -18,6 +18,7 @@ export function CarBrandsList({ selectBrand, onBrandSelect, cardItems }) {
                 brand={brand}
                 selectBrand={selectBrand}
                 onBrandSelect={onBrandSelect}
+                cardItems={cardItems}
               />
             ))}
           </div>
