@@ -1,6 +1,7 @@
 import { HeaderLogo } from '../header-logo/HeaderLogo'
 import { CiHeart } from 'react-icons/ci'
 import { CiMail } from 'react-icons/ci'
+import { GoHeartFill } from 'react-icons/go'
 
 // import { Burger } from '../burger/Burger'
 import { Button } from '../button/Button'
@@ -53,7 +54,7 @@ export function Header({
           {/* right side */}
           <div className="header__right-side">
             <span className="like" onClick={onFavoriteIconClickLogic}>
-              <CiHeart />
+              <GoHeartFill />
             </span>
 
             {isLoged && (
