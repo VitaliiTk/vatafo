@@ -16,6 +16,7 @@ export function Header({
   mainPageOpenLogic,
   onLoginBtnClick,
   user,
+  openUserPostsPage,
   children
 }) {
   const [miniUserModal, setMiniUserModal] = useState(false)
@@ -27,6 +28,11 @@ export function Header({
   function quitHandler() {
     setMiniUserModal(false)
     onLoginBtnClick()
+  }
+
+  function onUserPostsClick() {
+    openUserPostsPage()
+    setMiniUserModal(false)
   }
 
   return (
@@ -65,7 +71,9 @@ export function Header({
 
                 {miniUserModal && (
                   <div className="miniUserModal">
-                    <span className="miniUserModal__item">Мои объявления</span>
+                    <span className="miniUserModal__item" onClick={onUserPostsClick}>
+                      Мои объявления
+                    </span>
                     <span className="miniUserModal__item">Профиль</span>
                     <span className="miniUserModal__item" onClick={quitHandler}>
                       Выйти

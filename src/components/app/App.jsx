@@ -15,6 +15,7 @@ import { cards, carBrands } from '../../data'
 import { users } from '../../users'
 
 import './App.css'
+import { UserPostsPage } from '../user-posts-page/userPostsPage'
 
 function App() {
   const [isForm, setIsForm] = useState(false)
@@ -28,6 +29,7 @@ function App() {
   const [testUsers, setTestUsers] = useState(users) // масив users для теста
   const [user, setUser] = useState(null)
   const [favoritesList, setFavoritesList] = useState([])
+  const [userPostsPage, setUserPostsPage] = useState(false)
 
   // brand select
   const brandSelectHandler = brand => {
@@ -63,6 +65,7 @@ function App() {
     setIsForm(false)
     setSelectBrand('All')
     setFilteredData(cardItems)
+    setUserPostsPage(false)
   }
 
   const handleClickOnAddButton = () => {
@@ -72,6 +75,7 @@ function App() {
     }
     setIsForm(open => !open)
     setFavoritesPage(false)
+    setUserPostsPage(false)
   }
 
   const onFavoriteIconClickLogic = () => {
@@ -81,6 +85,7 @@ function App() {
     }
     setFavoritesPage(true)
     setIsForm(false)
+    setUserPostsPage(false)
     // console.log(favoritesList)
   }
 
@@ -150,7 +155,11 @@ function App() {
     setFavoritesList(prev => [...prev, newFavoritePost])
   }
 
-  // console.log(`Favorites from app: `, favoritesList)
+  function openUserPostsPage() {
+    setUserPostsPage(true)
+    setIsForm(false)
+    setFavoritesPage(false)
+  }
 
   return (
     <>
@@ -162,6 +171,7 @@ function App() {
         mainPageOpenLogic={mainPageOpenLogic}
         onLoginBtnClick={onLoginBtnClick}
         user={user}
+        openUserPostsPage={openUserPostsPage}
       >
         <SearchForm
           cardsSearching={cardsSearching}
@@ -173,7 +183,7 @@ function App() {
           resetFilter={resetFilter}
         />
       </Header>
-      {!isForm && !favoritesPage && (
+      {!isForm && !favoritesPage && !userPostsPage && (
         <>
           {/* <Banner /> */}
           {/* <CategoryList /> */}
@@ -213,6 +223,8 @@ function App() {
           cardItems={cardItems}
         />
       )}
+
+      {userPostsPage && <UserPostsPage />}
 
       {isRegModalOpen && (
         <RegModal
