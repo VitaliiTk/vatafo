@@ -11,7 +11,8 @@ export function SearchForm({
   inputBgColor = '#fff',
   inputFontColor = '#000',
   searchIconColor = '#000',
-  resetFilter
+  resetFilter,
+  onInputClick
 }) {
   const [searchInputValue, setSearchInputValue] = useState('')
 
@@ -44,7 +45,13 @@ export function SearchForm({
   }
 
   return (
-    <form onSubmit={handleSubmit} className="search-form" id="search-form" autoComplete="off">
+    <form
+      onSubmit={handleSubmit}
+      className="search-form"
+      id="search-form"
+      autoComplete="off"
+      onClick={onInputClick}
+    >
       <span className="search-icon" style={searchIconStyleMod}>
         <CiSearch />
       </span>

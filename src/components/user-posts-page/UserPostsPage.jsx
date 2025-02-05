@@ -1,3 +1,4 @@
 export function UserPostsPage() {
-  return <div>userPostsPage</div>
+  return <h2>Мои объявления</h2>
+  // здесь должен быть массив объявлений пользователя
 }

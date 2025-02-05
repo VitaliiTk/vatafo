@@ -9,13 +9,12 @@ export function CardsList({
   addToFavorites,
   favoritesList,
   user,
-  children = 'Children title'
+  children = 'Default title'
 }) {
   // получаем массив обьектов которые юзер лайкнул
   const logedUserFavoriteList = user ? favoritesList.filter(item => item.userId === user.id) : []
-  // if (user) console.log(`${user?.userName} favorites list `, logedUserFavoriteList)
-  // if (!user) console.log('User: ', user)
 
+  // ищем совпадения в этом массиве по cardId в массиве лайкнутых пользователем и id самой карточки товара
   function likeHandler(item) {
     return logedUserFavoriteList.some(favotite => favotite.cardId === item.id)
   }
@@ -24,7 +23,6 @@ export function CardsList({
     <section id="cards-list">
       <div className="container">
         <div className="cards-list__wrapper">
-          {/* <h2>Новые объявления - Кыргызстан</h2> */}
           <div className="title__info">
             <h2>{children}</h2>
           </div>

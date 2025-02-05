@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { HeaderLogo } from '../header-logo/HeaderLogo'
 import { CiHeart } from 'react-icons/ci'
 import { CiMail } from 'react-icons/ci'
@@ -17,22 +16,22 @@ export function Header({
   onLoginBtnClick,
   user,
   openUserPostsPage,
+  miniUserModal,
+  miniModalUserInfoHandler,
   children
 }) {
-  const [miniUserModal, setMiniUserModal] = useState(false)
-
-  function userMiniModalHandler(e) {
-    setMiniUserModal(prev => !prev)
+  function userMiniModalHandler() {
+    miniModalUserInfoHandler(prev => !prev)
   }
 
   function quitHandler() {
-    setMiniUserModal(false)
+    miniModalUserInfoHandler()
     onLoginBtnClick()
   }
 
   function onUserPostsClick() {
     openUserPostsPage()
-    setMiniUserModal(false)
+    miniModalUserInfoHandler()
   }
 
   return (

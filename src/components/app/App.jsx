@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { v4 as uuidv4 } from 'uuid'
 
 import { Header } from '../header/Header'
 // import { Banner } from '../bunner/Banner'
@@ -9,13 +10,12 @@ import { CardsList } from '../cards-list/CardsList'
 import { AddForm } from '../add-form/AddForm'
 import { FavoritesPage } from '../favorites-page/FavoritesPage'
 import { RegModal } from '../reg-modal/RegModal'
-import { v4 as uuidv4 } from 'uuid'
+import { UserPostsPage } from '../user-posts-page/userPostsPage'
 
 import { cards, carBrands } from '../../data'
 import { users } from '../../users'
 
 import './App.css'
-import { UserPostsPage } from '../user-posts-page/userPostsPage'
 
 function App() {
   const [isForm, setIsForm] = useState(false)
@@ -30,13 +30,16 @@ function App() {
   const [user, setUser] = useState(null)
   const [favoritesList, setFavoritesList] = useState([])
   const [userPostsPage, setUserPostsPage] = useState(false)
+  const [miniUserModal, setMiniUserModal] = useState(false)
 
   // brand select
   const brandSelectHandler = brand => {
+    console.log('brand select click')
     setSelectBrand(brand)
     const newArray = cardItems.filter(item => (brand === 'All' ? item : item.brand === brand))
-    setFilteredData(newArray)
     setSearchValue('')
+    setFilteredData(newArray)
+    miniModalUserInfoHandler()
   }
 
   const cardsSearching = searchValue => {
@@ -66,6 +69,7 @@ function App() {
     setSelectBrand('All')
     setFilteredData(cardItems)
     setUserPostsPage(false)
+    miniModalUserInfoHandler()
   }
 
   const handleClickOnAddButton = () => {
@@ -76,6 +80,7 @@ function App() {
     setIsForm(open => !open)
     setFavoritesPage(false)
     setUserPostsPage(false)
+    miniModalUserInfoHandler()
   }
 
   const onFavoriteIconClickLogic = () => {
@@ -86,6 +91,7 @@ function App() {
     setFavoritesPage(true)
     setIsForm(false)
     setUserPostsPage(false)
+    miniModalUserInfoHandler()
     // console.log(favoritesList)
   }
 
@@ -161,6 +167,10 @@ function App() {
     setFavoritesPage(false)
   }
 
+  function miniModalUserInfoHandler(condition = false) {
+    setMiniUserModal(condition)
+  }
+
   return (
     <>
       <Header
@@ -172,6 +182,8 @@ function App() {
         onLoginBtnClick={onLoginBtnClick}
         user={user}
         openUserPostsPage={openUserPostsPage}
+        miniUserModal={miniUserModal}
+        miniModalUserInfoHandler={miniModalUserInfoHandler}
       >
         <SearchForm
           cardsSearching={cardsSearching}
@@ -181,6 +193,7 @@ function App() {
           inputFontColor="#fff"
           searchIconColor="#fff"
           resetFilter={resetFilter}
+          onInputClick={() => miniModalUserInfoHandler()}
         />
       </Header>
       {!isForm && !favoritesPage && !userPostsPage && (
@@ -190,7 +203,7 @@ function App() {
           <CarBrandsList
             selectBrand={selectBrand}
             onBrandSelect={brandSelectHandler}
-            carBrands={carBrands}
+            cardItems={cardItems}
           />
           <CardsList
             data={filteredData}
