@@ -106,6 +106,7 @@ function App() {
       setUser(null)
       setIsForm(false)
       setFavoritesPage(false)
+      setUserPostsPage(false)
     }
   }
 
@@ -237,7 +238,7 @@ function App() {
         />
       )}
 
-      {userPostsPage && <UserPostsPage />}
+      {userPostsPage && <UserPostsPage user={user} cardItems={cardItems} />}
 
       {isRegModalOpen && (
         <RegModal
