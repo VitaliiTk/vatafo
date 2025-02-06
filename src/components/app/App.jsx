@@ -32,6 +32,10 @@ function App() {
   const [userPostsPage, setUserPostsPage] = useState(false)
   const [miniUserModal, setMiniUserModal] = useState(false)
 
+  const getCarsDataFromServer = () => {
+    // const response =
+  }
+
   // brand select
   const brandSelectHandler = brand => {
     console.log('brand select click')
