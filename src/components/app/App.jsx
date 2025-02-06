@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import { v4 as uuidv4 } from 'uuid'
+import axios from 'axios'
+import { useQuery } from '@tanstack/react-query'
 
 import { Header } from '../header/Header'
 // import { Banner } from '../bunner/Banner'
@@ -17,7 +19,16 @@ import { users } from '../../users'
 
 import './App.css'
 
+function getCars(params) {
+  const data = axios.get('http://localhost:3001/cars').then(res => res.data)
+  return data
+}
+
 function App() {
+  const { data, isLoading, error } = useQuery({
+    queryKey: ['cars'],
+    queryFn: getCars
+  })
   const [isForm, setIsForm] = useState(false)
   const [cardItems, setCardItems] = useState(cards)
   const [isLoged, setIsLoged] = useState(false)
@@ -32,9 +43,7 @@ function App() {
   const [userPostsPage, setUserPostsPage] = useState(false)
   const [miniUserModal, setMiniUserModal] = useState(false)
 
-  const getCarsDataFromServer = () => {
-    // const response =
-  }
+  console.log(cardItems)
 
   // brand select
   const brandSelectHandler = brand => {
