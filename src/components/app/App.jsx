@@ -52,6 +52,7 @@ function App() {
     setIsForm(false)
     setFavoritesPage(false)
     setSearchValue(searchValue)
+    setUserPostsPage(false)
   }
 
   const addNewObjectToCards = obj => {
