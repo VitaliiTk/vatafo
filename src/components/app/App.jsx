@@ -12,7 +12,7 @@ import { FavoritesPage } from '../favorites-page/FavoritesPage'
 import { RegModal } from '../reg-modal/RegModal'
 import { UserPostsPage } from '../user-posts-page/userPostsPage'
 
-import { cards, carBrands } from '../../data'
+import { cards } from '../../data'
 import { users } from '../../users'
 
 import './App.css'
