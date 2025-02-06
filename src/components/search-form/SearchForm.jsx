@@ -52,9 +52,9 @@ export function SearchForm({
       autoComplete="off"
       onClick={onInputClick}
     >
-      <span className="search-icon" style={searchIconStyleMod}>
+      {/* <span className="search-icon" style={searchIconStyleMod}>
         <CiSearch />
-      </span>
+      </span> */}
       <input
         className="search-input"
         type="search"
@@ -65,9 +65,9 @@ export function SearchForm({
         style={inputStyleMod}
         onInput={resetSearchHandler}
       />
-      <button className="search-form__btn" style={btnStyleMod}>
-        {btnText}
-      </button>
+      <span onClick={handleSubmit} className="search-icon" /*  style={searchIconStyleMod} */>
+        <CiSearch />
+      </span>
     </form>
   )
 }
