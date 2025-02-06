@@ -174,7 +174,9 @@ function App() {
   }
 
   function postDelete(postId) {
-    setCardItems(prev => prev.filter(item => item.id !== postId))
+    const newPostaArray = cardItems.filter(item => item.id !== postId)
+    setCardItems(newPostaArray)
+    setFilteredData(newPostaArray)
   }
 
   return (
