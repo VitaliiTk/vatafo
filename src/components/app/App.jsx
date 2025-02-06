@@ -173,6 +173,10 @@ function App() {
     setMiniUserModal(condition)
   }
 
+  function postDelete(postId) {
+    setCardItems(prev => prev.filter(item => item.id !== postId))
+  }
+
   return (
     <>
       <Header
@@ -239,7 +243,7 @@ function App() {
         />
       )}
 
-      {userPostsPage && <UserPostsPage user={user} cardItems={cardItems} />}
+      {userPostsPage && <UserPostsPage user={user} cardItems={cardItems} postDelete={postDelete} />}
 
       {isRegModalOpen && (
         <RegModal

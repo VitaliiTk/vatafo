@@ -2,7 +2,7 @@ import { UserPost } from '../user-post/UserPost'
 
 import styles from './user-posts-page.module.css'
 
-export function UserPostsPage({ user, cardItems }) {
+export function UserPostsPage({ user, cardItems, postDelete }) {
   console.log(user)
   // console.log(cardItems)
 
@@ -17,7 +17,7 @@ export function UserPostsPage({ user, cardItems }) {
           <h2>Мои объявления</h2>
           <div className={styles['user-posts__list']}>
             {userPosts.map(item => (
-              <UserPost key={item.id} post={item} />
+              <UserPost key={item.id} post={item} postDelete={postDelete} />
             ))}
           </div>
         </div>

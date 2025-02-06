@@ -19,6 +19,7 @@
   --theme-accent-color: #282828;
   --select-color: #15b2f1;
   --light-color: #ffffff;
+  --warning-color: #f7c600;
 }
 
 * {
@@ -49,7 +50,7 @@ h1 {
 }
 
 button {
-  border-radius: 8px;
+  /* border-radius: 8px; */
   border: 1px solid transparent;
   padding: 0.6em 1.2em;
   font-size: 1em;
