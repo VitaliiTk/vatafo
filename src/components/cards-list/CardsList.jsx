@@ -26,7 +26,8 @@ export function CardsList({
   })
 
   // if (isLoading) return <p>Loading...</p>
-  if (error) return <p>{error}</p>
+  // if (error) return console.log(error)
+  // if (error) return <p>{error.message}</p>
 
   // получаем массив обьектов которые юзер лайкнул
   const logedUserFavoriteList = user ? favoritesList.filter(item => item.userId === user.id) : []
@@ -44,7 +45,8 @@ export function CardsList({
             <h2>{children}</h2>
           </div>
           {isLoading && <p>Loading...</p>}
-          {!isLoading && (
+          {error && <p>{error.message}</p>}
+          {!isLoading && !error && (
             <div className="cards-list__box">
               {data.map(item => (
                 <CardsListItem
