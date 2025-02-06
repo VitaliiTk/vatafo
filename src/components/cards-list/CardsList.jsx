@@ -1,9 +1,16 @@
+import axios from 'axios'
+import { useQuery } from '@tanstack/react-query' // tanstack query
 import { CardsListItem } from '../cards-list-item/CardsListItem'
 
 import './cards-list.css'
 
+// асинхронный запрос к серверу за данными
+async function getCars() {
+  return await axios.get('http://localhost:3001/cars')
+}
+
 export function CardsList({
-  data,
+  // data,
   testUsers,
   isLoged,
   addToFavorites,
@@ -11,6 +18,16 @@ export function CardsList({
   user,
   children = 'Default title'
 }) {
+  // tanstack query
+  const { data, isLoading, error } = useQuery({
+    queryKey: ['cars'],
+    queryFn: getCars,
+    select: data => data.data
+  })
+
+  // if (isLoading) return <p>Loading...</p>
+  if (error) return <p>{error}</p>
+
   // получаем массив обьектов которые юзер лайкнул
   const logedUserFavoriteList = user ? favoritesList.filter(item => item.userId === user.id) : []
 
@@ -26,18 +43,21 @@ export function CardsList({
           <div className="title__info">
             <h2>{children}</h2>
           </div>
-          <div className="cards-list__box">
-            {data.map(item => (
-              <CardsListItem
-                key={item.id}
-                card={item}
-                testUsers={testUsers}
-                addToFavorites={addToFavorites}
-                isLoged={isLoged}
-                isLike={likeHandler(item)}
-              />
-            ))}
-          </div>
+          {isLoading && <p>Loading...</p>}
+          {!isLoading && (
+            <div className="cards-list__box">
+              {data.map(item => (
+                <CardsListItem
+                  key={item.id}
+                  card={item}
+                  testUsers={testUsers}
+                  addToFavorites={addToFavorites}
+                  isLoged={isLoged}
+                  isLike={likeHandler(item)}
+                />
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </section>
