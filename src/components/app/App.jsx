@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { v4 as uuidv4 } from 'uuid'
+import { useEffect } from 'react'
 
 import { Header } from '../header/Header'
 // import { Banner } from '../bunner/Banner'
@@ -17,9 +18,11 @@ import { users } from '../../users'
 
 import './App.css'
 
+const BASE_URL = 'http://localhost:3001'
+
 function App() {
   const [isForm, setIsForm] = useState(false)
-  const [cardItems, setCardItems] = useState(cards)
+  const [cardItems, setCardItems] = useState([])
   const [isLoged, setIsLoged] = useState(false)
   const [favoritesPage, setFavoritesPage] = useState(false)
   const [selectBrand, setSelectBrand] = useState('All')
@@ -32,9 +35,20 @@ function App() {
   const [userPostsPage, setUserPostsPage] = useState(false)
   const [miniUserModal, setMiniUserModal] = useState(false)
 
+  console.log(cardItems)
+  // takes cars form server
+  useEffect(() => {
+    fetch(BASE_URL + '/cars')
+      .then(res => res.json())
+      .then(data => {
+        setCardItems(data)
+        setFilteredData(data)
+      })
+  }, [])
+
   // brand select
   const brandSelectHandler = brand => {
-    console.log('brand select click')
+    // console.log('brand select click')
     setSelectBrand(brand)
     const newArray = cardItems.filter(item => (brand === 'All' ? item : item.brand === brand))
     setSearchValue('')
@@ -108,6 +122,7 @@ function App() {
       setIsForm(false)
       setFavoritesPage(false)
       setUserPostsPage(false)
+      resetFilter()
     }
   }
 
@@ -204,7 +219,10 @@ function App() {
           onInputClick={() => miniModalUserInfoHandler()}
         />
       </Header>
-      {!isForm && !favoritesPage && !userPostsPage && (
+      <div className="container">
+        {!filteredData.length && <h2 className="loading">Loading...</h2>}
+      </div>
+      {!isForm && !favoritesPage && !userPostsPage && filteredData.length > 0 && (
         <>
           {/* <Banner /> */}
           {/* <CategoryList /> */}
