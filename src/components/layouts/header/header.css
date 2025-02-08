@@ -7,14 +7,18 @@
   right: 0;
   top: 0;
   background-color: var(--theme-accent-color);
-  background-color: #0f0f0f;
+  background-color: #1a1a1a;
+  /* background-color: #f7c600; */
 }
 
 .header__wrapper {
-  display: flex;
+  /* display: flex; */
   /* justify-content: space-between; */
-  flex-wrap: wrap;
-  align-items: center;
+  /* flex-wrap: wrap; */
+  /* align-items: center; */
+
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
 }
 
 .header__left-side {
@@ -49,6 +53,16 @@
 
 .login__btn {
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.login__icon {
+  font-size: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .header .avatar-img__wrapper {
@@ -78,6 +92,8 @@
   align-items: center;
   gap: 10px;
   position: relative;
+  justify-content: flex-end;
+  margin-left: auto;
 }
 
 .header .user-info__wrapper:hover .user-menu {

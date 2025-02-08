@@ -47,4 +47,9 @@
 .social-link {
   line-height: 1;
   font-size: 20px;
+  transition: all 0.3s;
+}
+
+.social-link:hover {
+  color: var(--select-color);
 }

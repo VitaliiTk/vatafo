@@ -10,18 +10,23 @@ export function CardsList({ user }) {
   const [cars, setCars] = useState([])
   const [users, setUsers] = useState([])
   const [favorites, setFavorites] = useState([])
+  const [error, setError] = useState('')
 
   // асинхронный запрос к серверу за данными
   async function getCars() {
-    const { data } = await axios.get('http://localhost:3001/cars')
-    setCars(data)
+    try {
+      const { data } = await axios.get('http://localhost:3001/cars')
+      setCars(data)
+    } catch (error) {
+      setError(error.message)
+    }
   }
   async function getUsers() {
     const { data } = await axios.get('http://localhost:3001/users')
     setUsers(data)
   }
   async function getFavorites() {
-    const { data } = await axios.get(`http://localhost:3001/favorites/${userId}`)
+    const { data } = await axios.get(`http://localhost:3001/favorites/${user.id}`)
     setFavorites(data)
   }
 
@@ -46,6 +51,8 @@ export function CardsList({ user }) {
     const isInFavorite = favorites.some(favotite => favotite.cardId == cardId)
     return isInFavorite
   }
+
+  if (error) return <p>{error}</p>
 
   return (
     <div className="cards-list__box">

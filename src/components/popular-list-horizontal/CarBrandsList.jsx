@@ -12,19 +12,11 @@ export function CarBrandsList() {
   const [selectBrand, setSelectBrand] = useState('All')
   const [carBrands, setCarBrands] = useState([])
   const [allCars, setAllCars] = useState([])
-
-  // const carBrandsWithCars = ['All', ...new Set(cardItems.map(item => item.brand))]
-  // console.log(carBrandsWithCars)
+  const [error, setError] = useState('')
 
   // brand select
   function brandSelectHandler(brand) {
-    // console.log('brand select click')
     setSelectBrand(brand)
-    console.log(brand)
-    // const newArray = allCars.filter(item => (brand === 'All' ? item : item.brand === brand))
-    // setSearchValue('')
-    // setFilteredData(newArray)
-    // miniModalUserInfoHandler()
   }
 
   async function getCarsBrands() {
@@ -32,7 +24,7 @@ export function CarBrandsList() {
       const { data } = await axios.get(BASE_URL + '/cars/brands')
       setCarBrands(data)
     } catch (error) {
-      console.log(error)
+      setError(error.message)
     }
   }
   async function getAllCars() {
@@ -53,7 +45,7 @@ export function CarBrandsList() {
   }, [])
 
   console.log(carBrands)
-
+  if (error) return <p>{error}</p>
   if (carBrands.length === 0) return <h2>Loading...</h2>
 
   return (
