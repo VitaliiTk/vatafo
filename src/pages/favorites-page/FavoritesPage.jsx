@@ -1,4 +1,4 @@
-import { CardsList } from '../cards-list/CardsList'
+import { CardsList } from '../../components/cards-list/CardsList'
 
 export function FavoritesPage({
   user,

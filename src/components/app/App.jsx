@@ -3,24 +3,18 @@ import { v4 as uuidv4 } from 'uuid'
 import { useEffect } from 'react'
 
 import { Header } from '../layouts/header/Header'
-// import { Banner } from '../bunner/Banner'
 import { SearchForm } from '../search-form/SearchForm'
-// import { CategoryList } from '../category-list/CategoryList'
-import { CarBrandsList } from '../popular-list-horizontal/CarBrandsList'
-import { CardsList } from '../cards-list/CardsList'
 import { AddForm } from '../add-form/AddForm'
-import { FavoritesPage } from '../favorites-page/FavoritesPage'
+import { FavoritesPage } from '../../pages/favorites-page/FavoritesPage'
 import { RegModal } from '../reg-modal/RegModal'
 import { UserPostsPage } from '../user-posts-page/userPostsPage'
 
-import { cards } from '../../data'
 import { users } from '../../users'
 
 import './App.css'
-import { EditPost } from '../edit-post/EditPost'
-import Section from '../section/Section'
 import { Footer } from '../layouts/footer/Footer'
 import { Main } from '../layouts/main-layout/Main'
+import { HomePage } from '../../pages/home-page/HomePage'
 
 const BASE_URL = 'http://localhost:3001'
 
@@ -50,16 +44,6 @@ function App() {
         setFilteredData(data)
       })
   }, [])
-
-  // brand select
-  const brandSelectHandler = brand => {
-    // console.log('brand select click')
-    setSelectBrand(brand)
-    const newArray = cardItems.filter(item => (brand === 'All' ? item : item.brand === brand))
-    setSearchValue('')
-    setFilteredData(newArray)
-    miniModalUserInfoHandler()
-  }
 
   const cardsSearching = searchValue => {
     const result = cardItems.filter(
@@ -234,47 +218,12 @@ function App() {
         />
       </Header>
 
-      <Main />
+      <Main>
+        <HomePage />
 
-      {/* <div className="main"> */}
-      <div className="container">
-        {!filteredData.length && <h2 className="loading">Loading...</h2>}
-      </div>
-      {!isForm &&
-        !favoritesPage &&
-        !userPostsPage &&
-        filteredData.length > 0 &&
-        !editPostSection && (
-          <>
-            {/* <Banner /> */}
-            {/* <CategoryList /> */}
-            <CarBrandsList
-              selectBrand={selectBrand}
-              onBrandSelect={brandSelectHandler}
-              cardItems={cardItems}
-            />
-            <CardsList
-              data={filteredData}
-              testUsers={testUsers}
-              addToFavorites={addToFavorites}
-              isLoged={isLoged}
-              favoritesList={favoritesList}
-              user={user}
-            >
-              {filteredData.length === 0
-                ? `По запросу ${
-                    searchValue || selectBrand
-                  } ничего не найдено в категории ${selectBrand}`
-                : `По запросу ${
-                    searchValue || selectBrand ? searchValue || selectBrand : 'Все'
-                  } найдено ${filteredData.length} объявлений в категории ${selectBrand}`}
-            </CardsList>
-          </>
-        )}
+        {/* {isForm && isLoged && <AddForm onAddNew={addNewObjectToCards} user={user} />} */}
 
-      {isForm && isLoged && <AddForm onAddNew={addNewObjectToCards} user={user} />}
-
-      {favoritesPage && (
+        {/* {favoritesPage && (
         <FavoritesPage
           user={user}
           favoritesList={favoritesList}
@@ -283,32 +232,33 @@ function App() {
           isLoged={isLoged}
           cardItems={cardItems}
         />
-      )}
+        )} */}
 
-      {userPostsPage && (
-        <UserPostsPage
-          user={user}
-          cardItems={cardItems}
-          postDelete={postDelete}
-          editPost={editPost}
-        />
-      )}
+        {/* {userPostsPage && (
+          <UserPostsPage
+            user={user}
+            cardItems={cardItems}
+            postDelete={postDelete}
+            editPost={editPost}
+          />
+        )} */}
 
-      {editPostSection && (
-        <Section title={'Раздел редактирования объявления'}>
-          <EditPost />
-        </Section>
-      )}
+        {/* {editPostSection && (
+          <Section title={'Раздел редактирования объявления'}>
+            <EditPost />
+          </Section>
+        )} */}
 
-      {isRegModalOpen && (
-        <RegModal
-          onCloseRegModal={closeRegModal}
-          onLoginSuccess={onLoginSuccess}
-          testUsers={testUsers}
-          addNewUserToTestUsers={addNewUserToTestUsers}
-        />
-      )}
-      {/* </div> */}
+        {/* {isRegModalOpen && (
+          <RegModal
+            onCloseRegModal={closeRegModal}
+            onLoginSuccess={onLoginSuccess}
+            testUsers={testUsers}
+            addNewUserToTestUsers={addNewUserToTestUsers}
+          />
+        )} */}
+      </Main>
+
       <Footer />
     </div>
   )

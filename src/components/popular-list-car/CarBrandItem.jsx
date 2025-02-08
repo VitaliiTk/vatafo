@@ -1,10 +1,10 @@
 import './car-brand-item.css'
 
-export function CarBrandItem({ brand, selectBrand, onBrandSelect, cardItems }) {
+export function CarBrandItem({ brand, selectBrand, onBrandSelect, allCars }) {
   const isSelect = selectBrand === brand
 
   const howMachCarsInBrandAmount =
-    brand === 'All' ? cardItems.length : cardItems.filter(item => item.brand === brand).length
+    brand === 'All' ? allCars.length : allCars.filter(item => item.brand === brand).length
   // const allCarsAmount = cardItems.length
 
   return (
