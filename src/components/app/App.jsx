@@ -112,6 +112,7 @@ function App() {
     setIsForm(false)
     setUserPostsPage(false)
     miniModalUserInfoHandler()
+    setEditPostSection(false)
     // console.log(favoritesList)
   }
 
@@ -187,6 +188,7 @@ function App() {
     setUserPostsPage(true)
     setIsForm(false)
     setFavoritesPage(false)
+    setEditPostSection(false)
   }
 
   function miniModalUserInfoHandler(condition = false) {
@@ -231,78 +233,79 @@ function App() {
         />
       </Header>
 
-      <div className="main"></div>
-      <div className="container">
-        {!filteredData.length && <h2 className="loading">Loading...</h2>}
-      </div>
-      {!isForm &&
-        !favoritesPage &&
-        !userPostsPage &&
-        filteredData.length > 0 &&
-        !editPostSection && (
-          <>
-            {/* <Banner /> */}
-            {/* <CategoryList /> */}
-            <CarBrandsList
-              selectBrand={selectBrand}
-              onBrandSelect={brandSelectHandler}
-              cardItems={cardItems}
-            />
-            <CardsList
-              data={filteredData}
-              testUsers={testUsers}
-              addToFavorites={addToFavorites}
-              isLoged={isLoged}
-              favoritesList={favoritesList}
-              user={user}
-            >
-              {filteredData.length === 0
-                ? `По запросу ${
-                    searchValue || selectBrand
-                  } ничего не найдено в категории ${selectBrand}`
-                : `По запросу ${
-                    searchValue || selectBrand ? searchValue || selectBrand : 'Все'
-                  } найдено ${filteredData.length} объявлений в категории ${selectBrand}`}
-            </CardsList>
-          </>
+      <div className="main">
+        <div className="container">
+          {!filteredData.length && <h2 className="loading">Loading...</h2>}
+        </div>
+        {!isForm &&
+          !favoritesPage &&
+          !userPostsPage &&
+          filteredData.length > 0 &&
+          !editPostSection && (
+            <>
+              {/* <Banner /> */}
+              {/* <CategoryList /> */}
+              <CarBrandsList
+                selectBrand={selectBrand}
+                onBrandSelect={brandSelectHandler}
+                cardItems={cardItems}
+              />
+              <CardsList
+                data={filteredData}
+                testUsers={testUsers}
+                addToFavorites={addToFavorites}
+                isLoged={isLoged}
+                favoritesList={favoritesList}
+                user={user}
+              >
+                {filteredData.length === 0
+                  ? `По запросу ${
+                      searchValue || selectBrand
+                    } ничего не найдено в категории ${selectBrand}`
+                  : `По запросу ${
+                      searchValue || selectBrand ? searchValue || selectBrand : 'Все'
+                    } найдено ${filteredData.length} объявлений в категории ${selectBrand}`}
+              </CardsList>
+            </>
+          )}
+
+        {isForm && isLoged && <AddForm onAddNew={addNewObjectToCards} user={user} />}
+
+        {favoritesPage && (
+          <FavoritesPage
+            user={user}
+            favoritesList={favoritesList}
+            testUsers={testUsers}
+            addToFavorites={addToFavorites}
+            isLoged={isLoged}
+            cardItems={cardItems}
+          />
         )}
 
-      {isForm && isLoged && <AddForm onAddNew={addNewObjectToCards} user={user} />}
+        {userPostsPage && (
+          <UserPostsPage
+            user={user}
+            cardItems={cardItems}
+            postDelete={postDelete}
+            editPost={editPost}
+          />
+        )}
 
-      {favoritesPage && (
-        <FavoritesPage
-          user={user}
-          favoritesList={favoritesList}
-          testUsers={testUsers}
-          addToFavorites={addToFavorites}
-          isLoged={isLoged}
-          cardItems={cardItems}
-        />
-      )}
+        {editPostSection && (
+          <Section title={'Раздел редактирования объявления'}>
+            <EditPost />
+          </Section>
+        )}
 
-      {userPostsPage && (
-        <UserPostsPage
-          user={user}
-          cardItems={cardItems}
-          postDelete={postDelete}
-          editPost={editPost}
-        />
-      )}
-
-      {editPostSection && (
-        <Section title={'Раздел редактирования объявления'}>
-          <EditPost />
-        </Section>
-      )}
-
-      {isRegModalOpen && (
-        <RegModal
-          onCloseRegModal={closeRegModal}
-          onLoginSuccess={onLoginSuccess}
-          testUsers={testUsers}
-          addNewUserToTestUsers={addNewUserToTestUsers}
-        />
-      )}
+        {isRegModalOpen && (
+          <RegModal
+            onCloseRegModal={closeRegModal}
+            onLoginSuccess={onLoginSuccess}
+            testUsers={testUsers}
+            addNewUserToTestUsers={addNewUserToTestUsers}
+          />
+        )}
+      </div>
       <Footer />
     </div>
   )

@@ -6,3 +6,14 @@
   height: 90vh;
   width: 100%;
 }
+
+.app {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.main {
+  flex: 1;
+  padding-top: 60px;
+}
