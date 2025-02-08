@@ -28,8 +28,8 @@ export function CardsListItem({ card, users, isLike }) {
         </div>
         <div className="card__bottom-info">
           <div className="card__bottom-info-left-side">
-            <img className="card__avatar-img" src={userInfo.avatarURL} alt="" />
-            <div className="card__ac-status">{userInfo.status === 'pro' ? 'PRO' : ''}</div>
+            <img className="card__avatar-img" src={userInfo?.avatarURL} alt="" />
+            <div className="card__ac-status">{userInfo?.status === 'pro' ? 'PRO' : ''}</div>
           </div>
           <div className="card__bottom-info-right-side">
             {/* <span className="card__icon"><CiMail /></span> */}

@@ -27,7 +27,7 @@ let userTest = {
   created_at: 'february 03 2025 19:28'
 }
 
-userTest = null
+// userTest = null
 
 function App() {
   const [user, setUser] = useState(userTest)
@@ -45,8 +45,9 @@ function App() {
         {/* <UserPostsPage user={user} />*/}
 
         {/*<EditPage />*/}
-
-        {/* {isRegModalOpen && (
+      </Main>
+      <Footer />
+      {/* {isRegModalOpen && (
           <RegModal
             onCloseRegModal={closeRegModal}
             onLoginSuccess={onLoginSuccess}
@@ -54,8 +55,6 @@ function App() {
             addNewUserToTestUsers={addNewUserToTestUsers}
           />
         )} */}
-      </Main>
-      <Footer />
     </div>
   )
 }

@@ -27,6 +27,7 @@ export function CardsList({ user }) {
   }
   async function getFavorites() {
     const { data } = await axios.get(`http://localhost:3001/favorites/${user.id}`)
+    console.log(data)
     setFavorites(data)
   }
 
@@ -34,7 +35,7 @@ export function CardsList({ user }) {
   useEffect(() => {
     getCars()
     getUsers()
-    if (user?.userId) getFavorites()
+    if (user) getFavorites()
   }, [])
 
   // получаем массив обьектов которые юзер лайкнул
