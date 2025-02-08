@@ -44,7 +44,6 @@ export function CarBrandsList() {
     getAllCars()
   }, [])
 
-  console.log(carBrands)
   if (error) return <p>{error}</p>
   if (carBrands.length === 0) return <h2>Loading...</h2>
 

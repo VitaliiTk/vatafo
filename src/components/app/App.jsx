@@ -1,44 +1,27 @@
 import { useState } from 'react'
-import { v4 as uuidv4 } from 'uuid'
-import { useEffect } from 'react'
 
 import { Header } from '../layouts/header/Header'
-import { SearchForm } from '../search-form/SearchForm'
 import { AddForm } from '../add-form/AddForm'
 import { FavoritesPage } from '../../pages/favorites-page/FavoritesPage'
 import { RegModal } from '../reg-modal/RegModal'
 import { UserPostsPage } from '../user-posts-page/userPostsPage'
-
-import { users } from '../../users'
-
-import './App.css'
-import { Footer } from '../layouts/footer/Footer'
 import { Main } from '../layouts/main-layout/Main'
 import { HomePage } from '../../pages/home-page/HomePage'
+import { Footer } from '../layouts/footer/Footer'
 
-let userTest = {
-  id: '001',
-  userName: 'jennaLove',
-  email: 'ortega@gmail.com',
-  password: 'ortega123',
-  avatarURL:
-    'https://cdn.britannica.com/56/243656-050-2E4A5036/Jenna-Ortega-2023.jpg?w=400&h=300&c=crop',
-  status: 'free',
-  created_at: 'february 03 2025 19:28'
-}
-
-// userTest = null
+import './App.css'
 
 function App() {
-  const [user, setUser] = useState(userTest)
+  const [user, setUser] = useState(null)
+  const [modal, setModal] = useState(false)
 
   return (
     <div className="app">
-      <Header user={user} />
+      <Header user={user} onLoginClick={() => setModal(true)} onQuitClick={() => setUser(null)} />
       <Main>
         <HomePage user={user} />
 
-        {/* {isForm && isLoged && <AddForm onAddNew={addNewObjectToCards} user={user} />} */}
+        {/*<AddForm onAddNew={addNewObjectToCards} user={user} />*/}
 
         {/*<FavoritesPage user={user} />*/}
 
@@ -47,14 +30,13 @@ function App() {
         {/*<EditPage />*/}
       </Main>
       <Footer />
-      {/* {isRegModalOpen && (
-          <RegModal
-            onCloseRegModal={closeRegModal}
-            onLoginSuccess={onLoginSuccess}
-            testUsers={testUsers}
-            addNewUserToTestUsers={addNewUserToTestUsers}
-          />
-        )} */}
+
+      {modal && (
+        <RegModal
+          onCloseRegModal={() => setModal(false)}
+          // onLoginSuccess={onLoginSuccess}
+        />
+      )}
     </div>
   )
 }

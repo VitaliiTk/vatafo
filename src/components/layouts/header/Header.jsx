@@ -7,7 +7,7 @@ import { Button } from '../../button/Button'
 
 import './header.css'
 
-export function Header({ user = {} }) {
+export function Header({ user = {}, onLoginClick, onQuitClick }) {
   return (
     <header className="header">
       <div className="container">
@@ -23,7 +23,7 @@ export function Header({ user = {} }) {
 
           {!user && (
             <div className="user-info__wrapper">
-              <div className="login__btn">
+              <div className="login__btn" onClick={onLoginClick}>
                 <span className="login__icon">
                   <CiLogin />
                 </span>{' '}
@@ -47,7 +47,9 @@ export function Header({ user = {} }) {
                   Избранное
                 </span>
                 <span className="user-menu__item">Профиль</span>
-                <span className="user-menu__item">Выйти</span>
+                <span className="user-menu__item" onClick={onQuitClick}>
+                  Выйти
+                </span>
               </div>
             </div>
           )}
