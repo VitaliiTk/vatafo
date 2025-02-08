@@ -1,16 +1,19 @@
-import { CiMail } from 'react-icons/ci'
+// import { CiMail } from 'react-icons/ci'
 import { GoHeart } from 'react-icons/go'
 import { GoHeartFill } from 'react-icons/go'
 
 import './card-list-item.css'
 
-export function CardsListItem({ card }) {
+export function CardsListItem({ card, users, isLike }) {
   const title = card.info.slice(0, 30)
 
-  // const userInfo = testUsers.find(user => user.id === card.userId)
+  const userInfo = users.find(user => user.id === card.userId)
+
+  // console.log(userInfo)
 
   function favoriteIconClickkHandler() {
-    console.log('like')
+    // нужна проверка залогинен или нет
+    console.log('нужна проверка залогинен или нет')
   }
 
   return (
@@ -25,16 +28,16 @@ export function CardsListItem({ card }) {
         </div>
         <div className="card__bottom-info">
           <div className="card__bottom-info-left-side">
-            <img className="card__avatar-img" src="/avatars/avatar.jpeg" alt="" />
-            {/* <span className="card__info-username">{cardCreatorInfo.userName}</span> */}
-            <div className="card__ac-status">PRO</div>
+            <img className="card__avatar-img" src={userInfo.avatarURL} alt="" />
+            <div className="card__ac-status">{userInfo.status === 'pro' ? 'PRO' : ''}</div>
           </div>
           <div className="card__bottom-info-right-side">
-            <span className="card__icon">
-              <CiMail />
-            </span>
-            <span className="card__icon favorite" onClick={favoriteIconClickkHandler}>
-              <GoHeart />
+            {/* <span className="card__icon"><CiMail /></span> */}
+            <span
+              className={isLike ? 'card__icon favorite like' : 'card__icon favorite'}
+              onClick={favoriteIconClickkHandler}
+            >
+              {isLike ? <GoHeartFill /> : <GoHeart />}
             </span>
           </div>
         </div>

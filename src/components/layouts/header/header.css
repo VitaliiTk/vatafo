@@ -80,29 +80,37 @@
   position: relative;
 }
 
+.header .user-info__wrapper:hover .user-menu {
+  visibility: visible;
+}
+
 /* mini user modal */
 
-.miniUserModal {
+.user-menu {
   background-color: #1b1e2b;
   padding: 15px 20px;
   display: flex;
   max-width: 500px;
-  /* width: 100%; */
   flex-direction: column;
   border-radius: 10px;
   position: absolute;
-  top: 45px;
+  top: 35px;
+  right: 0;
   gap: 10px;
   box-shadow: 0 0 5px #000;
+  visibility: hidden;
 }
 
-.miniUserModal__item {
+.user-menu__item {
   cursor: pointer;
   user-select: none;
   white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
 
-.miniUserModal__item:hover {
+.user-menu__item:hover {
   color: var(--select-color);
 }
 

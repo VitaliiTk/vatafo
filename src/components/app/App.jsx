@@ -16,238 +16,35 @@ import { Footer } from '../layouts/footer/Footer'
 import { Main } from '../layouts/main-layout/Main'
 import { HomePage } from '../../pages/home-page/HomePage'
 
-const BASE_URL = 'http://localhost:3001'
+let userTest = {
+  id: '001',
+  userName: 'jennaLove',
+  email: 'ortega@gmail.com',
+  password: 'ortega123',
+  avatarURL:
+    'https://cdn.britannica.com/56/243656-050-2E4A5036/Jenna-Ortega-2023.jpg?w=400&h=300&c=crop',
+  status: 'free',
+  created_at: 'february 03 2025 19:28'
+}
+
+userTest = null
 
 function App() {
-  const [isForm, setIsForm] = useState(false)
-  const [cardItems, setCardItems] = useState([])
-  const [isLoged, setIsLoged] = useState(false)
-  const [favoritesPage, setFavoritesPage] = useState(false)
-  const [selectBrand, setSelectBrand] = useState('All')
-  const [filteredData, setFilteredData] = useState(cardItems)
-  const [searchValue, setSearchValue] = useState('')
-  const [isRegModalOpen, setIsRegModalOpen] = useState(false)
-  const [testUsers, setTestUsers] = useState(users) // масив users для теста
-  const [user, setUser] = useState(null)
-  const [favoritesList, setFavoritesList] = useState([])
-  const [userPostsPage, setUserPostsPage] = useState(false)
-  const [miniUserModal, setMiniUserModal] = useState(false)
-  const [editPostSection, setEditPostSection] = useState(false)
-
-  // console.log(cardItems)
-  // takes cars form server
-  useEffect(() => {
-    fetch(BASE_URL + '/cars')
-      .then(res => res.json())
-      .then(data => {
-        setCardItems(data)
-        setFilteredData(data)
-      })
-  }, [])
-
-  const cardsSearching = searchValue => {
-    const result = cardItems.filter(
-      item =>
-        (selectBrand === 'All' || item.brand === selectBrand) &&
-        item.info.toLowerCase().includes(searchValue.toLowerCase())
-    )
-    setFilteredData(result)
-    setIsForm(false)
-    setFavoritesPage(false)
-    setSearchValue(searchValue)
-    setUserPostsPage(false)
-  }
-
-  const addNewObjectToCards = obj => {
-    // console.log(obj)
-    setCardItems(prev => [...prev, obj])
-    setFilteredData([...cardItems, obj])
-    setSelectBrand('All')
-    setIsForm(false)
-    setFavoritesPage(false)
-  }
-
-  const mainPageOpenLogic = () => {
-    setFavoritesPage(false)
-    setIsForm(false)
-    setSelectBrand('All')
-    setFilteredData(cardItems)
-    setUserPostsPage(false)
-    miniModalUserInfoHandler()
-    setEditPostSection(false)
-  }
-
-  const handleClickOnAddButton = () => {
-    if (!isLoged) {
-      openRegModal()
-      return
-    }
-    setIsForm(open => !open)
-    setFavoritesPage(false)
-    setUserPostsPage(false)
-    miniModalUserInfoHandler()
-  }
-
-  const onFavoriteIconClickLogic = () => {
-    if (!isLoged) {
-      openRegModal()
-      return
-    }
-    setFavoritesPage(true)
-    setIsForm(false)
-    setUserPostsPage(false)
-    miniModalUserInfoHandler()
-    setEditPostSection(false)
-    // console.log(favoritesList)
-  }
-
-  function allSectionsClose(params) {}
-
-  function onLoginBtnClick() {
-    if (!isLoged) {
-      setIsRegModalOpen(true)
-    }
-    if (user) {
-      setIsLoged(false)
-      setUser(null)
-      setIsForm(false)
-      setFavoritesPage(false)
-      setUserPostsPage(false)
-      resetFilter()
-    }
-  }
-
-  function closeRegModal() {
-    setIsRegModalOpen(false)
-  }
-
-  function openRegModal() {
-    setIsRegModalOpen(true)
-  }
-
-  function onLoginSuccess(user) {
-    // console.log(user)
-    setUser(user)
-    setIsLoged(true)
-  }
-
-  function addNewUserToTestUsers(newUser) {
-    setTestUsers(prev => [...prev, newUser])
-    setUser(newUser)
-    setIsRegModalOpen(false)
-    setIsLoged(true)
-  }
-
-  function resetFilter() {
-    setFilteredData(cardItems)
-    setSelectBrand('All')
-    setSearchValue('')
-  }
-
-  // add new obj in favorites array
-  function addToFavorites(card) {
-    if (!isLoged) return setIsRegModalOpen(true)
-
-    const findFavorite = favoritesList.find(
-      item => item.userId === user.id && item.cardId === card.id
-    )
-
-    if (findFavorite) {
-      setFavoritesList(prev => prev.filter(item => item.id !== findFavorite.id))
-      console.log(`Запись с id: ${findFavorite.id} удалена`)
-
-      return
-    }
-
-    const newFavoritePost = {
-      id: uuidv4(),
-      userId: user.id,
-      cardId: card.id,
-      created_at: new Date().toLocaleString()
-    }
-    // console.log(newFavoritePost)
-    setFavoritesList(prev => [...prev, newFavoritePost])
-  }
-
-  function openUserPostsPage() {
-    setUserPostsPage(true)
-    setIsForm(false)
-    setFavoritesPage(false)
-    setEditPostSection(false)
-  }
-
-  function miniModalUserInfoHandler(condition = false) {
-    setMiniUserModal(condition)
-  }
-
-  function postDelete(postId) {
-    const newPostaArray = cardItems.filter(item => item.id !== postId)
-    setCardItems(newPostaArray)
-    setFilteredData(newPostaArray)
-  }
-
-  function editPost(post) {
-    console.log(`Edit post: `, post)
-    setEditPostSection(true)
-    setUserPostsPage(false)
-  }
+  const [user, setUser] = useState(userTest)
 
   return (
     <div className="app">
-      <Header
-        onAddNewBtnClick={!isForm ? handleClickOnAddButton : mainPageOpenLogic}
-        isForm={isForm}
-        isLoged={isLoged}
-        onFavoriteIconClickLogic={onFavoriteIconClickLogic}
-        mainPageOpenLogic={mainPageOpenLogic}
-        onLoginBtnClick={onLoginBtnClick}
-        user={user}
-        openUserPostsPage={openUserPostsPage}
-        miniUserModal={miniUserModal}
-        miniModalUserInfoHandler={miniModalUserInfoHandler}
-      >
-        <SearchForm
-          cardsSearching={cardsSearching}
-          btnBgColor="#43d262"
-          btnTextColor="#000"
-          inputBgColor="#292D3E"
-          inputFontColor="#fff"
-          searchIconColor="#fff"
-          resetFilter={resetFilter}
-          onInputClick={() => miniModalUserInfoHandler()}
-        />
-      </Header>
-
+      <Header user={user} />
       <Main>
-        <HomePage />
+        <HomePage user={user} />
 
         {/* {isForm && isLoged && <AddForm onAddNew={addNewObjectToCards} user={user} />} */}
 
-        {/* {favoritesPage && (
-        <FavoritesPage
-          user={user}
-          favoritesList={favoritesList}
-          testUsers={testUsers}
-          addToFavorites={addToFavorites}
-          isLoged={isLoged}
-          cardItems={cardItems}
-        />
-        )} */}
+        {/*<FavoritesPage user={user} />*/}
 
-        {/* {userPostsPage && (
-          <UserPostsPage
-            user={user}
-            cardItems={cardItems}
-            postDelete={postDelete}
-            editPost={editPost}
-          />
-        )} */}
+        {/* <UserPostsPage user={user} />*/}
 
-        {/* {editPostSection && (
-          <Section title={'Раздел редактирования объявления'}>
-            <EditPost />
-          </Section>
-        )} */}
+        {/*<EditPage />*/}
 
         {/* {isRegModalOpen && (
           <RegModal
@@ -258,7 +55,6 @@ function App() {
           />
         )} */}
       </Main>
-
       <Footer />
     </div>
   )

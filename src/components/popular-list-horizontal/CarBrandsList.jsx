@@ -1,9 +1,10 @@
+import axios from 'axios'
 import { useState } from 'react'
+import { useEffect } from 'react'
+
 import { CarBrandItem } from '../popular-list-car/CarBrandItem'
 
 import './car-brands-list.css'
-import { useEffect } from 'react'
-import axios from 'axios'
 
 const BASE_URL = 'http://localhost:3001'
 

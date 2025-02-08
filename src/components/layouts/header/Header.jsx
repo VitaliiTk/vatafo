@@ -2,89 +2,64 @@ import { HeaderLogo } from '../../header-logo/HeaderLogo'
 import { GoHeartFill } from 'react-icons/go'
 
 // import { Burger } from '../burger/Burger'
+import { SearchForm } from '../../search-form/SearchForm'
 import { Button } from '../../button/Button'
 
 import './header.css'
 
-export function Header({
-  onAddNewBtnClick,
-  isForm,
-  isLoged,
-  onFavoriteIconClickLogic,
-  mainPageOpenLogic,
-  onLoginBtnClick,
-  user,
-  openUserPostsPage,
-  miniUserModal,
-  miniModalUserInfoHandler,
-  children
-}) {
-  function userMiniModalHandler() {
-    miniModalUserInfoHandler(prev => !prev)
-  }
-
-  function quitHandler() {
-    miniModalUserInfoHandler()
-    onLoginBtnClick()
-  }
-
-  function onUserPostsClick() {
-    openUserPostsPage()
-    miniModalUserInfoHandler()
-  }
-
+export function Header({ user = {} }) {
   return (
     <header className="header">
       <div className="container">
         <div className="header__wrapper">
           {/* left side */}
           <div className="header__left-side">
-            <HeaderLogo mainPageOpenLogic={mainPageOpenLogic} />
+            <HeaderLogo />
           </div>
 
+          {/* center side */}
           <div className="header__center-side">
-            {/* center side */}
-            {children}
+            <SearchForm
+              btnBgColor="#43d262"
+              btnTextColor="#000"
+              inputBgColor="#292D3E"
+              inputFontColor="#fff"
+              searchIconColor="#fff"
+            />
           </div>
 
           {/* right side */}
           <div className="header__right-side">
-            <span className="like" onClick={onFavoriteIconClickLogic}>
+            {/* <span className="like">
               <GoHeartFill />
-            </span>
+            </span> */}
 
-            {isLoged && (
+            {user && (
               <div className="user-info__wrapper">
-                <span className="avatar-img__wrapper" onClick={userMiniModalHandler}>
+                <span className="avatar-img__wrapper">
                   <img className="avatar-img" src={user.avatarURL} alt="" />
                 </span>
-                <span className="username" onClick={userMiniModalHandler}>
-                  {user.userName}
-                </span>
+                <span className="username">{user.userName}</span>
 
-                {miniUserModal && (
-                  <div className="miniUserModal">
-                    <span className="miniUserModal__item" onClick={onUserPostsClick}>
-                      Мои объявления
+                <div className="user-menu">
+                  <span className="user-menu__item">Мои объявления</span>
+                  <span className="user-menu__item">
+                    <span className="like">
+                      <GoHeartFill />
                     </span>
-                    <span className="miniUserModal__item">Профиль</span>
-                    <span className="miniUserModal__item" onClick={quitHandler}>
-                      Выйти
-                    </span>
-                  </div>
-                )}
+                    Избранное
+                  </span>
+                  <span className="user-menu__item">Профиль</span>
+                  <span className="user-menu__item">Выйти</span>
+                </div>
               </div>
             )}
 
-            {!isLoged && (
-              <div className="login__btn" onClick={onLoginBtnClick}>
-                Войти
-              </div>
-            )}
+            {!user && <div className="login__btn">Войти</div>}
 
-            <Button onHandleClick={onAddNewBtnClick} color={!isForm ? '#ff2366' : ''}>
+            {/* <Button onHandleClick={onAddNewBtnClick} color={!isForm ? '#ff2366' : ''}>
               {isForm && isLoged ? 'Закрыть' : 'Подать объявление'}
-            </Button>
+            </Button> */}
           </div>
         </div>
       </div>
