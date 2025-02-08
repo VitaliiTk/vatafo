@@ -1,9 +1,9 @@
-export function EditPage() {
+export default function EditPage() {
   return (
-    <section id={styles['edit-page']}>
+    <div className="edit-page">
       <div className="container">
         <h2 className="title">EditPage</h2>
       </div>
-    </section>
+    </div>
   )
 }

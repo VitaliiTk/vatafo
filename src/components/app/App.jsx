@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 import { useEffect } from 'react'
 
-import { Header } from '../header/Header'
+import { Header } from '../layouts/header/Header'
 // import { Banner } from '../bunner/Banner'
 import { SearchForm } from '../search-form/SearchForm'
 // import { CategoryList } from '../category-list/CategoryList'
@@ -17,6 +17,9 @@ import { cards } from '../../data'
 import { users } from '../../users'
 
 import './App.css'
+import { EditPost } from '../edit-post/EditPost'
+import Section from '../section/Section'
+import { Footer } from '../layouts/footer/Footer'
 
 const BASE_URL = 'http://localhost:3001'
 
@@ -34,8 +37,9 @@ function App() {
   const [favoritesList, setFavoritesList] = useState([])
   const [userPostsPage, setUserPostsPage] = useState(false)
   const [miniUserModal, setMiniUserModal] = useState(false)
+  const [editPostSection, setEditPostSection] = useState(false)
 
-  console.log(cardItems)
+  // console.log(cardItems)
   // takes cars form server
   useEffect(() => {
     fetch(BASE_URL + '/cars')
@@ -85,6 +89,7 @@ function App() {
     setFilteredData(cardItems)
     setUserPostsPage(false)
     miniModalUserInfoHandler()
+    setEditPostSection(false)
   }
 
   const handleClickOnAddButton = () => {
@@ -194,8 +199,14 @@ function App() {
     setFilteredData(newPostaArray)
   }
 
+  function editPost(post) {
+    console.log(`Edit post: `, post)
+    setEditPostSection(true)
+    setUserPostsPage(false)
+  }
+
   return (
-    <>
+    <div className="app">
       <Header
         onAddNewBtnClick={!isForm ? handleClickOnAddButton : mainPageOpenLogic}
         isForm={isForm}
@@ -219,36 +230,42 @@ function App() {
           onInputClick={() => miniModalUserInfoHandler()}
         />
       </Header>
+
+      <div className="main"></div>
       <div className="container">
         {!filteredData.length && <h2 className="loading">Loading...</h2>}
       </div>
-      {!isForm && !favoritesPage && !userPostsPage && filteredData.length > 0 && (
-        <>
-          {/* <Banner /> */}
-          {/* <CategoryList /> */}
-          <CarBrandsList
-            selectBrand={selectBrand}
-            onBrandSelect={brandSelectHandler}
-            cardItems={cardItems}
-          />
-          <CardsList
-            data={filteredData}
-            testUsers={testUsers}
-            addToFavorites={addToFavorites}
-            isLoged={isLoged}
-            favoritesList={favoritesList}
-            user={user}
-          >
-            {filteredData.length === 0
-              ? `По запросу ${
-                  searchValue || selectBrand
-                } ничего не найдено в категории ${selectBrand}`
-              : `По запросу ${
-                  searchValue || selectBrand ? searchValue || selectBrand : 'Все'
-                } найдено ${filteredData.length} объявлений в категории ${selectBrand}`}
-          </CardsList>
-        </>
-      )}
+      {!isForm &&
+        !favoritesPage &&
+        !userPostsPage &&
+        filteredData.length > 0 &&
+        !editPostSection && (
+          <>
+            {/* <Banner /> */}
+            {/* <CategoryList /> */}
+            <CarBrandsList
+              selectBrand={selectBrand}
+              onBrandSelect={brandSelectHandler}
+              cardItems={cardItems}
+            />
+            <CardsList
+              data={filteredData}
+              testUsers={testUsers}
+              addToFavorites={addToFavorites}
+              isLoged={isLoged}
+              favoritesList={favoritesList}
+              user={user}
+            >
+              {filteredData.length === 0
+                ? `По запросу ${
+                    searchValue || selectBrand
+                  } ничего не найдено в категории ${selectBrand}`
+                : `По запросу ${
+                    searchValue || selectBrand ? searchValue || selectBrand : 'Все'
+                  } найдено ${filteredData.length} объявлений в категории ${selectBrand}`}
+            </CardsList>
+          </>
+        )}
 
       {isForm && isLoged && <AddForm onAddNew={addNewObjectToCards} user={user} />}
 
@@ -263,7 +280,20 @@ function App() {
         />
       )}
 
-      {userPostsPage && <UserPostsPage user={user} cardItems={cardItems} postDelete={postDelete} />}
+      {userPostsPage && (
+        <UserPostsPage
+          user={user}
+          cardItems={cardItems}
+          postDelete={postDelete}
+          editPost={editPost}
+        />
+      )}
+
+      {editPostSection && (
+        <Section title={'Раздел редактирования объявления'}>
+          <EditPost />
+        </Section>
+      )}
 
       {isRegModalOpen && (
         <RegModal
@@ -273,7 +303,8 @@ function App() {
           addNewUserToTestUsers={addNewUserToTestUsers}
         />
       )}
-    </>
+      <Footer />
+    </div>
   )
 }
 

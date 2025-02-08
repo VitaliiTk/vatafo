@@ -1,10 +1,8 @@
-import { HeaderLogo } from '../header-logo/HeaderLogo'
-import { CiHeart } from 'react-icons/ci'
-import { CiMail } from 'react-icons/ci'
+import { HeaderLogo } from '../../header-logo/HeaderLogo'
 import { GoHeartFill } from 'react-icons/go'
 
 // import { Burger } from '../burger/Burger'
-import { Button } from '../button/Button'
+import { Button } from '../../button/Button'
 
 import './header.css'
 
@@ -42,8 +40,6 @@ export function Header({
           {/* left side */}
           <div className="header__left-side">
             <HeaderLogo mainPageOpenLogic={mainPageOpenLogic} />
-            {/* <Burger /> */}
-            {/* <div className="header__tag">Для бизнеса</div> */}
           </div>
 
           <div className="header__center-side">
@@ -59,9 +55,6 @@ export function Header({
 
             {isLoged && (
               <div className="user-info__wrapper">
-                {/* <span className="like">
-                  <CiMail />
-                </span> */}
                 <span className="avatar-img__wrapper" onClick={userMiniModalHandler}>
                   <img className="avatar-img" src={user.avatarURL} alt="" />
                 </span>

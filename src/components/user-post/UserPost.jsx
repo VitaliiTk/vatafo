@@ -3,13 +3,17 @@ import { GrEdit } from 'react-icons/gr'
 
 import styles from './user-post.module.css'
 
-export function UserPost({ post, postDelete }) {
+export function UserPost({ post, postDelete, editPost }) {
   function deletePostHandler(postId) {
     postDelete(postId)
   }
 
   function editPostHandler(postId) {
-    console.log(`Edit post with id: ${postId}`)
+    console.log(`Edit post with id: ${post}`)
+
+    const newEditedPost = { ...post }
+
+    editPost(post)
   }
 
   console.log(post)
