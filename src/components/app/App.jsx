@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 import { Header } from '../layouts/header/Header'
 import { AddForm } from '../../pages/add-form-page/AddFormPage'
@@ -19,9 +20,11 @@ function App() {
 
   return (
     <div className="app">
-      <Header user={user} onLoginClick={() => setModal(true)} onQuitClick={() => setUser(null)} />
-      <Main></Main>
-      <Footer />
+      <BrowserRouter>
+        <Header user={user} onLoginClick={() => setModal(true)} onQuitClick={() => setUser(null)} />
+        <Main></Main>
+        <Footer />
+      </BrowserRouter>
 
       {modal && <RegModal onCloseRegModal={() => setModal(false)} />}
     </div>
