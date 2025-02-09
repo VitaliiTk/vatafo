@@ -1,4 +1,6 @@
-export default function EditPage() {
+import { RiJavascriptFill } from 'react-icons/ri'
+
+export default function EditPostPage() {
   return (
     <div className="edit-page">
       <div className="container">

@@ -1,0 +1,19 @@
+.link {
+  background-color: #fff;
+  color: #000;
+  padding: 5px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 220px;
+  border-radius: 10px;
+}
+.link:hover {
+  color: var(--select-color);
+}
+
+.link span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

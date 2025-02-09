@@ -1,8 +1,8 @@
 import { v4 as uuidv4 } from 'uuid'
 import { useState } from 'react'
 
-import { Button } from '../button/Button'
-import { DragDropImageUploader } from '../drag-drop-image-uploader/DragDropImageUploader'
+import { Button } from '../../components/button/Button'
+import { DragDropImageUploader } from '../../components/drag-drop-image-uploader/DragDropImageUploader'
 
 import './add-form.css'
 
