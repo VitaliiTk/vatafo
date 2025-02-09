@@ -1,13 +1,13 @@
+import { useEffect } from 'react'
 import { useState } from 'react'
 import { v4 as uuidv4 } from 'uuid'
-
 import { IoMdClose } from 'react-icons/io'
 
 import { Button } from '../button/Button'
 
 import styles from './reg-modal.module.css'
 
-export function RegModal({ onCloseRegModal, onLoginSuccess, testUsers, addNewUserToTestUsers }) {
+export function RegModal({ onCloseRegModal }) {
   const [isRegView, setIsRegView] = useState(false)
   const [formWarning, setFormWarning] = useState(null)
 
@@ -30,9 +30,9 @@ export function RegModal({ onCloseRegModal, onLoginSuccess, testUsers, addNewUse
       }
 
       // поиск юзера в базе
-      const userFromData = testUsers.find(
+      const userFromData = /* testUsers.find(
         user => user.email === email && user.password === password
-      )
+      ) */ true
 
       // если user сущестует
       if (userFromData) {
@@ -40,8 +40,8 @@ export function RegModal({ onCloseRegModal, onLoginSuccess, testUsers, addNewUse
         setFormWarning('Успешно вошли')
         // нужно отправить данные пользователя для использования и отображении везде в приложении
         // и закрыть модалку
-        onLoginSuccess(userFromData)
-        onCloseRegModal()
+        // onLoginSuccess(userFromData)
+        // onCloseRegModal()
         return
       }
 
@@ -51,7 +51,7 @@ export function RegModal({ onCloseRegModal, onLoginSuccess, testUsers, addNewUse
       return
     }
 
-    // если форма регистрации активеа
+    // если форма регистрации активна
     if (isRegView) {
       const email = formData.get('email')
       const password = formData.get('password')

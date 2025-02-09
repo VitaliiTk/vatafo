@@ -1,28 +1,9 @@
-import { UserPost } from '../user-post/UserPost'
-
 import styles from './user-posts-page.module.css'
 
-export function UserPostsPage({ user, cardItems, postDelete, editPost }) {
-  console.log(user)
-  // console.log(cardItems)
-
-  const userPosts = cardItems.filter(item => item.userId === user.id)
-
-  console.log(userPosts)
-
+export function UserPostsPage() {
   return (
-    <section className="user-posts-page">
-      <div className="container">
-        <div className="user-posts-page__wrapper">
-          <h2>Мои объявления</h2>
-          <div className={styles['user-posts__list']}>
-            {userPosts.map(item => (
-              <UserPost key={item.id} post={item} postDelete={postDelete} editPost={editPost} />
-            ))}
-          </div>
-        </div>
-      </div>
-    </section>
+    <div>
+      <h2>Мои объявления</h2>
+    </div>
   )
-  // здесь должен быть массив объявлений пользователя
 }

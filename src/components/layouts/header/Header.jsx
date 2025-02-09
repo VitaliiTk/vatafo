@@ -1,10 +1,16 @@
+// libs
+import { Link } from 'react-router-dom'
+
+// icons
 import { GoHeartFill } from 'react-icons/go'
 import { CiLogin } from 'react-icons/ci'
 
+// components
 import { HeaderLogo } from '../../header-logo/HeaderLogo'
 import { SearchForm } from '../../search-form/SearchForm'
 import { Button } from '../../button/Button'
 
+// styles
 import './header.css'
 
 export function Header({ user = {}, onLoginClick, onQuitClick }) {
@@ -39,21 +45,24 @@ export function Header({ user = {}, onLoginClick, onQuitClick }) {
               <span className="username">{user.userName}</span>
 
               <div className="user-menu">
-                <span className="user-menu__item">Мои объявления</span>
-                <span className="user-menu__item">
+                <Link to="/acount/userposts" className="user-menu__item">
+                  Мои объявления
+                </Link>
+                <Link to="/acount/favorites" className="user-menu__item">
                   <span className="like">
                     <GoHeartFill />
                   </span>
                   Избранное
-                </span>
-                <span className="user-menu__item">Профиль</span>
-                <span className="user-menu__item" onClick={onQuitClick}>
+                </Link>
+                <Link to="/acount/profile" className="user-menu__item">
+                  Профиль
+                </Link>
+                <Link to="/" className="user-menu__item" onClick={onQuitClick}>
                   Выйти
-                </span>
+                </Link>
               </div>
             </div>
           )}
-
           {/* <Button color="#ff2366">Подать объявление</Button> */}
         </div>
       </div>

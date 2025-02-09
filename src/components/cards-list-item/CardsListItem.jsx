@@ -1,19 +1,35 @@
-// import { CiMail } from 'react-icons/ci'
+// lib
+import { useAtom } from 'jotai'
+
+// store
+import { userAtom, modalAtom } from '../../jotai-store/jotai-store'
+
+// icons
 import { GoHeart } from 'react-icons/go'
 import { GoHeartFill } from 'react-icons/go'
+// import { CiMail } from 'react-icons/ci'
 
+// styles
 import './card-list-item.css'
 
 export function CardsListItem({ card, users, isLike }) {
-  const title = card.info.slice(0, 30)
+  const [user] = useAtom(userAtom)
+  const [modal, setModal] = useAtom(modalAtom)
 
+  const title = card.info.slice(0, 30)
   const userInfo = users.find(user => user.id === card.userId)
 
-  // console.log(userInfo)
+  function favoriteIconClickHandler() {
+    // проверка залогинен или нет
+    console.log(user)
+    if (!user) return setModal(true)
 
-  function favoriteIconClickkHandler() {
-    // нужна проверка залогинен или нет
-    console.log('нужна проверка залогинен или нет')
+    // if loged
+    const newFavorite = {
+      card_id: card.id,
+      user_id: user.id
+    }
+    console.log(newFavorite)
   }
 
   return (
@@ -35,7 +51,7 @@ export function CardsListItem({ card, users, isLike }) {
             {/* <span className="card__icon"><CiMail /></span> */}
             <span
               className={isLike ? 'card__icon favorite like' : 'card__icon favorite'}
-              onClick={favoriteIconClickkHandler}
+              onClick={favoriteIconClickHandler}
             >
               {isLike ? <GoHeartFill /> : <GoHeart />}
             </span>

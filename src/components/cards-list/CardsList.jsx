@@ -31,11 +31,12 @@ export function CardsList({ user }) {
     setFavorites(data)
   }
 
+  console.log(user)
+
   // use effect
   useEffect(() => {
     getCars()
     getUsers()
-    if (user) getFavorites()
   }, [])
 
   function likeTest(cardId) {

@@ -14,9 +14,13 @@ import { ErrorPage } from '../../pages/error-page/ErrorPage'
 
 import './App.css'
 
+// Jotai
+import { useAtom } from 'jotai'
+import { modalAtom, userAtom } from '../../jotai-store/jotai-store'
+
 function App() {
-  const [user, setUser] = useState(null)
-  const [modal, setModal] = useState(false)
+  const [user, setUser] = useAtom(userAtom)
+  const [modal, setModal] = useAtom(modalAtom)
 
   return (
     <div className="app">
