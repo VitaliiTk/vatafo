@@ -9,6 +9,8 @@ import './profile.css'
 export function ProfilePage() {
   const [user] = useAtom(userAtom)
 
+  if (!user) return <p>Войдите в акаунт</p>
+
   return (
     <div className="profile-page">
       <h2 className="profile-page__title">{user.userName}</h2>
