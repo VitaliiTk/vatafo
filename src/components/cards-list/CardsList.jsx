@@ -38,17 +38,7 @@ export function CardsList({ user }) {
     if (user) getFavorites()
   }, [])
 
-  // получаем массив обьектов которые юзер лайкнул
-  // const logedUserFavoriteList = user ? favoritesList.filter(item => item.userId === user.id) : []
-
-  // ищем совпадения в этом массиве по cardId в массиве лайкнутых пользователем и id самой карточки товара
-  // function likeHandler(item) {
-  //   return logedUserFavoriteList.some(favotite => favotite.cardId === item.id)
-  // }
-
   function likeTest(cardId) {
-    // console.log(favorites)
-    // console.log(cardId)
     const isInFavorite = favorites.some(favotite => favotite.cardId == cardId)
     return isInFavorite
   }
@@ -58,14 +48,7 @@ export function CardsList({ user }) {
   return (
     <div className="cards-list__box">
       {cars.map(item => (
-        <CardsListItem
-          key={item.id}
-          card={item}
-          users={users}
-          // addToFavorites={addToFavorites}
-          // isLoged={isLoged}
-          isLike={likeTest(item.id)}
-        />
+        <CardsListItem key={item.id} card={item} users={users} isLike={likeTest(item.id)} />
       ))}
     </div>
   )

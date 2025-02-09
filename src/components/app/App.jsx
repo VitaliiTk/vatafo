@@ -22,11 +22,19 @@ function App() {
     <div className="app">
       <BrowserRouter>
         <Header user={user} onLoginClick={() => setModal(true)} onQuitClick={() => setUser(null)} />
-        <Main></Main>
+        <Main>
+          <Routes>
+            <Route path="/" element={<HomePage user={user} />} />
+            <Route path="/acount/favorites" element={<FavoritesPage />} />
+            <Route path="/acount/ad" element={<AddForm />} />
+            <Route path="/acount/userposts" element={<UserPostsPage />} />
+            <Route path="/acount/profile" element={<ProfilePage />} />
+            <Route path="*" element={<ErrorPage />} />
+          </Routes>
+        </Main>
         <Footer />
+        {modal && <RegModal onCloseRegModal={() => setModal(false)} />}
       </BrowserRouter>
-
-      {modal && <RegModal onCloseRegModal={() => setModal(false)} />}
     </div>
   )
 }

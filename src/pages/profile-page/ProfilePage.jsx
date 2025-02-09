@@ -1,3 +1,7 @@
 export function ProfilePage() {
-  return <div>ProfilePage</div>
+  return (
+    <div>
+      <h2>ProfilePage</h2>
+    </div>
+  )
 }
