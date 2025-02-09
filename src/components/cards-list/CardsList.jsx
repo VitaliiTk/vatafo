@@ -16,6 +16,7 @@ export function CardsList({ user }) {
   async function getCars() {
     try {
       const { data } = await axios.get('http://localhost:3001/cars')
+      // console.log(data)
       setCars(data)
     } catch (error) {
       setError(error.message)
@@ -23,15 +24,14 @@ export function CardsList({ user }) {
   }
   async function getUsers() {
     const { data } = await axios.get('http://localhost:3001/users')
+    // console.log(data)
     setUsers(data)
   }
-  async function getFavorites() {
-    const { data } = await axios.get(`http://localhost:3001/favorites/${user.id}`)
-    console.log(data)
-    setFavorites(data)
-  }
-
-  console.log(user)
+  // async function getFavorites() {
+  //   const { data } = await axios.get(`http://localhost:3001/favorites/${user.id}`)
+  //   console.log(data)
+  //   setFavorites(data)
+  // }
 
   // use effect
   useEffect(() => {

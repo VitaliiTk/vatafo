@@ -17,11 +17,15 @@ export function CardsListItem({ card, users, isLike }) {
   const [modal, setModal] = useAtom(modalAtom)
 
   const title = card.info.slice(0, 30)
-  const userInfo = users.find(user => user.id === card.userId)
+  const userInfo = users.find(user => {
+    return user.id == card.userId
+  })
+
+  // console.log(users)
+  // console.log(card)
 
   function favoriteIconClickHandler() {
     // проверка залогинен или нет
-    console.log(user)
     if (!user) return setModal(true)
 
     // if loged
@@ -44,7 +48,7 @@ export function CardsListItem({ card, users, isLike }) {
         </div>
         <div className="card__bottom-info">
           <div className="card__bottom-info-left-side">
-            <img className="card__avatar-img" src={userInfo?.avatarURL} alt="" />
+            <img className="card__avatar-img" src={userInfo?.avatar_url} alt="" />
             <div className="card__ac-status">{userInfo?.status === 'pro' ? 'PRO' : ''}</div>
           </div>
           <div className="card__bottom-info-right-side">
