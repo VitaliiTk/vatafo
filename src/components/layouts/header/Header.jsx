@@ -1,5 +1,5 @@
 // libs
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 // icons
 import { GoHeartFill } from 'react-icons/go'
@@ -8,12 +8,27 @@ import { CiLogin } from 'react-icons/ci'
 // components
 import { HeaderLogo } from '../../header-logo/HeaderLogo'
 import { SearchForm } from '../../search-form/SearchForm'
-import { Button } from '../../button/Button'
+// import { Button } from '../../button/Button'
 
 // styles
 import './header.css'
 
-export function Header({ user = {}, onLoginClick, onQuitClick }) {
+// jotai-store
+import { useSetAtom, useAtom } from 'jotai'
+import { userAtom, modalAtom } from '../../../jotai-store/jotai-store'
+
+export function Header() {
+  const [user, setUser] = useAtom(userAtom)
+  const setModal = useSetAtom(modalAtom)
+
+  const navigate = useNavigate()
+
+  const logout = () => {
+    localStorage.removeItem('token')
+    setUser(null)
+    navigate('/')
+  }
+
   return (
     <header className="header">
       <div className="container">
@@ -29,7 +44,7 @@ export function Header({ user = {}, onLoginClick, onQuitClick }) {
 
           {!user && (
             <div className="user-info__wrapper">
-              <div className="login__btn" onClick={onLoginClick}>
+              <div className="login__btn" onClick={() => setModal(true)}>
                 <span className="login__icon">
                   <CiLogin />
                 </span>{' '}
@@ -39,10 +54,14 @@ export function Header({ user = {}, onLoginClick, onQuitClick }) {
           )}
           {user && (
             <div className="user-info__wrapper">
+              <span className="username">{user.username}</span>
               <span className="avatar-img__wrapper">
-                <img className="avatar-img" src={user.avatarURL} alt="" />
+                <img
+                  className="avatar-img"
+                  src={user.avatar ? user.avatar : '/avatars/avatar-generations_prsz.jpg'}
+                  alt="avatar-image"
+                />
               </span>
-              <span className="username">{user.userName}</span>
 
               <div className="user-menu">
                 <Link to="/acount/userposts" className="user-menu__item">
@@ -57,9 +76,9 @@ export function Header({ user = {}, onLoginClick, onQuitClick }) {
                 <Link to="/acount/profile" className="user-menu__item">
                   Профиль
                 </Link>
-                <Link to="/" className="user-menu__item" onClick={onQuitClick}>
+                <span className="user-menu__item" onClick={logout}>
                   Выйти
-                </Link>
+                </span>
               </div>
             </div>
           )}

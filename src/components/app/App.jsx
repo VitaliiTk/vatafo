@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 import { Header } from '../layouts/header/Header'
@@ -14,21 +13,44 @@ import { ErrorPage } from '../../pages/error-page/ErrorPage'
 
 import './App.css'
 
-// Jotai
-import { useAtom } from 'jotai'
-import { modalAtom, userAtom } from '../../jotai-store/jotai-store'
+// Jotai-store
+import { useAtom, useAtomValue } from 'jotai' // for work with Jotai
+import { modalAtom, userAtom, userIdAtom } from '../../jotai-store/jotai-store' // external store import
+import axios from 'axios'
+import { useEffect } from 'react'
 
 function App() {
+  const regmodal = useAtomValue(modalAtom)
   const [user, setUser] = useAtom(userAtom)
-  const [modal, setModal] = useAtom(modalAtom)
+  const [userId, setUserId] = useAtom(userIdAtom)
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const token = localStorage.getItem('token')
+      console.log(token)
+      try {
+        const response = await axios.get('http://localhost:3001/users/me', {
+          headers: {
+            Authorization: `Bearer ${token}` // Передаем токен в заголовке
+          }
+        })
+        console.log('User data:', response.data)
+        const user = response.data
+        setUser(user)
+      } catch (error) {
+        console.error('Error fetching user:', error.response?.data)
+      }
+    }
+    fetchUserData()
+  }, [])
 
   return (
     <div className="app">
       <BrowserRouter>
-        <Header user={user} onLoginClick={() => setModal(true)} onQuitClick={() => setUser(null)} />
+        <Header />
         <Main>
           <Routes>
-            <Route path="/" element={<HomePage user={user} />} />
+            <Route path="/" element={<HomePage />} />
             <Route path="/acount/favorites" element={<FavoritesPage />} />
             <Route path="/acount/ad" element={<AddForm />} />
             <Route path="/acount/userposts" element={<UserPostsPage />} />
@@ -37,7 +59,7 @@ function App() {
           </Routes>
         </Main>
         <Footer />
-        {modal && <RegModal onCloseRegModal={() => setModal(false)} />}
+        {regmodal && <RegModal />}
       </BrowserRouter>
     </div>
   )

@@ -1,12 +1,12 @@
 import { CarBrandsList } from '../../components/popular-list-horizontal/CarBrandsList'
 import { CardsList } from '../../components/cards-list/CardsList'
 
-export function HomePage({ user }) {
+export function HomePage() {
   return (
     <div>
       <h2>Все объявления</h2>
-      <CarBrandsList />
-      <CardsList user={user} />
+      {/* <CarBrandsList /> */}
+      {/* <CardsList user={user} /> */}
     </div>
   )
 }

@@ -2,23 +2,50 @@ import { useEffect } from 'react'
 import { useState } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 import { IoMdClose } from 'react-icons/io'
+import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
+// import api from '../../api'
 
 import { Button } from '../button/Button'
 
 import styles from './reg-modal.module.css'
+import { useAtom } from 'jotai'
+import { modalAtom, userAtom } from '../../jotai-store/jotai-store'
 
 export function RegModal({ onCloseRegModal }) {
   const [isRegView, setIsRegView] = useState(false)
   const [formWarning, setFormWarning] = useState(null)
+  const [modal, setModal] = useAtom(modalAtom)
+  const [user, setUser] = useAtom(userAtom)
+
+  const navigate = useNavigate()
 
   // событие закрытия модалки
   function closeHandler(event) {
     event.stopPropagation()
-    onCloseRegModal()
+    // onCloseRegModal()
+    setModal(false)
+  }
+
+  const fetchUserData = async () => {
+    const token = localStorage.getItem('token')
+    console.log(token)
+    try {
+      const response = await axios.get('http://localhost:3001/users/me', {
+        headers: {
+          Authorization: `Bearer ${token}` // Передаем токен в заголовке
+        }
+      })
+      console.log('User data:', response.data)
+      const user = response.data
+      setUser(user)
+    } catch (error) {
+      console.error('Error fetching user:', error.response?.data)
+    }
   }
 
   // событие при отправке формы
-  function formAction(formData) {
+  async function formAction(formData) {
     // еслли форма входа
     if (!isRegView) {
       const email = formData.get('email')
@@ -29,36 +56,33 @@ export function RegModal({ onCloseRegModal }) {
         return setFormWarning('Заполните все поля!')
       }
 
-      // поиск юзера в базе
-      const userFromData = /* testUsers.find(
-        user => user.email === email && user.password === password
-      ) */ true
+      try {
+        const response = await axios.post('http://localhost:3001/auth/login', { email, password })
+        const { token } = response.data
+        localStorage.setItem('token', token)
+        console.log('Login successfull: ', response.data)
 
-      // если user сущестует
-      if (userFromData) {
-        // console.log(userFromData)
-        setFormWarning('Успешно вошли')
-        // нужно отправить данные пользователя для использования и отображении везде в приложении
-        // и закрыть модалку
-        // onLoginSuccess(userFromData)
-        // onCloseRegModal()
-        return
+        // Добавляем токен в API-инстанс
+        // api.defaults.headers.Authorization = `Bearer ${token}` // отдельный файл можно использовать с axios делает инстанс запроса
+        fetchUserData()
+        setModal(false)
+        navigate('/')
+      } catch (error) {
+        setFormWarning(error.response?.data?.error || 'Что-то пошло не так')
       }
-
-      // если user не существует
-      if (!userFromData) return setFormWarning('Такого пользователя не существует')
 
       return
     }
 
-    // если форма регистрации активна
+    // если форма регистрации активна - регистрируемя
     if (isRegView) {
+      const username = formData.get('username')
       const email = formData.get('email')
       const password = formData.get('password')
       const passwordReply = formData.get('password-reply')
 
       // если поля не заполнены
-      if (!email || !password || !passwordReply) {
+      if (!username || !email || !password || !passwordReply) {
         return setFormWarning('Заполните все поля!')
       }
       // проверка на совпадения паролей
@@ -66,36 +90,20 @@ export function RegModal({ onCloseRegModal }) {
         return setFormWarning('Пароли не совпадают!')
       }
 
-      // проверка на существуещего пользователя
-      const userFromData = testUsers.find(user => user.email === email)
-      if (userFromData) return setFormWarning('Такой пользователь уже существует!')
+      // запрос на сервер - регистрация
+      try {
+        await axios.post('http://localhost:3001/auth/register', {
+          username,
+          email,
+          password
+        })
 
-      // если все проверки прошли и пользователя не существует то добавить нового пользователя в базу данных в таблицу users
-      setFormWarning('Вы успешно зарегестрированы!')
-      createNewUser(email, password)
-
-      // ! закрыть модалку
+        setFormWarning('Успешно зареган')
+        setIsRegView(false)
+      } catch (error) {
+        setFormWarning(error.response?.data?.error || 'Что-то пошло не так')
+      }
     }
-  }
-
-  // создает нового пользователя и записывает в state testUsers пока что так, потом нужно подключить базу данных
-  function createNewUser(email, password) {
-    const id = uuidv4()
-
-    const newUser = {
-      id,
-      userName: `User ${id.slice(0, 8)}`,
-      first_name: `User first name`,
-      last_name: 'User last name',
-      email,
-      password,
-      avatarURL:
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSR6-Y6uY-VKr_TPEiri-UILWJyBDFUnE-jyw&s',
-      status: 'free',
-      created_at: 'auto create time from DB'
-    }
-
-    addNewUserToTestUsers(newUser)
   }
 
   // Переключить форму на другую
@@ -112,12 +120,22 @@ export function RegModal({ onCloseRegModal }) {
         </span>
         <h2 className={styles['title']}>{!isRegView ? 'Вход в систему' : 'Регистрация'}</h2>
         <form action={formAction} className={styles['form']}>
+          {isRegView && (
+            <div className={styles['input__wrapper']}>
+              <label htmlFor="username" className={styles['lable']}>
+                username
+              </label>
+              <input type="text" name="username" id="username" className={styles['input']} />
+            </div>
+          )}
+
           <div className={styles['input__wrapper']}>
             <label htmlFor="email" className={styles['lable']}>
               Введите E-mail
             </label>
             <input type="email" name="email" id="email" className={styles['input']} />
           </div>
+
           <div className={styles['input__wrapper']}>
             <label htmlFor="password" className={styles['lable']}>
               Введите рароль
