@@ -1,3 +1,5 @@
+// можно применить с axios чтобы не писать одинаковые запросы
+
 import axios from 'axios'
 
 const api = axios.create({

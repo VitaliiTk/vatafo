@@ -6,7 +6,7 @@ import { DragDropImageUploader } from '../../components/drag-drop-image-uploader
 
 import './add-form.css'
 
-import { carBrands } from '../../data'
+import { carBrands } from '../../car-brands'
 
 export function AddForm({ onAddNew, user }) {
   const [images, setImages] = useState([])
