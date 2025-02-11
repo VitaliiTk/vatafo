@@ -1,4 +1,5 @@
 // можно применить с axios чтобы не писать одинаковые запросы
+// импортировать там где будут запросы к серверу с токеном
 
 import axios from 'axios'
 
@@ -8,14 +9,14 @@ const api = axios.create({
 
 // Добавляем токен во все запросы автоматически
 api.interceptors.request.use(
-  config => {
+  (config) => {
     const token = localStorage.getItem('token') // Берем токен из localStorage
     if (token) {
       config.headers.Authorization = `Bearer ${token}` // Добавляем токен в заголовки
     }
     return config
   },
-  error => {
+  (error) => {
     return Promise.reject(error)
   }
 )

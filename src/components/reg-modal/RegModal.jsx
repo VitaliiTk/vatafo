@@ -1,10 +1,9 @@
-import { useEffect } from 'react'
 import { useState } from 'react'
-import { v4 as uuidv4 } from 'uuid'
+// import { v4 as uuidv4 } from 'uuid'
 import { IoMdClose } from 'react-icons/io'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
-// import api from '../../api'
+import api from '../../api.axios.js'
 
 import { Button } from '../button/Button'
 
@@ -12,7 +11,7 @@ import styles from './reg-modal.module.css'
 import { useAtom } from 'jotai'
 import { modalAtom, userAtom } from '../../jotai-store/jotai-store'
 
-export function RegModal({ onCloseRegModal }) {
+export function RegModal() {
   const [isRegView, setIsRegView] = useState(false)
   const [formWarning, setFormWarning] = useState(null)
   const [modal, setModal] = useAtom(modalAtom)
@@ -23,20 +22,13 @@ export function RegModal({ onCloseRegModal }) {
   // событие закрытия модалки
   function closeHandler(event) {
     event.stopPropagation()
-    // onCloseRegModal()
     setModal(false)
   }
 
-  const fetchUserData = async () => {
-    const token = localStorage.getItem('token')
-    console.log(token)
+  // запрашивает данные пользователя
+  const fetchMe = async () => {
     try {
-      const response = await axios.get('http://localhost:3001/users/me', {
-        headers: {
-          Authorization: `Bearer ${token}` // Передаем токен в заголовке
-        }
-      })
-      console.log('User data:', response.data)
+      const response = await api.get('/users/me')
       const user = response.data
       setUser(user)
     } catch (error) {
@@ -64,7 +56,7 @@ export function RegModal({ onCloseRegModal }) {
 
         // Добавляем токен в API-инстанс
         // api.defaults.headers.Authorization = `Bearer ${token}` // отдельный файл можно использовать с axios делает инстанс запроса
-        fetchUserData()
+        fetchMe()
         setModal(false)
         navigate('/')
       } catch (error) {

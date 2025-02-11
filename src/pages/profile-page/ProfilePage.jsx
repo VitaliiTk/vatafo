@@ -1,40 +1,38 @@
+import { Button } from '../../components/button/Button'
 // jotai - store
 import { useState } from 'react'
-import { useEffect } from 'react'
 import { useAtom, useAtomValue } from 'jotai'
 import { userAtom, userIdAtom } from '../../jotai-store/jotai-store'
-import axios from 'axios'
 
 // styles
 import './profile.css'
-// import api from '../../api'
+
+// axios
+import api from '../../api.axios'
 
 export function ProfilePage() {
   const [user, setUser] = useAtom(userAtom)
   const [warning, setWarning] = useState()
-  // const userId = useAtomValue(userIdAtom)
+  const [editView, setEditView] = useState(false)
+  const [formWar, setFormWar] = useState('')
 
-  // const fetchUserData = async () => {
-  //   const token = localStorage.getItem('token')
-  //   console.log(token)
-  //   try {
-  //     const response = await axios.get('http://localhost:3001/users/' + userId, {
-  //       headers: {
-  //         Authorization: `Bearer ${token}` // Передаем токен в заголовке
-  //       }
-  //     })
+  async function formSubmit(formData) {
+    const newAvatarUrl = formData.get('avatarUrl')
+    if (!newAvatarUrl) return console.error('Вставьте URL новой картинки')
 
-  //     console.log('User data:', response.data)
-  //     const user = response.data
-  //     setUser(user)
-  //   } catch (error) {
-  //     console.error('Error fetching user:', error.response?.data)
-  //   }
-  // }
-
-  // useEffect(() => {
-  //   fetchUserData()
-  // }, [userId])
+    try {
+      const response = await api.post('/users/avatar', { avatar: newAvatarUrl })
+      console.log(response.data)
+      if (response.data.avatar === user.avatar) {
+        return setFormWar('Это фото уже установлено')
+      }
+      setUser({ ...user, avatar: response.data.avatar })
+      setFormWar('фото успешно обновлено')
+      setEditView(false)
+    } catch (error) {
+      console.error('Ошибка:', error)
+    }
+  }
 
   if (!user) return <p>Войдите в акаунт {warning}</p>
 
@@ -50,8 +48,29 @@ export function ProfilePage() {
           />
         </div>
         <div className="info">Email: {user.email}</div>
-        {/* <div className="info">Password: {user.password}</div> */}
         <div className="info">Status: {user.status}</div>
+        {editView && (
+          <form className="edit-form" action={formSubmit}>
+            <div className="edit-input__box">
+              <label htmlFor="avatarUrl">Вставте ссылку на новое фото</label>
+              <input
+                id="avatarUrl"
+                name="avatarUrl"
+                className="edit-input"
+                type="url"
+                placeholder="image url"
+                required
+              />
+              {editView && <button>Отправить</button>}
+            </div>
+          </form>
+        )}
+        {!editView && (
+          <Button onClickHandler={() => setEditView((prev) => !prev)}>Редактировать</Button>
+        )}
+        {editView && <Button onClickHandler={() => setEditView((prev) => !prev)}>Отмена</Button>}
+
+        <p className="warning">{formWar}</p>
       </div>
     </div>
   )

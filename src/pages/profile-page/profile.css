@@ -28,3 +28,21 @@
   object-fit: cover;
   border-radius: 50%;
 }
+
+.edit-input__box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.edit-input__box input {
+  background-color: #fff;
+  color: #000;
+  border: none;
+  border-radius: 7px;
+  padding: 12px;
+}
+
+.profile-page .warning {
+  color: var(--primary-color);
+}

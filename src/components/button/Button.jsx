@@ -1,6 +1,6 @@
 // import './buttons.css'
 
-export function Button({ color, className = '', children }) {
+export function Button({ color, className = '', onClickHandler, children }) {
   //
   // css styles
   const btnStyle = {
@@ -12,7 +12,7 @@ export function Button({ color, className = '', children }) {
   //
 
   return (
-    <button className={className} style={btnStyle}>
+    <button onClick={onClickHandler} className={className} style={btnStyle}>
       {children}
     </button>
   )
