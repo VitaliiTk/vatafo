@@ -4,13 +4,14 @@ import { IoMdClose } from 'react-icons/io'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import api from '../../api.axios.js'
+import { useQuery } from '@tanstack/react-query'
 
 import { Button } from '../button/Button'
 
-import styles from './reg-modal.module.css'
 import { useAtom } from 'jotai'
-import { modalAtom, userAtom } from '../../jotai-store/jotai-store'
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { modalAtom } from '../../atoms/modalsAtom'
+
+import styles from './reg-modal.module.css'
 
 // functions =======================================
 // логин
@@ -19,7 +20,6 @@ const loginUser = async (email, password) => {
     const { data } = await axios.post('http://localhost:3001/auth/login', { email, password })
     const { token } = data
     localStorage.setItem('token', token)
-    console.log('Login successfull')
     return data
 
     // Добавляем токен в API-инстанс

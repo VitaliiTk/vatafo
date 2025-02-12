@@ -9,7 +9,7 @@ import { SearchForm } from '../../search-form/SearchForm'
 // import { Button } from '../../button/Button'
 // jotai-store
 import { useSetAtom, useAtom } from 'jotai'
-import { modalAtom } from '../../../jotai-store/jotai-store'
+import { modalAtom } from '../../../atoms/modalsAtom'
 // styles
 import './header.css'
 import { useQuery, useQueryClient } from '@tanstack/react-query'

@@ -1,6 +1,7 @@
 // libs
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import api from '../../api.axios'
+import { useAtom, useAtomValue } from 'jotai' // for work with Jotai
 
 // components
 import { Header } from '../layouts/header/Header'
@@ -17,9 +18,8 @@ import { ErrorPage } from '../../pages/error-page/ErrorPage'
 // TanstackQuery
 import { useQuery } from '@tanstack/react-query'
 
-// Jotai-store states
-import { useAtom, useAtomValue } from 'jotai' // for work with Jotai
-import { modalAtom } from '../../jotai-store/jotai-store' // external store import
+// atoms
+import { modalAtom } from '../../atoms/modalsAtom' // external store import
 
 // styles
 import './App.css'
@@ -40,8 +40,7 @@ function App() {
   // states
   const regmodal = useAtomValue(modalAtom)
   const token = localStorage.getItem('token')
-  console.log('token', !!token)
-  const { data, isPending, error } = useQuery({
+  useQuery({
     queryKey: ['user'],
     queryFn: getMe,
     enabled: !!token

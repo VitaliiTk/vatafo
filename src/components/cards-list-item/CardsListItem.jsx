@@ -2,7 +2,8 @@
 import { useAtom } from 'jotai'
 
 // store
-import { userAtom, modalAtom } from '../../jotai-store/jotai-store'
+import { userAtom } from '../../atoms/userAtom'
+import { modalAtom } from '../../atoms/modalsAtom'
 
 // icons
 import { GoHeart } from 'react-icons/go'
@@ -17,7 +18,7 @@ export function CardsListItem({ card, users, isLike }) {
   const [modal, setModal] = useAtom(modalAtom)
 
   const title = card.info.slice(0, 30)
-  const userInfo = users.find(user => {
+  const userInfo = users.find((user) => {
     return user.id == card.userId
   })
 
