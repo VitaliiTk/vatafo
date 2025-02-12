@@ -12,19 +12,15 @@ import { useSetAtom, useAtom } from 'jotai'
 import { modalAtom } from '../../../atoms/modalsAtom'
 // styles
 import './header.css'
-import { useQuery, useQueryClient } from '@tanstack/react-query'
+import { useQueryClient } from '@tanstack/react-query'
 
 // ==========================================================
 export function Header() {
   const setModal = useSetAtom(modalAtom)
-  const { data: user, isLoading } = useQuery({
-    queryKey: ['user'],
-    enabled: false
-  })
+  const queryClient = useQueryClient()
+  const user = queryClient.getQueryData(['user'])
 
   const navigate = useNavigate()
-
-  const queryClient = useQueryClient()
 
   // Кнопка "Выход" сбрасывает кэш
   const handleLogout = () => {
@@ -55,8 +51,8 @@ export function Header() {
               <div className="login__btn" onClick={() => setModal(true)}>
                 <span className="login__icon">
                   <CiLogin />
-                </span>{' '}
-                {isLoading ? 'Loading...' : 'Войти'}
+                </span>
+                Войти
               </div>
             </div>
           )}

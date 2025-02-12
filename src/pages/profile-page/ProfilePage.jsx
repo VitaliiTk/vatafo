@@ -1,5 +1,5 @@
 // libs
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import api from '../../api/axios'
 // components
 import { Button } from '../../components/button/Button'
@@ -19,7 +19,7 @@ const editUser = async (newAvatar) => {
   }
 }
 
-// ==========================================================
+// master ==========================================================
 export function ProfilePage() {
   const [editView, setEditView] = useState(false)
   const [formWar, setFormWar] = useState('')
@@ -47,8 +47,15 @@ export function ProfilePage() {
     mutation.mutate(newAvatarUrl)
   }
 
+  // if (isPending) return <h2>Loading...</h2>
+
+  // if (isError) {
+  //   console.log('Ошибка загрузки пользователя', error)
+  //   // return <RegModal />
+  //   return <h2>Страница не доступна! Войдите а акаунт</h2>
+  // }
   // если пользователь не зарегистрирован отображать это на странице
-  if (!user) return <h1>Страница не доступна! Войдите а акаунт</h1>
+  if (!user) return <h2>Страница не доступна! Войдите а акаунт</h2>
 
   return (
     <div className="profile-page">
