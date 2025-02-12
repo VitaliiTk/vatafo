@@ -45,7 +45,7 @@ function App() {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/acount/favorites" element={<FavoritesPage />} />
-            <Route path="/acount/ad" element={<AddForm />} />
+            {/* <Route path="/acount/ad" element={<AddForm />} /> */}
             <Route path="/acount/userposts" element={<UserPostsPage />} />
             <Route path="/acount/profile" element={<ProfilePage />} />
             <Route path="*" element={<ErrorPage />} />

@@ -1,6 +1,6 @@
 // libs
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import api from '../../api.axios'
+import api from '../../api/axios'
 // components
 import { Button } from '../../components/button/Button'
 // jotai - store

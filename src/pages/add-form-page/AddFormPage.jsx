@@ -6,8 +6,6 @@ import { DragDropImageUploader } from '../../components/drag-drop-image-uploader
 
 import './add-form.css'
 
-import { carBrands } from '../../car-brands'
-
 export function AddForm({ onAddNew, user }) {
   const [images, setImages] = useState([])
   const [mainImage, setMainImage] = useState(null)
@@ -15,7 +13,7 @@ export function AddForm({ onAddNew, user }) {
   // console.log(user)
 
   //
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
     e.preventDefault() // Предотвращаем перезагрузку страницы
 
     // Получаем все отмеченные чекбоксы
@@ -48,7 +46,7 @@ export function AddForm({ onAddNew, user }) {
   //   console.log(items)
   // }
 
-  const onMainImageSelect = image => {
+  const onMainImageSelect = (image) => {
     setMainImage(image)
   }
 
@@ -121,13 +119,13 @@ export function AddForm({ onAddNew, user }) {
               </div>
               <div className="inputs__wrapper">
                 <h3>Модель</h3>
-                <select name="brand" id="brand" required>
+                {/* <select name="brand" id="brand" required>
                   {carBrands.map((item, index) => (
                     <option key={index} value={item}>
                       {item}
                     </option>
                   ))}
-                </select>
+                </select> */}
               </div>
               <div className="inputs__wrapper">
                 <h3>Год</h3>
