@@ -66,7 +66,7 @@ export function Header() {
               <span className="avatar-img__wrapper">
                 <img
                   className="avatar-img"
-                  src={user.avatar ? user.avatar : '/avatars/avatar-generations_prsz.jpg'}
+                  src={user.avatar ? user.avatar : '/avatars/avatar-default.svg'}
                   alt="avatar-image"
                 />
               </span>

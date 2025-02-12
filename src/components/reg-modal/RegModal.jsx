@@ -74,8 +74,6 @@ export function RegModal() {
 
       await loginUser(email, password)
       setModal(false)
-      // navigate('/')
-      // console.log(!!(await loginUser(email, password)))
 
       return
     }
