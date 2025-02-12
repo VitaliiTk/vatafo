@@ -1,32 +1,40 @@
 // libs
 import { Link, useNavigate } from 'react-router-dom'
-
 // icons
 import { GoHeartFill } from 'react-icons/go'
 import { CiLogin } from 'react-icons/ci'
-
 // components
 import { HeaderLogo } from '../../header-logo/HeaderLogo'
 import { SearchForm } from '../../search-form/SearchForm'
 // import { Button } from '../../button/Button'
-
-// styles
-import './header.css'
-
 // jotai-store
 import { useSetAtom, useAtom } from 'jotai'
-import { userAtom, modalAtom } from '../../../jotai-store/jotai-store'
+import { modalAtom } from '../../../jotai-store/jotai-store'
+// styles
+import './header.css'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
 
+// ==========================================================
 export function Header() {
-  const [user, setUser] = useAtom(userAtom)
   const setModal = useSetAtom(modalAtom)
+  const { data: user, isLoading } = useQuery({
+    queryKey: ['user'],
+    enabled: false
+  })
 
   const navigate = useNavigate()
 
-  const logout = () => {
+  const queryClient = useQueryClient()
+
+  // Кнопка "Выход" сбрасывает кэш
+  const handleLogout = () => {
     localStorage.removeItem('token')
-    setUser(null)
     navigate('/')
+
+    // Удаляем пользователя из кэша
+    queryClient.removeQueries({
+      queryKey: ['user']
+    })
   }
 
   return (
@@ -48,7 +56,7 @@ export function Header() {
                 <span className="login__icon">
                   <CiLogin />
                 </span>{' '}
-                Войти
+                {isLoading ? 'Loading...' : 'Войти'}
               </div>
             </div>
           )}
@@ -76,7 +84,7 @@ export function Header() {
                 <Link to="/acount/profile" className="user-menu__item">
                   Профиль
                 </Link>
-                <span className="user-menu__item" onClick={logout}>
+                <span className="user-menu__item" onClick={handleLogout}>
                   Выйти
                 </span>
               </div>

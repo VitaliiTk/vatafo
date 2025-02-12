@@ -1,5 +1,8 @@
+// libs
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import api from '../../api.axios'
 
+// components
 import { Header } from '../layouts/header/Header'
 import { AddForm } from '../../pages/add-form-page/AddFormPage'
 import { FavoritesPage } from '../../pages/favorites-page/FavoritesPage'
@@ -11,35 +14,38 @@ import { HomePage } from '../../pages/home-page/HomePage'
 import { Footer } from '../layouts/footer/Footer'
 import { ErrorPage } from '../../pages/error-page/ErrorPage'
 
-import api from '../../api.axios'
-
-import './App.css'
-
 // TanstackQuery
 import { useQuery } from '@tanstack/react-query'
 
-// Jotai-store
+// Jotai-store states
 import { useAtom, useAtomValue } from 'jotai' // for work with Jotai
-import { modalAtom, userAtom } from '../../jotai-store/jotai-store' // external store import
+import { modalAtom } from '../../jotai-store/jotai-store' // external store import
 
+// styles
+import './App.css'
+
+// ===========================================
+// functions
+async function getMe() {
+  try {
+    const response = await api.get('/users/me')
+    return response.data
+  } catch (error) {
+    console.error(error.message)
+  }
+}
+
+// ============================================
 function App() {
+  // states
   const regmodal = useAtomValue(modalAtom)
-  const [user, setUser] = useAtom(userAtom)
-
+  const token = localStorage.getItem('token')
+  console.log('token', !!token)
   const { data, isPending, error } = useQuery({
     queryKey: ['user'],
-    queryFn: getMe
+    queryFn: getMe,
+    enabled: !!token
   })
-
-  async function getMe() {
-    try {
-      const response = await api.get('/users/me')
-      setUser(response.data)
-      return response.data
-    } catch (error) {
-      console.error(error.message)
-    }
-  }
 
   return (
     <div className="app">

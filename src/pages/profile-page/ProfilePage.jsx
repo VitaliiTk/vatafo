@@ -1,21 +1,24 @@
+// libs
+import { useQuery } from '@tanstack/react-query'
+import api from '../../api.axios'
+// components
 import { Button } from '../../components/button/Button'
 // jotai - store
 import { useState } from 'react'
-import { useAtom, useAtomValue } from 'jotai'
-import { userAtom, userIdAtom } from '../../jotai-store/jotai-store'
-
 // styles
 import './profile.css'
 
-// axios
-import api from '../../api.axios'
-
+// ==========================================================
 export function ProfilePage() {
-  const [user, setUser] = useAtom(userAtom)
-  const [warning, setWarning] = useState()
   const [editView, setEditView] = useState(false)
   const [formWar, setFormWar] = useState('')
 
+  const { data: user } = useQuery({
+    queryKey: ['user'],
+    enabled: false
+  })
+
+  // редактирование фото
   async function formSubmit(formData) {
     const newAvatarUrl = formData.get('avatarUrl')
     if (!newAvatarUrl) return console.error('Вставьте URL новой картинки')
@@ -26,7 +29,7 @@ export function ProfilePage() {
       if (response.data.avatar === user.avatar) {
         return setFormWar('Это фото уже установлено')
       }
-      setUser({ ...user, avatar: response.data.avatar })
+      // нужно обновить кэш user через tanstack query незнаю как ?
       setFormWar('фото успешно обновлено')
       setEditView(false)
     } catch (error) {
@@ -34,7 +37,7 @@ export function ProfilePage() {
     }
   }
 
-  if (!user) return <p>Войдите в акаунт {warning}</p>
+  if (!user) return <h1>Страница не доступна! Войдите а акаунт</h1>
 
   return (
     <div className="profile-page">

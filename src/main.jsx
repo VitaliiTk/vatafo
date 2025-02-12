@@ -9,9 +9,9 @@ import './index.css'
 const queryClient = new QueryClient() // must have tanstack query
 
 createRoot(document.getElementById('root')).render(
-  // <StrictMode>
-  <QueryClientProvider client={queryClient}>
-    <App />
-  </QueryClientProvider>
-  // </StrictMode>
+  <StrictMode>
+    <QueryClientProvider client={queryClient}>
+      <App />
+    </QueryClientProvider>
+  </StrictMode>
 )

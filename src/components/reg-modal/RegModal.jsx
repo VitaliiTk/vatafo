@@ -10,30 +10,54 @@ import { Button } from '../button/Button'
 import styles from './reg-modal.module.css'
 import { useAtom } from 'jotai'
 import { modalAtom, userAtom } from '../../jotai-store/jotai-store'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 
+// functions =======================================
+// логин
+const loginUser = async (email, password) => {
+  try {
+    const { data } = await axios.post('http://localhost:3001/auth/login', { email, password })
+    const { token } = data
+    localStorage.setItem('token', token)
+    console.log('Login successfull')
+    return data
+
+    // Добавляем токен в API-инстанс
+    // api.defaults.headers.Authorization = `Bearer ${token}` // отдельный файл можно использовать с axios делает инстанс запроса
+  } catch (error) {
+    console.log(error.response?.data?.error || 'Что-то пошло не так')
+  }
+}
+
+// запрос данных пользователя
+async function getMe() {
+  try {
+    const response = await api.get('/users/me')
+    return response.data
+  } catch (error) {
+    console.error(error.message)
+  }
+}
+
+// ==============================================
 export function RegModal() {
   const [isRegView, setIsRegView] = useState(false)
   const [formWarning, setFormWarning] = useState(null)
   const [modal, setModal] = useAtom(modalAtom)
-  const [user, setUser] = useAtom(userAtom)
+
+  const token = localStorage.getItem('token')
+  useQuery({
+    queryKey: ['user'],
+    queryFn: getMe,
+    enabled: !!token
+  })
 
   const navigate = useNavigate()
 
-  // событие закрытия модалки
-  function closeHandler(event) {
-    event.stopPropagation()
-    setModal(false)
-  }
-
-  // запрашивает данные пользователя
-  const fetchMe = async () => {
-    try {
-      const response = await api.get('/users/me')
-      const user = response.data
-      setUser(user)
-    } catch (error) {
-      console.error('Error fetching user:', error.response?.data)
-    }
+  // Переключить форму на другую
+  function formChangeHandler() {
+    setIsRegView((prev) => !prev)
+    setFormWarning(null)
   }
 
   // событие при отправке формы
@@ -48,20 +72,10 @@ export function RegModal() {
         return setFormWarning('Заполните все поля!')
       }
 
-      try {
-        const response = await axios.post('http://localhost:3001/auth/login', { email, password })
-        const { token } = response.data
-        localStorage.setItem('token', token)
-        console.log('Login successfull: ', response.data)
-
-        // Добавляем токен в API-инстанс
-        // api.defaults.headers.Authorization = `Bearer ${token}` // отдельный файл можно использовать с axios делает инстанс запроса
-        fetchMe()
-        setModal(false)
-        navigate('/')
-      } catch (error) {
-        setFormWarning(error.response?.data?.error || 'Что-то пошло не так')
-      }
+      await loginUser(email, password)
+      setModal(false)
+      // navigate('/')
+      // console.log(!!(await loginUser(email, password)))
 
       return
     }
@@ -98,16 +112,10 @@ export function RegModal() {
     }
   }
 
-  // Переключить форму на другую
-  function formChangeHandler() {
-    setIsRegView(prev => !prev)
-    setFormWarning(null)
-  }
-
   return (
     <div className={styles['reg-modal__wrapper']}>
       <div className={styles['reg-modal']}>
-        <span className={styles['close-icon']} onClick={closeHandler}>
+        <span className={styles['close-icon']} onClick={() => setModal(false)}>
           <IoMdClose />
         </span>
         <h2 className={styles['title']}>{!isRegView ? 'Вход в систему' : 'Регистрация'}</h2>
@@ -148,9 +156,7 @@ export function RegModal() {
               />
             </div>
           )}
-
           {formWarning && <span className={styles['form-warnings']}>{formWarning}</span>}
-
           <Button>{!isRegView ? 'Войти' : 'Регистрация'}</Button>
         </form>
 
