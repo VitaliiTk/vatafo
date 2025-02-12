@@ -24,24 +24,18 @@ export function ProfilePage() {
   const [editView, setEditView] = useState(false)
   const [formWar, setFormWar] = useState('')
   const [avatar, setAvatar] = useState('')
+  const queryClient = useQueryClient() // типа подключаем для использования
 
-  // tanstack query при монтировании компонента
-  const { data: user } = useQuery({
-    queryKey: ['user'],
-    enabled: false
-  })
-
-  const queryClient = useQueryClient()
+  const user = queryClient.getQueryData(['user']) // только беру данные user из кэша tanstack
 
   // мутация данных пользователя
   const mutation = useMutation({
     mutationFn: editUser,
     onSuccess: (data) => {
-      // 🔥 Обновляем кэш без повторного запроса
-      queryClient.setQueryData(['user'], data)
-      setFormWar('Success')
-      setAvatar(data.avatar)
-      setEditView(false)
+      queryClient.setQueryData(['user'], data) // 🔥 Обновляем кэш без повторного запроса
+      setFormWar('Success') // устанавливаем оповещения в state
+      setAvatar(data.avatar) // чисто для проверки тоже фото что и было
+      setEditView(false) // закрываем режим редактирования
     }
   })
 
@@ -49,7 +43,7 @@ export function ProfilePage() {
   async function formSubmit(formData) {
     const newAvatarUrl = formData.get('avatarUrl')
     if (!newAvatarUrl) return console.error('Вставьте URL картинки')
-    if (avatar === newAvatarUrl) return setFormWar('Это фото уже установлено')
+    if (avatar === newAvatarUrl) return setFormWar('Это фото уже установлено') // чисто для проверки тоже фото что и было
     mutation.mutate(newAvatarUrl)
   }
 
