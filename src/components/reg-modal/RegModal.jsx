@@ -1,78 +1,54 @@
 import { useState } from 'react'
-// import { v4 as uuidv4 } from 'uuid'
 import { IoMdClose } from 'react-icons/io'
-import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
-import api from '../../api.axios.js'
 import { useQuery } from '@tanstack/react-query'
 
 import { Button } from '../button/Button'
 
 import { useAtom } from 'jotai'
+
 import { modalAtom } from '../../atoms/modalsAtom'
+import { reg_login_warning_Atom } from '../../atoms/warningsAtom'
 
 import styles from './reg-modal.module.css'
 
 // functions =======================================
-// логин
-const loginUser = async (email, password) => {
-  try {
-    const { data } = await axios.post('http://localhost:3001/auth/login', { email, password })
-    const { token } = data
-    localStorage.setItem('token', token)
-    return data
-
-    // Добавляем токен в API-инстанс
-    // api.defaults.headers.Authorization = `Bearer ${token}` // отдельный файл можно использовать с axios делает инстанс запроса
-  } catch (error) {
-    console.log(error.response?.data?.error || 'Что-то пошло не так')
-  }
-}
-
-// запрос данных пользователя
-async function getMe() {
-  try {
-    const response = await api.get('/users/me')
-    return response.data
-  } catch (error) {
-    console.error(error.message)
-  }
-}
+import { getMe, loginUser, userRegistration } from '../../api/userApi.js'
 
 // ==============================================
 export function RegModal() {
   const [isRegView, setIsRegView] = useState(false)
-  const [formWarning, setFormWarning] = useState(null)
+  // const [formWarning, setFormWarning] = useState(null)
+  const [warning, setWarning] = useAtom(reg_login_warning_Atom)
   const [modal, setModal] = useAtom(modalAtom)
 
   const token = localStorage.getItem('token')
-  useQuery({
+  const { data: user } = useQuery({
     queryKey: ['user'],
     queryFn: getMe,
     enabled: !!token
   })
 
-  const navigate = useNavigate()
-
   // Переключить форму на другую
   function formChangeHandler() {
     setIsRegView((prev) => !prev)
-    setFormWarning(null)
+    setWarning('')
   }
 
   // событие при отправке формы
   async function formAction(formData) {
-    // еслли форма входа
+    // еслли форма входа активна
     if (!isRegView) {
-      const email = formData.get('email')
-      const password = formData.get('password')
+      const email = formData.get('email') // из формы берем value, input должен иметь name='email'
+      const password = formData.get('password') // из формы берем value, input должен иметь name='password'
 
       // если поля не заполнены проверка
       if (!email || !password) {
-        return setFormWarning('Заполните все поля!')
+        return setWarning('Заполните все поля!')
       }
 
       await loginUser(email, password)
+
       setModal(false)
 
       return
@@ -87,26 +63,18 @@ export function RegModal() {
 
       // если поля не заполнены
       if (!username || !email || !password || !passwordReply) {
-        return setFormWarning('Заполните все поля!')
+        return setWarning('Заполните все поля!')
       }
       // проверка на совпадения паролей
       if (password !== passwordReply) {
-        return setFormWarning('Пароли не совпадают!')
+        return setWarning('Пароли не совпадают!')
       }
 
       // запрос на сервер - регистрация
-      try {
-        await axios.post('http://localhost:3001/auth/register', {
-          username,
-          email,
-          password
-        })
+      await userRegistration(username, email, password)
 
-        setFormWarning('Успешно зареган')
-        setIsRegView(false)
-      } catch (error) {
-        setFormWarning(error.response?.data?.error || 'Что-то пошло не так')
-      }
+      setWarning('Успешно зареган')
+      setIsRegView(false)
     }
   }
 
@@ -154,7 +122,7 @@ export function RegModal() {
               />
             </div>
           )}
-          {formWarning && <span className={styles['form-warnings']}>{formWarning}</span>}
+          {warning && <span className={styles['form-warnings']}>{warning}</span>}
           <Button>{!isRegView ? 'Войти' : 'Регистрация'}</Button>
         </form>
 

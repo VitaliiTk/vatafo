@@ -1,6 +1,5 @@
 // libs
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import api from '../../api.axios'
 import { useAtom, useAtomValue } from 'jotai' // for work with Jotai
 
 // components
@@ -24,16 +23,8 @@ import { modalAtom } from '../../atoms/modalsAtom' // external store import
 // styles
 import './App.css'
 
-// ===========================================
-// functions
-async function getMe() {
-  try {
-    const response = await api.get('/users/me')
-    return response.data
-  } catch (error) {
-    console.error(error.message)
-  }
-}
+// functions ===========================================
+import { getMe } from '../../api/userApi'
 
 // ============================================
 function App() {
