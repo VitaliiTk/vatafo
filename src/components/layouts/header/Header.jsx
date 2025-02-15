@@ -1,8 +1,10 @@
 // libs
 import { Link, useNavigate } from 'react-router-dom'
+import { useQueryClient } from '@tanstack/react-query'
 // icons
 import { GoHeartFill } from 'react-icons/go'
 import { CiLogin } from 'react-icons/ci'
+import { IoMdAddCircle } from 'react-icons/io'
 // components
 import { HeaderLogo } from '../../header-logo/HeaderLogo'
 import { SearchForm } from '../../search-form/SearchForm'
@@ -12,7 +14,6 @@ import { useSetAtom, useAtom } from 'jotai'
 import { modalAtom } from '../../../atoms/modalsAtom'
 // styles
 import './header.css'
-import { useQueryClient } from '@tanstack/react-query'
 
 // ==========================================================
 export function Header() {
@@ -68,6 +69,12 @@ export function Header() {
               </span>
 
               <div className="user-menu">
+                <Link to="/acount/ad" className="user-menu__item">
+                  <span className="icon-add-new">
+                    <IoMdAddCircle />
+                  </span>
+                  Создать новое
+                </Link>
                 <Link to="/acount/userposts" className="user-menu__item">
                   Мои объявления
                 </Link>

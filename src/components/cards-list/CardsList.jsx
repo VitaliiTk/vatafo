@@ -1,55 +1,31 @@
-import axios from 'axios'
-import { useEffect } from 'react'
-import { useState } from 'react'
+// libs
+import { useQuery } from '@tanstack/react-query'
 
+// components
 import { CardsListItem } from '../cards-list-item/CardsListItem'
 
+// styles
 import './cards-list.css'
 
-export function CardsList({ user }) {
-  const [cars, setCars] = useState([])
-  const [users, setUsers] = useState([])
-  const [favorites, setFavorites] = useState([])
-  const [error, setError] = useState('')
+// api functions ====================================================================
+import { getAllPosts } from '../../api/postApi'
 
-  // асинхронный запрос к серверу за данными
-  async function getCars() {
-    try {
-      const { data } = await axios.get('http://localhost:3001/cars')
-      // console.log(data)
-      setCars(data)
-    } catch (error) {
-      setError(error.message)
-    }
-  }
-  async function getUsers() {
-    const { data } = await axios.get('http://localhost:3001/users')
-    // console.log(data)
-    setUsers(data)
-  }
-  // async function getFavorites() {
-  //   const { data } = await axios.get(`http://localhost:3001/favorites/${user.id}`)
-  //   console.log(data)
-  //   setFavorites(data)
-  // }
+// master ===========================================================================
+export function CardsList() {
+  // tanstack query
+  const { data, isLoading } = useQuery({
+    queryKey: ['posts'],
+    queryFn: getAllPosts
+  })
 
-  // use effect
-  useEffect(() => {
-    getCars()
-    getUsers()
-  }, [])
+  console.log(data)
 
-  function likeTest(cardId) {
-    const isInFavorite = favorites.some(favotite => favotite.cardId == cardId)
-    return isInFavorite
-  }
-
-  if (error) return <p>{error}</p>
+  if (isLoading) return <h3>Loading...</h3>
 
   return (
     <div className="cards-list__box">
-      {cars.map(item => (
-        <CardsListItem key={item.id} card={item} users={users} isLike={likeTest(item.id)} />
+      {data?.map((item) => (
+        <CardsListItem key={item.id} card={item} />
       ))}
     </div>
   )

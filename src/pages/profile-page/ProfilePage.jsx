@@ -7,6 +7,7 @@ import { Button } from '../../components/button/Button'
 import { useState } from 'react'
 // styles
 import './profile.css'
+import { RegModal } from '../../components/reg-modal/RegModal'
 
 // functions ================================================
 // отправка post запроса на сервер с фото
@@ -24,8 +25,8 @@ export function ProfilePage() {
   const [editView, setEditView] = useState(false)
   const [formWar, setFormWar] = useState('')
   const [avatar, setAvatar] = useState('')
-  const queryClient = useQueryClient() // типа подключаем для использования
 
+  const queryClient = useQueryClient() // типа подключаем для использования
   const user = queryClient.getQueryData(['user']) // только беру данные user из кэша tanstack
 
   // мутация данных пользователя
@@ -34,7 +35,7 @@ export function ProfilePage() {
     onSuccess: (data) => {
       queryClient.setQueryData(['user'], data) // 🔥 Обновляем кэш без повторного запроса
       setFormWar('Success') // устанавливаем оповещения в state
-      setAvatar(data.avatar) // чисто для проверки тоже фото что и было
+      setAvatar(data.avatar) // для проверки повторяемости фото
       setEditView(false) // закрываем режим редактирования
     }
   })
@@ -47,15 +48,7 @@ export function ProfilePage() {
     mutation.mutate(newAvatarUrl)
   }
 
-  // if (isPending) return <h2>Loading...</h2>
-
-  // if (isError) {
-  //   console.log('Ошибка загрузки пользователя', error)
-  //   // return <RegModal />
-  //   return <h2>Страница не доступна! Войдите а акаунт</h2>
-  // }
-  // если пользователь не зарегистрирован отображать это на странице
-  if (!user) return <h2>Страница не доступна! Войдите а акаунт</h2>
+  if (!user) return <RegModal />
 
   return (
     <div className="profile-page">

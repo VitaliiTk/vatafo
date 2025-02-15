@@ -134,6 +134,14 @@
   color: var(--accent-color);
 }
 
+.icon-add-new {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary-color);
+  font-size: 22px;
+}
+
 @media (max-width: 866px) {
   .header__wrapper {
     flex-direction: column;

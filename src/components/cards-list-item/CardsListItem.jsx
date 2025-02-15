@@ -1,45 +1,35 @@
 // lib
-import { useAtom } from 'jotai'
 
 // store
-import { userAtom } from '../../atoms/userAtom'
-import { modalAtom } from '../../atoms/modalsAtom'
 
 // icons
 import { GoHeart } from 'react-icons/go'
-import { GoHeartFill } from 'react-icons/go'
-// import { CiMail } from 'react-icons/ci'
+import { CiMail } from 'react-icons/ci'
 
 // styles
 import './card-list-item.css'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { addFavorite } from '../../api/favoritesApi'
 
-export function CardsListItem({ card, users, isLike }) {
-  const [user] = useAtom(userAtom)
-  const [modal, setModal] = useAtom(modalAtom)
-
+export function CardsListItem({ card }) {
   const title = card.info.slice(0, 30)
-  const userInfo = users.find((user) => {
-    return user.id == card.userId
+
+  console.log(card)
+
+  const queryClient = useQueryClient()
+
+  const user = queryClient.getQueryData(['user'])
+
+  // console.log(user.id)
+
+  const { mutate } = useMutation({
+    mutationFn: addFavorite,
+    onSuccess: () => console.log('add favorite success')
   })
-
-  // console.log(users)
-  // console.log(card)
-
-  function favoriteIconClickHandler() {
-    // проверка залогинен или нет
-    if (!user) return setModal(true)
-
-    // if loged
-    const newFavorite = {
-      card_id: card.id,
-      user_id: user.id
-    }
-    console.log(newFavorite)
-  }
 
   return (
     <a /* href="#" */ className="card">
-      <img className="card__img" src={card.mainImage.url} alt={card.images[0].name} />
+      <img className="card__img" src={card.main_image} alt="" />
       <div className="card__content">
         <div className="card__info">
           {/* <div className="card__price-old">1600</div> */}
@@ -49,16 +39,18 @@ export function CardsListItem({ card, users, isLike }) {
         </div>
         <div className="card__bottom-info">
           <div className="card__bottom-info-left-side">
-            <img className="card__avatar-img" src={userInfo?.avatar_url} alt="" />
-            <div className="card__ac-status">{userInfo?.status === 'pro' ? 'PRO' : ''}</div>
+            <img className="card__avatar-img" src="/avatars/avatar-default.svg" alt="" />
+            <div className="card__ac-status">Pro</div>
           </div>
           <div className="card__bottom-info-right-side">
-            {/* <span className="card__icon"><CiMail /></span> */}
+            <span className="card__icon">
+              <CiMail />
+            </span>
             <span
-              className={isLike ? 'card__icon favorite like' : 'card__icon favorite'}
-              onClick={favoriteIconClickHandler}
+              onClick={() => mutate({ post_id: card.id, user_id: user.id })}
+              className="card__icon favorite"
             >
-              {isLike ? <GoHeartFill /> : <GoHeart />}
+              <GoHeart />
             </span>
           </div>
         </div>

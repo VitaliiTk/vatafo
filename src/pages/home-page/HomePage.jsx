@@ -6,7 +6,7 @@ export function HomePage() {
     <div>
       <h2>Все объявления</h2>
       {/* <CarBrandsList /> */}
-      {/* <CardsList user={user} /> */}
+      <CardsList />
     </div>
   )
 }

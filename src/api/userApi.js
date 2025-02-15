@@ -12,18 +12,12 @@ export async function getMe() {
 }
 
 // логин
-export async function loginUser(email, password) {
-  try {
-    const { data } = await axios.post('http://localhost:3001/auth/login', { email, password })
-    const { token } = data
-    localStorage.setItem('token', token)
-    return data
+export async function loginUser({ email, password }) {
+  const response = await axios.post('http://localhost:3001/auth/login', { email, password })
 
-    // Добавляем токен в API-инстанс
-    // api.defaults.headers.Authorization = `Bearer ${token}` // отдельный файл можно использовать с axios делает инстанс запроса
-  } catch (error) {
-    console.log(error.response?.data?.error || 'Что-то пошло не так')
-  }
+  const { token } = response.data
+  localStorage.setItem('token', token)
+  return response.data
 }
 
 // запрос на регистрацию пользователя

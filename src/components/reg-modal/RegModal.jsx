@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { IoMdClose } from 'react-icons/io'
-import axios from 'axios'
-import { useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery } from '@tanstack/react-query'
 
 import { Button } from '../button/Button'
 
@@ -18,15 +17,23 @@ import { getMe, loginUser, userRegistration } from '../../api/userApi.js'
 // ==============================================
 export function RegModal() {
   const [isRegView, setIsRegView] = useState(false)
-  // const [formWarning, setFormWarning] = useState(null)
   const [warning, setWarning] = useAtom(reg_login_warning_Atom)
   const [modal, setModal] = useAtom(modalAtom)
 
-  const token = localStorage.getItem('token')
-  const { data: user } = useQuery({
+  useQuery({
     queryKey: ['user'],
     queryFn: getMe,
-    enabled: !!token
+    enabled: !!localStorage.getItem('token')
+  })
+
+  const { mutate } = useMutation({
+    mutationFn: loginUser,
+    onError: (error) => {
+      setWarning(error.response?.data?.error)
+    },
+    onSuccess: () => {
+      setModal(false)
+    }
   })
 
   // Переключить форму на другую
@@ -47,10 +54,7 @@ export function RegModal() {
         return setWarning('Заполните все поля!')
       }
 
-      await loginUser(email, password)
-
-      setModal(false)
-
+      mutate({ email, password })
       return
     }
 

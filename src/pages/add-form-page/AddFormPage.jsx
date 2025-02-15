@@ -1,16 +1,38 @@
+// libs
 import { v4 as uuidv4 } from 'uuid'
 import { useState } from 'react'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 
+// components
 import { Button } from '../../components/button/Button'
 import { DragDropImageUploader } from '../../components/drag-drop-image-uploader/DragDropImageUploader'
+import { RegModal } from '../../components/reg-modal/RegModal'
 
+// styles
 import './add-form.css'
 
-export function AddForm({ onAddNew, user }) {
+// functions ===============================================================================
+import { postNewCar } from '../../api/postApi'
+import { useNavigate } from 'react-router-dom'
+
+// master ==================================================================================
+export function AddForm() {
   const [images, setImages] = useState([])
   const [mainImage, setMainImage] = useState(null)
 
-  // console.log(user)
+  // Tanstack get user from global state cashe
+  const queryClient = useQueryClient()
+  const user = queryClient.getQueryData(['user'])
+
+  const navigate = useNavigate()
+  // mutation tanstack
+  const { mutate } = useMutation({
+    mutationFn: postNewCar,
+    onSuccess: () => {
+      console.log('new post success')
+      // navigate('/acount/userposts')
+    }
+  })
 
   //
   const handleSubmit = (e) => {
@@ -24,10 +46,10 @@ export function AddForm({ onAddNew, user }) {
 
     const formValues = Object.fromEntries(formData) // преобразовать в обьект все данные из формы *object
 
-    if (images.length === 0) {
-      alert('Загрузите хотябы одну картинку!')
-      return
-    }
+    // if (images.length === 0) {
+    //   alert('Загрузите хотябы одну картинку!')
+    //   return
+    // }
 
     const newCarPost = {
       ...formValues,
@@ -35,20 +57,17 @@ export function AddForm({ onAddNew, user }) {
       fuels: selectedFuels,
       payMethods: selectedPayMethods,
       id: uuidv4(),
-      mainImage: mainImage || images[0],
-      userId: user.id
+      mainImage: mainImage || images[0]
     }
 
-    onAddNew(newCarPost)
+    mutate(newCarPost)
   }
 
-  // const takeImagesFromDragDropper = items => {
-  //   console.log(items)
+  // const onMainImageSelect = (image) => {
+  //   setMainImage(image)
   // }
 
-  const onMainImageSelect = (image) => {
-    setMainImage(image)
-  }
+  if (!user) return <RegModal />
 
   return (
     <section id="add-form-section">
@@ -71,14 +90,14 @@ export function AddForm({ onAddNew, user }) {
               </div>
 
               <div className="inputs__wrapper" id="add-foto__box">
-                <h3>Загрузите фото* (до 30 фото)</h3>
-                {/* <input type="url" name="images" id="images" /> */}
-                <DragDropImageUploader
+                <h3>Устанавите фото URL* {/* (до 30 фото) */}</h3>
+                <input type="url" name="image" id="image" />
+                {/* <DragDropImageUploader
                   images={images}
                   setImages={setImages}
                   mainImage={mainImage}
                   onMainImageSelect={onMainImageSelect}
-                />
+                /> */}
               </div>
             </div>
 
