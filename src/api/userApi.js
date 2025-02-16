@@ -8,6 +8,11 @@ export async function getMe() {
     return response.data
   } catch (error) {
     console.error(error.message)
+    // если ошибка 401, то удаляем токен из localStorage и перенаправляем на страницу логина
+    if (error.response.status === 401) {
+      localStorage.removeItem('token')
+      window.location.reload() // перезагружаем страницу для сброса состояния приложения и перехода на страницу логина
+    }
   }
 }
 
@@ -20,16 +25,19 @@ export async function loginUser({ email, password }) {
   return response.data
 }
 
-// запрос на регистрацию пользователя
 // запрос на сервер - регистрация
-export async function userRegistration(username, email, password) {
+export async function userRegistration({ username, email, password }) {
+  console.log(username, email, password)
   try {
-    await axios.post('http://localhost:3001/auth/register', {
+    const response = await axios.post('http://localhost:3001/auth/register', {
       username,
       email,
       password
     })
+    await loginUser({ email, password })
+    return response.data.message
   } catch (error) {
     console.log(error.response?.data?.error || 'Что-то пошло не так')
+    throw error
   }
 }

@@ -1,5 +1,4 @@
 // libs
-import { useQuery } from '@tanstack/react-query'
 
 // components
 import { CardsListItem } from '../cards-list-item/CardsListItem'
@@ -8,19 +7,11 @@ import { CardsListItem } from '../cards-list-item/CardsListItem'
 import './cards-list.css'
 
 // api functions ====================================================================
-import { getAllPosts } from '../../api/postApi'
+import Spinner from '../spinner/Spinner'
 
 // master ===========================================================================
-export function CardsList() {
-  // tanstack query
-  const { data, isLoading } = useQuery({
-    queryKey: ['posts'],
-    queryFn: getAllPosts
-  })
-
-  console.log(data)
-
-  if (isLoading) return <h3>Loading...</h3>
+export function CardsList({ data }) {
+  if (!data) return <Spinner />
 
   return (
     <div className="cards-list__box">

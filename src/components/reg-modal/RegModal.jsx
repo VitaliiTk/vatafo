@@ -36,6 +36,15 @@ export function RegModal() {
     }
   })
 
+  const regMutation = useMutation({
+    mutationFn: userRegistration,
+    onSuccess: (messageFromServer) => {
+      setWarning(messageFromServer)
+      // setIsRegView(false)
+      setModal(false)
+    }
+  })
+
   // Переключить форму на другую
   function formChangeHandler() {
     setIsRegView((prev) => !prev)
@@ -75,10 +84,12 @@ export function RegModal() {
       }
 
       // запрос на сервер - регистрация
-      await userRegistration(username, email, password)
-
-      setWarning('Успешно зареган')
-      setIsRegView(false)
+      try {
+        await regMutation.mutateAsync({ username, email, password })
+      } catch (error) {
+        console.error('Ошибка регистрации:', error)
+        setWarning(error.response?.data?.error || 'Что-то пошло не так')
+      }
     }
   }
 

@@ -11,3 +11,8 @@ export async function getAllPosts() {
   const { data } = await api.get('/posts')
   return data
 }
+
+export async function getUserPosts() {
+  const { data } = await api.get('/acount/userposts')
+  return data
+}

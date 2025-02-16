@@ -39,13 +39,13 @@ export function Header() {
       <div className="container">
         <div className="header__wrapper">
           <HeaderLogo />
-          <SearchForm
+          {/* <SearchForm
             btnBgColor="#43d262"
             btnTextColor="#000"
             inputBgColor="#292D3E"
             inputFontColor="#fff"
             searchIconColor="#fff"
-          />
+          /> */}
 
           {!user && (
             <div className="user-info__wrapper">
