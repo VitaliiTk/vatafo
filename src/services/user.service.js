@@ -7,9 +7,10 @@ export const UserService = {
       return response.data
     } catch (error) {
       console.error(error.message)
-      if (error.response.status === 401) {
+      if (error.response.status === 401 || error.response.status === 400) {
         localStorage.removeItem('token')
         window.location.reload()
+        return error
       }
     }
   },

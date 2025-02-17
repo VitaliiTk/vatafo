@@ -14,25 +14,15 @@ import { useSetAtom, useAtom } from 'jotai'
 import { modalAtom } from '../../atoms/modalsAtom'
 // styles
 import './header.css'
+import useUser from '../../hooks/useUser'
+import useUserLogout from '../../hooks/useUserLogout'
 
 // ==========================================================
 export function Header() {
   const setModal = useSetAtom(modalAtom)
-  const queryClient = useQueryClient()
-  const user = queryClient.getQueryData(['user'])
+  const { user, isLoading } = useUser()
 
-  const navigate = useNavigate()
-
-  // Кнопка "Выход" сбрасывает кэш
-  const handleLogout = () => {
-    localStorage.removeItem('token')
-    navigate('/')
-
-    // Удаляем пользователя из кэша
-    queryClient.removeQueries({
-      queryKey: ['user']
-    })
-  }
+  const { logout } = useUserLogout()
 
   return (
     <header className="header">
@@ -50,10 +40,16 @@ export function Header() {
           {!user && (
             <div className="user-info__wrapper">
               <div className="login__btn" onClick={() => setModal(true)}>
-                <span className="login__icon">
-                  <CiLogin />
-                </span>
-                Войти
+                {isLoading && user ? (
+                  'Загрузка...'
+                ) : (
+                  <>
+                    <span className="login__icon">
+                      <CiLogin />
+                    </span>
+                    Войти
+                  </>
+                )}
               </div>
             </div>
           )}
@@ -87,7 +83,7 @@ export function Header() {
                 <Link to="/acount/profile" className="user-menu__item">
                   Профиль
                 </Link>
-                <span className="user-menu__item" onClick={handleLogout}>
+                <span className="user-menu__item" onClick={logout}>
                   Выйти
                 </span>
               </div>

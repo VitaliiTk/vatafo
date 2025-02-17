@@ -9,18 +9,16 @@ import { RegModal } from '../../components/reg-modal/RegModal'
 import { FavoritesService } from '../../services/favorites.service'
 
 import { CardsList } from '../../components/cards-list/CardsList'
+import useUser from '../../hooks/useUser'
+import useFavorites from '../../hooks/useFavorites'
 
 export function FavoritesPage() {
   // Tanstack get user from global state cashe
-  const queryClient = useQueryClient()
-  const user = queryClient.getQueryData(['user'])
-
-  const { data } = useQuery({
-    queryKey: ['favorites'],
-    queryFn: FavoritesService.getAll
-  })
+  const { user } = useUser()
+  const { data } = useFavorites()
 
   if (!user) return <RegModal />
+  // if (!user) setModal(true)
 
   return (
     <div>

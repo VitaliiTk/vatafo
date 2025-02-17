@@ -1,6 +1,6 @@
 // libs
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import { useAtom, useAtomValue } from 'jotai' // for work with Jotai
+import { useAtomValue } from 'jotai' // for work with Jotai
 
 // components
 import { Header } from '../../layouts/header/Header'
@@ -15,28 +15,16 @@ import { ProfilePage } from '../../pages/profile-page/ProfilePage'
 import { HomePage } from '../../pages/home-page/HomePage'
 import { ErrorPage } from '../../pages/error-page/ErrorPage'
 
-// TanstackQuery
-import { useQuery } from '@tanstack/react-query'
-
 // atoms
 import { modalAtom } from '../../atoms/modalsAtom' // external store import
 
 // styles
 import './App.css'
 
-// services ===========================================
-
-import { UserService } from '../../services/user.service'
-
 // ============================================
 function App() {
   // states
   const regmodal = useAtomValue(modalAtom)
-  useQuery({
-    queryKey: ['user'],
-    queryFn: UserService.getMe,
-    enabled: !!localStorage.getItem('token')
-  })
 
   return (
     <div className="app">

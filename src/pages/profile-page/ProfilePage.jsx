@@ -13,6 +13,7 @@ import './profile.css'
 
 // services
 import { UserService } from '../../services/user.service'
+import useUser from '../../hooks/useUser'
 
 // master ==========================================================
 export function ProfilePage() {
@@ -20,8 +21,10 @@ export function ProfilePage() {
   const [formWar, setFormWar] = useState('')
   const [avatar, setAvatar] = useState('')
 
+  const { user } = useUser() // подключаем хук для получения данных пользователя
+
   const queryClient = useQueryClient() // типа подключаем для использования
-  const user = queryClient.getQueryData(['user']) // только беру данные user из кэша tanstack
+  //const user = queryClient.getQueryData(['user']) // только беру данные user из кэша tanstack
 
   // мутация данных пользователя
   const mutation = useMutation({
