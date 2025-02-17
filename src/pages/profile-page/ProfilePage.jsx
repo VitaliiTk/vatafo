@@ -1,24 +1,18 @@
 // libs
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import api from '../../api/axios'
+
 // components
 import { Button } from '../../components/button/Button'
-// jotai - store
-import { useState } from 'react'
-// styles
-import './profile.css'
 import { RegModal } from '../../components/reg-modal/RegModal'
 
-// functions ================================================
-// отправка post запроса на сервер с фото
-const editUser = async (newAvatar) => {
-  try {
-    const { data } = await api.post('/users/avatar', { avatar: newAvatar })
-    return data
-  } catch (error) {
-    console.error('Ошибка:', error)
-  }
-}
+// jotai - store
+import { useState } from 'react'
+
+// styles
+import './profile.css'
+
+// services
+import { UserService } from '../../services/user.service'
 
 // master ==========================================================
 export function ProfilePage() {
@@ -31,7 +25,7 @@ export function ProfilePage() {
 
   // мутация данных пользователя
   const mutation = useMutation({
-    mutationFn: editUser,
+    mutationFn: UserService.editMe,
     onSuccess: (data) => {
       queryClient.setQueryData(['user'], data) // 🔥 Обновляем кэш без повторного запроса
       setFormWar('Success') // устанавливаем оповещения в state

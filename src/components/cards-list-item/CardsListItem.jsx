@@ -8,7 +8,7 @@ import { GoHeart, GoHeartFill } from 'react-icons/go'
 import { CiMail } from 'react-icons/ci'
 
 // components
-import { addFavorite, getFavorites } from '../../api/favoritesApi'
+// import { addFavorite, getFavorites } from '../../api/favoritesApi'
 
 // styles
 import './card-list-item.css'
@@ -22,35 +22,26 @@ export function CardsListItem({ card }) {
 
   const title = card.info.slice(0, 30)
 
-  console.log(card)
-
   const queryClient = useQueryClient()
 
   const user = queryClient.getQueryData(['user'])
 
-  const { mutate } = useMutation({
-    mutationFn: addFavorite,
-    onSuccess: () => {
-      queryClient.invalidateQueries(['favorites'])
-      console.log('add favorite success')
-    }
-  })
-
-  // const updateFavorites = useMutation({
-  //   mutationFn: getFavorites,
+  // const { mutate } = useMutation({
+  //   mutationFn: addFavorite,
   //   onSuccess: () => {
   //     queryClient.invalidateQueries(['favorites'])
+  //     console.log('add favorite success')
   //   }
   // })
 
-  const onLikeIconClickHandler = () => {
-    console.log('click')
-    if (!user) return setModal(true)
-    if (user) {
-      // updateFavorites.mutate()
-      return mutate({ post_id: card.id, user_id: user.id })
-    }
-  }
+  // const onLikeIconClickHandler = () => {
+  //   console.log('click')
+  //   if (!user) return setModal(true)
+  //   if (user) {
+  //     // updateFavorites.mutate()
+  //     return mutate({ post_id: card.id, user_id: user.id })
+  //   }
+  // }
 
   return (
     <a /* href="#" */ className="card">
@@ -75,7 +66,7 @@ export function CardsListItem({ card }) {
             {/* <span className="card__icon">
               <CiMail />
             </span> */}
-            <span onClick={onLikeIconClickHandler} className="card__icon favorite">
+            <span onClick={() => console.log('like')} className="card__icon favorite">
               {isLike ? <GoHeartFill /> : <GoHeart />}
             </span>
           </div>

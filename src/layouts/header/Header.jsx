@@ -6,12 +6,12 @@ import { GoHeartFill } from 'react-icons/go'
 import { CiLogin } from 'react-icons/ci'
 import { IoMdAddCircle } from 'react-icons/io'
 // components
-import { HeaderLogo } from '../../header-logo/HeaderLogo'
-import { SearchForm } from '../../search-form/SearchForm'
+import { HeaderLogo } from '../../components/header-logo/HeaderLogo'
+// import { SearchForm } from '../../search-form/SearchForm'
 // import { Button } from '../../button/Button'
 // jotai-store
 import { useSetAtom, useAtom } from 'jotai'
-import { modalAtom } from '../../../atoms/modalsAtom'
+import { modalAtom } from '../../atoms/modalsAtom'
 // styles
 import './header.css'
 

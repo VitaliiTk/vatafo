@@ -6,7 +6,14 @@ import App from './components/app/App'
 
 import './index.css'
 
-const queryClient = new QueryClient() // must have tanstack query
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false
+      // refetchOnMount: false
+    }
+  }
+}) // must have tanstack query
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>

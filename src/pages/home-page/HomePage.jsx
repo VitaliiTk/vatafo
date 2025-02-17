@@ -1,17 +1,18 @@
-import { CarBrandsList } from '../../components/popular-list-horizontal/CarBrandsList'
 import { CardsList } from '../../components/cards-list/CardsList'
-import { useQuery } from '@tanstack/react-query'
-import { getAllPosts } from '../../api/postApi'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
 
+// services
+import { PostsService } from '../../services/posts.service'
+
+// master ==========================================================
 export function HomePage() {
-  const { data, isLoading } = useQuery({
+  const { data } = useQuery({
     queryKey: ['posts'],
-    queryFn: getAllPosts
+    queryFn: PostsService.getAll
   })
   return (
     <div>
       <h2>Главная страница</h2>
-      {/* <CarBrandsList /> */}
       <CardsList data={data} />
     </div>
   )

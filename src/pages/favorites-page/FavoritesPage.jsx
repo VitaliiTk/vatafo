@@ -4,9 +4,11 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 // components
 // import { CardsList } from '../../components/cards-list/CardsList'
 import { RegModal } from '../../components/reg-modal/RegModal'
-import { getFavorites } from '../../api/favoritesApi'
+
+// services
+import { FavoritesService } from '../../services/favorites.service'
+
 import { CardsList } from '../../components/cards-list/CardsList'
-import Spinner from '../../components/spinner/Spinner'
 
 export function FavoritesPage() {
   // Tanstack get user from global state cashe
@@ -15,7 +17,7 @@ export function FavoritesPage() {
 
   const { data } = useQuery({
     queryKey: ['favorites'],
-    queryFn: getFavorites
+    queryFn: FavoritesService.getAll
   })
 
   if (!user) return <RegModal />

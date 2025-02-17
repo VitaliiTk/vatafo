@@ -11,8 +11,9 @@ import { reg_login_warning_Atom } from '../../atoms/warningsAtom'
 
 import styles from './reg-modal.module.css'
 
-// functions =======================================
-import { getMe, loginUser, userRegistration } from '../../api/userApi.js'
+// services
+import { AuthService } from '../../services/auth.service'
+import { UserService } from '../../services/user.service'
 
 // ==============================================
 export function RegModal() {
@@ -22,22 +23,23 @@ export function RegModal() {
 
   useQuery({
     queryKey: ['user'],
-    queryFn: getMe,
+    queryFn: UserService.getMe,
     enabled: !!localStorage.getItem('token')
   })
 
   const { mutate } = useMutation({
-    mutationFn: loginUser,
+    mutationFn: AuthService.login,
     onError: (error) => {
       setWarning(error.response?.data?.error)
     },
     onSuccess: () => {
+      console.log('login success')
       setModal(false)
     }
   })
 
   const regMutation = useMutation({
-    mutationFn: userRegistration,
+    mutationFn: AuthService.registration,
     onSuccess: (messageFromServer) => {
       setWarning(messageFromServer)
       // setIsRegView(false)

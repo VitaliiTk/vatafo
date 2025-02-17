@@ -5,14 +5,14 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 // components
 import { Button } from '../../components/button/Button'
-import { DragDropImageUploader } from '../../components/drag-drop-image-uploader/DragDropImageUploader'
+// import { DragDropImageUploader } from '../../components/drag-drop-image-uploader/DragDropImageUploader'
 import { RegModal } from '../../components/reg-modal/RegModal'
 
 // styles
 import './add-form.css'
 
 // functions ===============================================================================
-import { postNewCar } from '../../api/postApi'
+import { PostsService } from '../../services/posts.service'
 import { useNavigate } from 'react-router-dom'
 
 // master ==================================================================================
@@ -27,10 +27,11 @@ export function AddForm() {
   const navigate = useNavigate()
   // mutation tanstack
   const { mutate } = useMutation({
-    mutationFn: postNewCar,
+    mutationFn: PostsService.addNew,
     onSuccess: () => {
-      console.log('new post success')
+      console.log('new post added')
       // navigate('/acount/userposts')
+      queryClient.invalidateQueries(['userposts'])
     }
   })
 
@@ -46,11 +47,6 @@ export function AddForm() {
 
     const formValues = Object.fromEntries(formData) // преобразовать в обьект все данные из формы *object
 
-    // if (images.length === 0) {
-    //   alert('Загрузите хотябы одну картинку!')
-    //   return
-    // }
-
     const newCarPost = {
       ...formValues,
       images: images,
@@ -62,10 +58,6 @@ export function AddForm() {
 
     mutate(newCarPost)
   }
-
-  // const onMainImageSelect = (image) => {
-  //   setMainImage(image)
-  // }
 
   if (!user) return <RegModal />
 
