@@ -8,9 +8,10 @@ import useAllUserPosts from '../../hooks/useAllUserPosts'
 
 export function UserPostsPage() {
   const { user } = useUser()
-  const { data } = useAllUserPosts()
+  const { data, error } = useAllUserPosts()
 
   if (!user) return <RegModal />
+  if (error) return <div>Ошибка: {error.message}</div>
 
   return (
     <div>

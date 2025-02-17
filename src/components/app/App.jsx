@@ -23,7 +23,6 @@ import './App.css'
 
 // ============================================
 function App() {
-  // states
   const regmodal = useAtomValue(modalAtom)
 
   return (
