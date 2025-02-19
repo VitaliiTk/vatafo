@@ -1,0 +1,12 @@
+.edit-page__flex-wrapper {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.edit-page__image {
+  max-width: 800px;
+  max-height: 500px;
+  width: 100%;
+  object-fit: cover;
+}

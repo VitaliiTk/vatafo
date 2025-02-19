@@ -5,6 +5,10 @@ import { CardsList } from '../../components/cards-list/CardsList'
 // hooks
 import useUser from '../../hooks/useUser'
 import useAllUserPosts from '../../hooks/useAllUserPosts'
+import UserPostList from '../../components/user-post-list/UserPostList'
+
+// styles
+import './user-posts-page.css'
 
 export function UserPostsPage() {
   const { user } = useUser()
@@ -14,9 +18,9 @@ export function UserPostsPage() {
   if (error) return <div>Ошибка: {error.message}</div>
 
   return (
-    <div>
+    <div className="user-posts-page">
       <h2>Мои объявления</h2>
-      <CardsList data={data} />
+      <UserPostList data={data} />
     </div>
   )
 }

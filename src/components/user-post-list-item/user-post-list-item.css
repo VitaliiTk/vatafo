@@ -1,0 +1,45 @@
+.user-post-list-item {
+  border: 1px solid var(--theme-color);
+  border-radius: 10px;
+  /* padding: 15px; */
+  /* display: flex; */
+  display: grid;
+  grid-template-columns: 400px 1fr;
+  gap: 20px;
+  height: 300px;
+  overflow: hidden;
+}
+
+.image-box {
+  width: 400px;
+  overflow: hidden;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.content-box {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  padding: 15px;
+}
+
+.user-post-list-item .info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+
+.info div {
+  text-align-last: left;
+}
+
+.user-post-list-item .btn-block {
+  display: flex;
+  gap: 5px;
+}

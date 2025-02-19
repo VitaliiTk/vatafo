@@ -13,6 +13,7 @@ import { RegModal } from '../reg-modal/RegModal'
 import { UserPostsPage } from '../../pages/user-posts-page/userPostsPage'
 import { ProfilePage } from '../../pages/profile-page/ProfilePage'
 import { HomePage } from '../../pages/home-page/HomePage'
+import { EditPostPage } from '../../pages/edit-post-page/EditPostPage'
 import { ErrorPage } from '../../pages/error-page/ErrorPage'
 
 // atoms
@@ -36,6 +37,7 @@ function App() {
             <Route path="/acount/ad" element={<AddForm />} />
             <Route path="/acount/userposts" element={<UserPostsPage />} />
             <Route path="/acount/profile" element={<ProfilePage />} />
+            <Route path="/acount/edit-post/:id" element={<EditPostPage />} />
             <Route path="*" element={<ErrorPage />} />
           </Routes>
         </Main>

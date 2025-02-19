@@ -30,7 +30,7 @@ export function AddForm() {
     mutationFn: PostsService.addNew,
     onSuccess: () => {
       console.log('new post added')
-      // navigate('/acount/userposts')
+      navigate('/acount/userposts')
       queryClient.invalidateQueries(['userposts'])
     }
   })
