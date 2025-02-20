@@ -6,7 +6,7 @@ import { CardsList } from '../../components/cards-list/CardsList'
 
 // hooks
 import useUser from '../../hooks/useUser'
-import useFavorites from '../../hooks/useFavorites'
+import { useFavorites } from '../../hooks/useFavorites'
 
 export function FavoritesPage() {
   const { user } = useUser()

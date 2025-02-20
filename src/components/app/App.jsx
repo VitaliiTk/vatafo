@@ -17,7 +17,7 @@ import { EditPostPage } from '../../pages/edit-post-page/EditPostPage'
 import { ErrorPage } from '../../pages/error-page/ErrorPage'
 
 // atoms
-import { modalAtom } from '../../atoms/modalsAtom' // external store import
+import { modalAtom } from '../../store/modalsAtom' // external store import
 
 // styles
 import './App.css'

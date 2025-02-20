@@ -6,8 +6,8 @@ import { Button } from '../button/Button'
 
 import { useAtom } from 'jotai'
 
-import { modalAtom } from '../../atoms/modalsAtom'
-import { reg_login_warning_Atom } from '../../atoms/warningsAtom'
+import { modalAtom } from '../../store/modalsAtom'
+import { reg_login_warning_Atom } from '../../store/warningsAtom'
 
 import styles from './reg-modal.module.css'
 

@@ -1,10 +1,33 @@
-import { useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { FavoritesService } from '../services/favorites.service'
+import useUser from './useUser'
 
-export default function useFavorites() {
-  const { data, error } = useQuery({
+export function useFavorites() {
+  const { user } = useUser()
+  const { data, error, refetch } = useQuery({
     queryKey: ['favorites'],
-    queryFn: FavoritesService.getAll
+    queryFn: FavoritesService.getAll,
+    enabled: !!user
   })
-  return { data, error }
+  return { data, error, refetch }
+}
+
+export function useAddFavorite() {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: FavoritesService.addNew,
+    onSuccess: () => {
+      queryClient.invalidateQueries(['favorites'])
+    }
+  })
+}
+
+export function useRemoveFavorite() {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: FavoritesService.remove,
+    onSuccess: () => {
+      queryClient.invalidateQueries(['favorites'])
+    }
+  })
 }

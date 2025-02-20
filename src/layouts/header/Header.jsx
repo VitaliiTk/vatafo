@@ -11,7 +11,7 @@ import { HeaderLogo } from '../../components/header-logo/HeaderLogo'
 // import { Button } from '../../button/Button'
 // jotai-store
 import { useSetAtom, useAtom } from 'jotai'
-import { modalAtom } from '../../atoms/modalsAtom'
+import { modalAtom } from '../../store/modalsAtom'
 // styles
 import './header.css'
 import useUser from '../../hooks/useUser'

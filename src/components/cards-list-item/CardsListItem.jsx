@@ -1,47 +1,44 @@
 // lib
-import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useAtom } from 'jotai'
 
 // store
+import { modalAtom } from '../../store/modalsAtom'
 
 // icons
 import { GoHeart, GoHeartFill } from 'react-icons/go'
 import { CiMail } from 'react-icons/ci'
 
 // components
-// import { addFavorite, getFavorites } from '../../api/favoritesApi'
+
+// hooks
+import useUser from '../../hooks/useUser'
+import { useAddFavorite, useFavorites, useRemoveFavorite } from '../../hooks/useFavorites'
 
 // styles
 import './card-list-item.css'
-import { useAtom } from 'jotai'
-import { modalAtom } from '../../atoms/modalsAtom'
-import { useState } from 'react'
 
 export function CardsListItem({ card }) {
+  const { user } = useUser()
+  const { data: favorites } = useFavorites()
+  const addFavorite = useAddFavorite()
+  const removeFavorite = useRemoveFavorite()
   const [modal, setModal] = useAtom(modalAtom)
-  const [isLike, setIsLike] = useState(false)
-
   const title = card.info.slice(0, 30)
 
-  const queryClient = useQueryClient()
+  let isFavorite
+  if (!user) isFavorite = false
+  if (user) isFavorite = favorites?.find((item) => item.id === card.id)
 
-  const user = queryClient.getQueryData(['user'])
-
-  // const { mutate } = useMutation({
-  //   mutationFn: addFavorite,
-  //   onSuccess: () => {
-  //     queryClient.invalidateQueries(['favorites'])
-  //     console.log('add favorite success')
-  //   }
-  // })
-
-  // const onLikeIconClickHandler = () => {
-  //   console.log('click')
-  //   if (!user) return setModal(true)
-  //   if (user) {
-  //     // updateFavorites.mutate()
-  //     return mutate({ post_id: card.id, user_id: user.id })
-  //   }
-  // }
+  function toggleFavorites() {
+    if (!user) setModal(true)
+    if (user) {
+      if (isFavorite) {
+        removeFavorite.mutate(card.id)
+      } else {
+        addFavorite.mutate(card.id)
+      }
+    }
+  }
 
   return (
     <a /* href="#" */ className="card">
@@ -66,8 +63,14 @@ export function CardsListItem({ card }) {
             {/* <span className="card__icon">
               <CiMail />
             </span> */}
-            <span onClick={() => console.log('like')} className="card__icon favorite">
-              {isLike ? <GoHeartFill /> : <GoHeart />}
+            <span onClick={toggleFavorites} className="card__icon favorite">
+              {isFavorite ? (
+                <span className="like">
+                  <GoHeartFill />
+                </span>
+              ) : (
+                <GoHeart />
+              )}
             </span>
           </div>
         </div>

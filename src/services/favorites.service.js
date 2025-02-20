@@ -11,9 +11,14 @@ export const FavoritesService = {
     }
   },
 
-  async addNew({ post_id, user_id }) {
-    const { data } = await api.post(`/favorites`, { post_id, user_id })
-    console.log(data)
+  // можно не передавать параметр user_id, так как он уже есть в jwt токене
+  async addNew(post_id) {
+    const { data } = await api.post(`/favorites`, { post_id })
+    return data
+  },
+
+  async remove(post_id) {
+    const { data } = await api.delete(`/favorites/${post_id}`)
     return data
   }
 }
