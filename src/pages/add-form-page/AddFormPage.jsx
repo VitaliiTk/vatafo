@@ -60,6 +60,8 @@ export function AddForm() {
   }
 
   if (!user) return <RegModal />
+  // if (!user) navigate('/')
+  // if (!user) return <p>Sign in</p>
 
   return (
     <section id="add-form-section">

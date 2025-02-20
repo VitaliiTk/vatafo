@@ -27,9 +27,11 @@ export function CardsListItem({ card }) {
 
   let isFavorite
   if (!user) isFavorite = false
-  if (user) isFavorite = favorites?.find((item) => item.id === card.id)
+  if (user) isFavorite = favorites?.some((item) => item.id === card.id)
 
-  function toggleFavorites() {
+  function toggleFavorites(e) {
+    e.preventDefault() // Отменяем переход по ссылке
+    e.stopPropagation() // Останавливаем всплытие
     if (!user) setModal(true)
     if (user) {
       if (isFavorite) {
@@ -41,7 +43,7 @@ export function CardsListItem({ card }) {
   }
 
   return (
-    <a /* href="#" */ className="card">
+    <a href={`/posts/${card.id}`} target="_blank" className="card">
       <img className="card__img" src={card.main_image} alt="" />
       <div className="card__content">
         <div className="card__info">

@@ -39,7 +39,7 @@ function App() {
             <Route path="/acount/userposts" element={<UserPostsPage />} />
             <Route path="/acount/profile" element={<ProfilePage />} />
             <Route path="/acount/edit-post/:id" element={<EditPostPage />} />
-            <Route path="/posts" element={<PostPage />} />
+            <Route path="/posts/:id" element={<PostPage />} />
             <Route path="*" element={<ErrorPage />} />
           </Routes>
         </Main>
