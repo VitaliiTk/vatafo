@@ -21,6 +21,7 @@ import { modalAtom } from '../../store/modalsAtom' // external store import
 
 // styles
 import './App.css'
+import PostPage from '../../pages/post-page/PostPage'
 
 // ============================================
 function App() {
@@ -38,6 +39,7 @@ function App() {
             <Route path="/acount/userposts" element={<UserPostsPage />} />
             <Route path="/acount/profile" element={<ProfilePage />} />
             <Route path="/acount/edit-post/:id" element={<EditPostPage />} />
+            <Route path="/posts" element={<PostPage />} />
             <Route path="*" element={<ErrorPage />} />
           </Routes>
         </Main>
