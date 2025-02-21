@@ -16,6 +16,7 @@ import { useAddFavorite, useFavorites, useRemoveFavorite } from '../../hooks/use
 
 // styles
 import './card-list-item.css'
+import { Link } from 'react-router-dom'
 
 export function CardsListItem({ card }) {
   const { user } = useUser()
@@ -43,7 +44,11 @@ export function CardsListItem({ card }) {
   }
 
   return (
-    <a href={`/posts/${card.id}`} target="_blank" className="card">
+    <Link
+      to={user?.id === card.user_id ? `/acount/edit-post/${card.id}` : `/posts/${card.id}`}
+      target="_blank"
+      className="card"
+    >
       <img className="card__img" src={card.main_image} alt="" />
       <div className="card__content">
         <div className="card__info">
@@ -77,6 +82,6 @@ export function CardsListItem({ card }) {
           </div>
         </div>
       </div>
-    </a>
+    </Link>
   )
 }

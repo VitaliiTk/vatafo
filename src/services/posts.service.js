@@ -6,7 +6,6 @@ export const PostsService = {
     return data
   },
   async getAll() {
-    // console.log('get all posts')
     const { data } = await api.get('/posts')
     return data
   },

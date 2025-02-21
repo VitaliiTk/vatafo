@@ -1,3 +1,20 @@
+.error-page {
+  height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.error-page__wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.error-page h2 {
+  font-size: 40px;
+}
+
 .link {
   background-color: #fff;
   color: #000;

@@ -1,15 +1,12 @@
 // styles
 import './user-post-list-item.css'
 import useDeletepost from '../../hooks/useDeletepost'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+import { toNormalDate } from '../../utils/toNormalDate'
 
 export default function UserPostListItem({ post }) {
   const { deleteMutation } = useDeletepost(post.id)
   const navigate = useNavigate()
-
-  function toNormalDate(date) {
-    return new Date(date).toLocaleString()
-  }
 
   function handleDelete() {
     // сначала надо сделать всплывающий алерт с подтверждением
