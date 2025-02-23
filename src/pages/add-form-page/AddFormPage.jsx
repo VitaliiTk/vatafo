@@ -21,7 +21,6 @@ export function AddForm() {
   // const [images, setImages] = useState([])
   // const [mainImage, setMainImage] = useState(null)
 
-  // Tanstack get user from global state cashe
   const queryClient = useQueryClient()
 
   const { data: user } = useQuery({
