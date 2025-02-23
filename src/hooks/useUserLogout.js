@@ -5,8 +5,6 @@ import { useNavigate } from 'react-router-dom'
 export default function useUserLogout() {
   const navigate = useNavigate()
   const queryClient = useQueryClient()
-  // const { mutate } = useFavoritesReset()
-  // const { refetch } = useUser()
 
   // Кнопка "Выход" сбрасывает кэш
   const logout = () => {
@@ -14,15 +12,7 @@ export default function useUserLogout() {
     navigate('/')
     // window.location.href = '/'
 
-    // Удаляем пользователя из кэша
-    // queryClient.removeQueries({
-    //   queryKey: ['user']
-    // })
-    // queryClient.invalidateQueries(['user'])
-
     queryClient.setQueryData(['user'], null) // четко срабатывает пока не нашел багов
-    // mutate()
-    // refetch()
   }
   return { logout }
 }
