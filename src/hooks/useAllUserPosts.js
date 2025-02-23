@@ -5,11 +5,11 @@ import useUser from './useUser'
 export default function useAllUserPosts() {
   const { user } = useUser()
 
-  const { data, error } = useQuery({
+  const { data, error, isPending } = useQuery({
     queryKey: ['userposts'],
     queryFn: PostsService.getAllByUser,
     enabled: !!user
   })
 
-  return { data, error }
+  return { data, error, isPending }
 }

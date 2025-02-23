@@ -27,23 +27,24 @@ export function RegModal() {
     enabled: !!localStorage.getItem('token')
   })
 
-  const { mutate } = useMutation({
+  const loginMutation = useMutation({
     mutationFn: AuthService.login,
     onError: (error) => {
       setWarning(error.response?.data?.error)
     },
     onSuccess: () => {
-      console.log('login success')
       setModal(false)
     }
   })
 
   const regMutation = useMutation({
     mutationFn: AuthService.registration,
-    onSuccess: (messageFromServer) => {
-      setWarning(messageFromServer)
-      // setIsRegView(false)
-      setModal(false)
+    onError: (error) => {
+      setWarning(error.response?.data?.error)
+    },
+    onSuccess: (data, vars) => {
+      console.log('reg success')
+      loginMutation.mutate({ email: vars.email, password: vars.password })
     }
   })
 
@@ -65,7 +66,7 @@ export function RegModal() {
         return setWarning('Заполните все поля!')
       }
 
-      mutate({ email, password })
+      loginMutation.mutate({ email, password })
       return
     }
 
@@ -86,12 +87,8 @@ export function RegModal() {
       }
 
       // запрос на сервер - регистрация
-      try {
-        await regMutation.mutateAsync({ username, email, password })
-      } catch (error) {
-        console.error('Ошибка регистрации:', error)
-        setWarning(error.response?.data?.error || 'Что-то пошло не так')
-      }
+      regMutation.mutate({ username, email, password })
+      return
     }
   }
 
