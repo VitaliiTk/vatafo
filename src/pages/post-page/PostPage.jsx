@@ -11,6 +11,7 @@ import { useSetAtom } from 'jotai'
 import Spinner from '../../components/spinner/Spinner'
 
 import './post-page.css'
+import { toNormalDate } from '../../utils/toNormalDate'
 
 export default function PostPage() {
   const { user } = useUser()
@@ -58,13 +59,24 @@ export default function PostPage() {
             <h3 className="post-title">{post?.info}</h3>
             {/* <div className="post-info__item">Состояние: Б/у</div> */}
             {/* <div className="post-info__item">Рассрочка: Без рассрочки</div> */}
-            {/* <div className="post-info__item">Год: 2005</div> */}
-            {/* <div className="post-info__item">Топливо: Бензин</div> */}
+            <div className="post-info__item">Категория: {post?.category}</div>
+            <div className="post-info__item">Город: {post?.city}</div>
+            <div className="post-info__item">Год: {post?.year}</div>
+            <div className="post-info__item">Привод: {post?.drive}</div>
+            <div className="post-info__item">Руль: {post?.stearingWheel}</div>
+            <div className="post-info__item">Коробка: {post?.gear}</div>
+            <div className="post-info__item">Топливо: {post?.fuels.map((item) => item + ', ')}</div>
+            <div className="post-info__item">
+              Вид оплаты: {post?.payMethod.map((item) => item + ', ')}
+            </div>
             {/* <div className="post-info__item">Бренд: Suzuki</div> */}
             <div className="post-info__item">Пробег: {post?.drive_length}</div>
             <div className="post-more-info">
-              {/* <div className="post-info__item">Создано: {post.createdAt}</div> */}
-              {/* <div className="post-info__item">Обновлено:{post.updatedAt}</div> */}
+              <div className="post-info__item">
+                Создано: {toNormalDate(post?.createdAt)}
+                {}
+              </div>
+              <div className="post-info__item">Обновлено: {toNormalDate(post?.updatedAt)}</div>
             </div>
           </div>
         </div>

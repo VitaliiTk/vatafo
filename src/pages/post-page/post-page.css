@@ -1,3 +1,7 @@
+.post-page {
+  margin: 25px 0;
+}
+
 .post-page__wrapper {
   display: flex;
   gap: 20px;

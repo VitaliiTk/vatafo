@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { IoMdClose } from 'react-icons/io'
-import { useMutation, useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 
 import { Button } from '../button/Button'
 
@@ -18,8 +18,11 @@ import { UserService } from '../../services/user.service'
 // ==============================================
 export function RegModal() {
   const [isRegView, setIsRegView] = useState(false)
-  const [warning, setWarning] = useAtom(reg_login_warning_Atom)
+  // const [warning, setWarning] = useAtom(reg_login_warning_Atom)
+  const [warning, setWarning] = useState('')
   const [modal, setModal] = useAtom(modalAtom)
+
+  const queryClient = useQueryClient()
 
   useQuery({
     queryKey: ['user'],
@@ -33,6 +36,7 @@ export function RegModal() {
       setWarning(error.response?.data?.error)
     },
     onSuccess: () => {
+      queryClient.invalidateQueries(['user'])
       setModal(false)
     }
   })

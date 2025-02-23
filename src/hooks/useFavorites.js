@@ -4,12 +4,12 @@ import useUser from './useUser'
 
 export function useFavorites() {
   const { user } = useUser()
-  const { data, error, refetch } = useQuery({
+  const { data, error, refetch, isPending } = useQuery({
     queryKey: ['favorites'],
     queryFn: FavoritesService.getAll,
     enabled: !!user
   })
-  return { data, error, refetch }
+  return { data, error, refetch, isPending }
 }
 
 export function useAddFavorite() {
