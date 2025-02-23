@@ -17,6 +17,7 @@ import { useAddFavorite, useFavorites, useRemoveFavorite } from '../../hooks/use
 // styles
 import './card-list-item.css'
 import { Link } from 'react-router-dom'
+import { GrEdit } from 'react-icons/gr'
 
 export function CardsListItem({ card }) {
   const { user } = useUser()
@@ -42,6 +43,7 @@ export function CardsListItem({ card }) {
       }
     }
   }
+  // console.log(user)
 
   return (
     <Link
@@ -70,7 +72,25 @@ export function CardsListItem({ card }) {
             {/* <span className="card__icon">
               <CiMail />
             </span> */}
-            <span onClick={toggleFavorites} className="card__icon favorite">
+
+            {/* на обьявлениях вошедшего пользователя не отображается сердечко */}
+            {user?.id === card.user_id ? (
+              <span>
+                <GrEdit />
+              </span>
+            ) : (
+              <span onClick={toggleFavorites} className="card__icon favorite">
+                {isFavorite ? (
+                  <span className="like">
+                    <GoHeartFill />
+                  </span>
+                ) : (
+                  <GoHeart />
+                )}
+              </span>
+            )}
+
+            {/* <span onClick={toggleFavorites} className="card__icon favorite">
               {isFavorite ? (
                 <span className="like">
                   <GoHeartFill />
@@ -78,7 +98,7 @@ export function CardsListItem({ card }) {
               ) : (
                 <GoHeart />
               )}
-            </span>
+            </span> */}
           </div>
         </div>
       </div>

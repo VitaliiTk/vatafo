@@ -2,6 +2,7 @@ import { CardsList } from '../../components/cards-list/CardsList'
 
 // services
 import useAllPosts from '../../hooks/useAllPosts'
+import useUser from '../../hooks/useUser'
 
 // master ==========================================================
 export function HomePage() {
