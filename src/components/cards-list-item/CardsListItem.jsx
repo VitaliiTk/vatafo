@@ -46,7 +46,7 @@ export function CardsListItem({ card }) {
   return (
     <Link
       to={user?.id === card.user_id ? `/acount/edit-post/${card.id}` : `/posts/${card.id}`}
-      target="_blank"
+      // target="_blank"
       className="card"
     >
       <img className="card__img" src={card.main_image} alt="" />

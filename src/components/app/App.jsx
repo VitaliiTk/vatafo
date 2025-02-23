@@ -22,7 +22,7 @@ import { modalAtom } from '../../store/modalsAtom' // external store import
 // styles
 import './App.css'
 import PostPage from '../../pages/post-page/PostPage'
-import AuthorPage from '../../pages/user-page/AuthorPage'
+import AuthorPage from '../../pages/author-page/AuthorPage'
 
 // ============================================
 function App() {

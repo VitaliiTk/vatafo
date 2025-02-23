@@ -1,4 +1,4 @@
-import { BsFillTelephoneFill } from 'react-icons/bs'
+// import { BsFillTelephoneFill } from 'react-icons/bs'
 import { Link, useParams } from 'react-router-dom'
 import usePost from '../../hooks/usePost'
 
@@ -9,6 +9,8 @@ import useUser from '../../hooks/useUser'
 import { modalAtom } from '../../store/modalsAtom'
 import { useSetAtom } from 'jotai'
 import Spinner from '../../components/spinner/Spinner'
+
+import './post-page.css'
 
 export default function PostPage() {
   const { user } = useUser()
