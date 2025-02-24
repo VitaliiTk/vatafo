@@ -3,17 +3,19 @@ import { FaInstagram } from 'react-icons/fa'
 import { FaTwitter } from 'react-icons/fa'
 
 import styles from './footer.module.css'
-
+import { useSiteName } from '../../hooks/useSiteName,js'
 const year = new Date().getFullYear()
 
 export function Footer() {
+  const siteName = useSiteName()
+
   return (
     <footer className={styles['footer']}>
       <div className="container">
         <div className={styles['footer__wrapper']}>
           <div className={styles['footer__left-side']}>
             <div className={styles['logo']}>
-              <h3 className="title">vatafo</h3>
+              <h3 className="title">{siteName}</h3>
             </div>
             <div className={styles['all-rights']}>
               <span>&copy; {year}</span>

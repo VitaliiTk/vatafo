@@ -6,6 +6,7 @@ import Spinner from '../../components/spinner/Spinner'
 
 import './author-page.css'
 import { useState } from 'react'
+import { useSiteName } from '../../hooks/useSiteName,js'
 
 const disactiveAdds = []
 
@@ -13,6 +14,7 @@ export default function AuthorPage() {
   const { id } = useParams()
   const { data, isPending } = useAuthor(id)
   const [active, setActive] = useState('active')
+  const siteName = useSiteName()
 
   if (isPending) return <Spinner />
 
@@ -27,7 +29,9 @@ export default function AuthorPage() {
         </div>
         <div className="author_descr">
           <div className="username">{author?.username}</div>
-          <div className="author-createdAt">На vatafo c {toNormalDate(author?.createdAt)}</div>
+          <div className="author-createdAt">
+            На {siteName} c {toNormalDate(author?.createdAt)}
+          </div>
         </div>
       </div>
       <div className="tabs">
