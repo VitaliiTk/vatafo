@@ -20,6 +20,7 @@ import { UserService } from '../../services/user.service'
 export function AddForm() {
   // const [images, setImages] = useState([])
   // const [mainImage, setMainImage] = useState(null)
+  const [preview, setPreview] = useState(null)
 
   const queryClient = useQueryClient()
 
@@ -38,37 +39,33 @@ export function AddForm() {
     }
   })
 
-  //
+  // работа с формой, сбор всех полей
   const formAction = (formData) => {
-    // const images = formData.getAll('images')
+    const form = new FormData() // Создаем новый объект FormData
 
-    const newPost = {
-      // main_image: images[0].name,
-      main_image: formData.get('image'),
-      // images: images,
-      price: formData.get('price'),
-      category: formData.get('category'),
-      info: formData.get('info'),
-      user_id: user.id,
-      city: formData.get('city'),
-      money_symbol: formData.get('moneySymbol'),
-      gear: formData.get('gear'),
-      stearingWheel: formData.get('stearingWheel'),
-      drive: formData.get('drive'),
-      payMethod: formData.getAll('payMethod'),
-      drive_length: formData.get('ride'),
-      fuels: formData.getAll('fuel'),
-      year: formData.get('year')
-    }
+    form.append('image', formData.get('image')) // Добавляем файл
+    form.append('price', formData.get('price'))
+    form.append('category', formData.get('category'))
+    form.append('info', formData.get('info'))
+    form.append('user_id', user.id)
+    form.append('city', formData.get('city'))
+    form.append('money_symbol', formData.get('moneySymbol'))
+    form.append('gear', formData.get('gear'))
+    form.append('stearingWheel', formData.get('stearingWheel'))
+    form.append('drive', formData.get('drive'))
+    form.append('drive_length', formData.get('ride'))
+    form.append('year', formData.get('year'))
 
-    console.log(newPost)
+    // 📌 Добавляем массивы (payMethod, fuels)
+    formData.getAll('payMethod').forEach((method) => form.append('payMethod[]', method))
+    formData.getAll('fuel').forEach((fuel) => form.append('fuels[]', fuel))
 
-    newPostMutation.mutate(newPost)
+    console.log('Отправляем FormData:', form) // Проверяем в консоли
+
+    newPostMutation.mutate(form)
   }
 
   if (!user) return <RegModal />
-  // if (!user) navigate('/')
-  // if (!user) return <p>Sign in</p>
 
   return (
     <section id="add-form-section">
@@ -86,8 +83,23 @@ export function AddForm() {
 
               <div className="inputs__wrapper" id="add-foto__box">
                 <h3>Устанавите фото URL* {/* (до 30 фото) */}</h3>
-                <input type="url" name="image" id="image" multiple />
-                {/* <input type="file" name="images" id="image" multiple /> */}
+                {/* <input type="url" name="image" id="image" multiple /> */}
+                <input
+                  type="file"
+                  name="image"
+                  id="image"
+                  onChange={(e) => {
+                    const file = e.target.files[0]
+                    if (file) {
+                      setPreview(URL.createObjectURL(file))
+                    }
+                  }}
+                />
+                {preview && (
+                  <div style={{ marginTop: '20px' }}>
+                    <img src={preview} width={200} />
+                  </div>
+                )}
                 {/* <DragDropImageUploader
                   images={images}
                   setImages={setImages}
@@ -249,7 +261,10 @@ export function AddForm() {
                 </span>
               </div>
             </div>
-            <Button className={'add-dorm__btn'}>Опубликовать</Button>
+            {/* <Button className={'add-dorm__btn'}>Опубликовать</Button> */}
+            <button type="submit" disabled={newPostMutation.isPending}>
+              {newPostMutation.isPending ? 'Отправка' : 'Опубликовать'}
+            </button>
           </form>
         </div>
       </div>
