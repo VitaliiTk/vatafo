@@ -16,12 +16,8 @@ export const UserService = {
   },
 
   // отправка post запроса на сервер с фото
-  async editMe(newAvatar) {
-    try {
-      const { data } = await api.post('/users/avatar', { avatar: newAvatar })
-      return data
-    } catch (error) {
-      console.error('Ошибка:', error)
-    }
+  async editMe(newData) {
+    const { data } = await api.post('/users/avatar', newData)
+    return data
   }
 }

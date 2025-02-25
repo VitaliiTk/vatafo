@@ -14,6 +14,7 @@ import './profile.css'
 // services
 import { UserService } from '../../services/user.service'
 import useUser from '../../hooks/useUser'
+import { CgKey } from 'react-icons/cg'
 
 // master ==========================================================
 export function ProfilePage() {
@@ -22,15 +23,18 @@ export function ProfilePage() {
   const [avatar, setAvatar] = useState('')
 
   const { user } = useUser() // подключаем хук для получения данных пользователя
+  console.log(user)
 
   const queryClient = useQueryClient() // типа подключаем для использования
   //const user = queryClient.getQueryData(['user']) // только беру данные user из кэша tanstack
 
   // мутация данных пользователя
-  const mutation = useMutation({
+  const profileMutation = useMutation({
     mutationFn: UserService.editMe,
     onSuccess: (data) => {
-      queryClient.setQueryData(['user'], data) // 🔥 Обновляем кэш без повторного запроса
+      console.log(data)
+      /* queryClient.setQueryData(['user'], data) */ // 🔥 Обновляем кэш без повторного запроса
+      queryClient.invalidateQueries(['user'])
       setFormWar('Success') // устанавливаем оповещения в state
       setAvatar(data.avatar) // для проверки повторяемости фото
       setEditView(false) // закрываем режим редактирования
@@ -38,11 +42,19 @@ export function ProfilePage() {
   })
 
   // работа с формой
-  async function formSubmit(formData) {
-    const newAvatarUrl = formData.get('avatarUrl')
-    if (!newAvatarUrl) return console.error('Вставьте URL картинки')
-    if (avatar === newAvatarUrl) return setFormWar('Это фото уже установлено') // чисто для проверки тоже фото что и было
-    mutation.mutate(newAvatarUrl)
+  // async function formSubmit(formData) {
+  //   const newAvatarUrl = formData.get('avatarUrl')
+  //   if (!newAvatarUrl) return console.error('Вставьте URL картинки')
+  //   if (avatar === newAvatarUrl) return setFormWar('Это фото уже установлено') // чисто для проверки тоже фото что и было
+  //   mutation.mutate(newAvatarUrl)
+  // }
+
+  function formAction(formData) {
+    const form = new FormData()
+
+    form.append('image', formData.get('image'))
+
+    profileMutation.mutate(form)
   }
 
   if (!user) return <RegModal />
@@ -61,15 +73,15 @@ export function ProfilePage() {
         <div className="info">Email: {user.email}</div>
         <div className="info">Status: {user.status}</div>
         {editView && (
-          <form className="edit-form" action={formSubmit}>
+          <form className="edit-form" action={formAction}>
             <div className="edit-input__box">
-              <label htmlFor="avatarUrl">Вставте ссылку на новое фото</label>
+              <label htmlFor="avatar">Вставте ссылку на новое фото</label>
               <input
-                id="avatarUrl"
-                name="avatarUrl"
+                id="avatar"
+                name="image"
                 className="edit-input"
-                type="url"
-                placeholder="image url"
+                type="file"
+                // placeholder="image url"
                 required
               />
               {editView && <button>Отправить</button>}
