@@ -5,12 +5,16 @@ import { useNavigate } from 'react-router-dom'
 import { toNormalDate } from '../../utils/toNormalDate'
 
 export default function UserPostListItem({ post }) {
-  const { deleteMutation } = useDeletepost(post.id)
+  const { deleteMutation } = useDeletepost()
   const navigate = useNavigate()
+
+  // console.log(post)
+  const postId = post.id
+  const imageName = post.main_image
 
   function handleDelete() {
     // сначала надо сделать всплывающий алерт с подтверждением
-    deleteMutation.mutate()
+    deleteMutation.mutate({ postId, imageName })
   }
 
   function handleEdit() {

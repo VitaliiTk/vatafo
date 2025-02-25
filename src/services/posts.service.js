@@ -14,8 +14,9 @@ export const PostsService = {
     const { data } = await api.post('/posts', newData)
     return data
   },
-  async deletePost(id) {
-    const { data } = await api.delete(`/posts/${id}`)
+  async deletePost({ postId, imageName }) {
+    console.log(postId, imageName)
+    const { data } = await api.delete(`/posts/${postId}`, { data: { fileKey: imageName } })
     return data
   },
   async getById(id) {

@@ -39,7 +39,7 @@ export function AddForm() {
     }
   })
 
-  // работа с формой, сбор всех полей
+  // работа с формой, сбор всех полей это правидьный подхот только так multer на бэке увидет отправляемые данные
   const formAction = (formData) => {
     const form = new FormData() // Создаем новый объект FormData
 

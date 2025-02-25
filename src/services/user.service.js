@@ -16,8 +16,8 @@ export const UserService = {
   },
 
   // отправка post запроса на сервер с фото
-  async editMe(newData) {
-    const { data } = await api.post('/users/avatar', newData)
+  async editMe(form) {
+    const { data } = await api.post('/users/me', form)
     return data
   }
 }

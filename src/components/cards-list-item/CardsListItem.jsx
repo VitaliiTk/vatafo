@@ -27,6 +27,7 @@ export function CardsListItem({ card }) {
   const [modal, setModal] = useAtom(modalAtom)
   const title = card.info.slice(0, 30)
 
+  // проверка какие в избранных
   let isFavorite
   if (!user) isFavorite = false
   if (user) isFavorite = favorites?.some((item) => item.id === card.id)
@@ -43,7 +44,6 @@ export function CardsListItem({ card }) {
       }
     }
   }
-  // console.log(user)
 
   return (
     <Link
@@ -51,7 +51,7 @@ export function CardsListItem({ card }) {
       // target="_blank"
       className="card"
     >
-      <img className="card__img" src={card.main_image} alt="" />
+      <img className="card__img" src={card.main_image} alt="" onError={() => '/wolf_logo.png'} />
       <div className="card__content">
         <div className="card__info">
           {/* <div className="card__price-old">1600</div> */}
