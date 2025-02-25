@@ -1,0 +1,11 @@
+.back {
+  background-color: green;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.back span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
