@@ -55,6 +55,7 @@ export function AddForm() {
     form.append('drive', formData.get('drive'))
     form.append('drive_length', formData.get('ride'))
     form.append('year', formData.get('year'))
+    form.append('tel', formData.get('tel'))
 
     // 📌 Добавляем массивы (payMethod, fuels)
     formData.getAll('payMethod').forEach((method) => form.append('payMethod[]', method))
