@@ -10,11 +10,10 @@ export default function UserPostListItem({ post }) {
 
   // console.log(post)
   const postId = post.id
-  const imageName = post.main_image
 
   function handleDelete() {
     // сначала надо сделать всплывающий алерт с подтверждением
-    deleteMutation.mutate({ postId, imageName })
+    deleteMutation.mutate(postId)
   }
 
   function handleEdit() {

@@ -36,7 +36,7 @@ export function EditPostPage() {
   }
 
   async function handleDeletePost() {
-    PostsService.deletePost({ postId: id, imageName: data.main_image })
+    PostsService.deletePost(id)
     navigate('/')
   }
 
