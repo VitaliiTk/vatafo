@@ -6,7 +6,7 @@ import Spinner from '../../components/spinner/Spinner'
 
 import './author-page.css'
 import { useState } from 'react'
-import { useSiteName } from '../../hooks/useSiteName,js'
+import { useSiteName } from '../../hooks/useSiteName.js'
 
 const disactiveAdds = []
 

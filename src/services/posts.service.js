@@ -23,8 +23,9 @@ export const PostsService = {
     const { data } = await api.get(`/posts/${id}`)
     return data
   },
-  async updatePost(id, newData) {
-    const { data } = await api.put(`/posts/${id}`, newData)
+  async updatePost({ id, form }) {
+    console.log(id, form)
+    const { data } = await api.put(`/posts/${id}`, form)
     return data
   }
 }

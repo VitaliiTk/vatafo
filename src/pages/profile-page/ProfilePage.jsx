@@ -14,7 +14,6 @@ import './profile.css'
 // services
 import { UserService } from '../../services/user.service'
 import useUser from '../../hooks/useUser'
-import { BackNavigate } from '../../components/back-navigate/BackNavigate'
 
 // master ==========================================================
 export function ProfilePage() {
@@ -49,7 +48,6 @@ export function ProfilePage() {
 
   return (
     <div className="profile-page">
-      <BackNavigate />
       <h2 className="profile-page__title">{user.username}</h2>
       <div className="profile-info">
         <div className="info">

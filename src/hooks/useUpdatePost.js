@@ -5,9 +5,7 @@ export default function useUpdatePost(id) {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: (newData) => {
-      return PostsService.updatePost(id, newData)
-    },
+    mutationFn: PostsService.updatePost,
     onSuccess: () => {
       queryClient.invalidateQueries(['posts', id])
     }

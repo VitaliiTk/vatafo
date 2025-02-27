@@ -3,7 +3,7 @@ import { FaInstagram } from 'react-icons/fa'
 import { FaTwitter } from 'react-icons/fa'
 
 import styles from './footer.module.css'
-import { useSiteName } from '../../hooks/useSiteName,js'
+import { useSiteName } from '../../hooks/useSiteName.js'
 const year = new Date().getFullYear()
 
 export function Footer() {

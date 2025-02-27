@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 
 import './header-logo.css'
-import { useSiteName } from '../../hooks/useSiteName,js'
+import { useSiteName } from '../../hooks/useSiteName.js'
 
 export function HeaderLogo() {
   const siteName = useSiteName()
