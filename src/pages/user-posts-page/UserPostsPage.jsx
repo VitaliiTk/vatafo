@@ -1,6 +1,5 @@
 // components
 import { RegModal } from '../../components/reg-modal/RegModal'
-import { CardsList } from '../../components/cards-list/CardsList'
 
 // hooks
 import useUser from '../../hooks/useUser'
