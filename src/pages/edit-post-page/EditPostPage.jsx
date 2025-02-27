@@ -35,6 +35,11 @@ export function EditPostPage() {
     updatePost.mutate({ id, form })
   }
 
+  async function handleDeletePost() {
+    PostsService.deletePost({ postId: id, imageName: data.main_image })
+    navigate('/')
+  }
+
   if (!user) return <RegModal />
 
   return (
@@ -77,6 +82,9 @@ export function EditPostPage() {
             <button type="submit">Сохранить</button>
             <button type="button" onClick={() => navigate(-1)}>
               Отмена
+            </button>
+            <button type="button" onClick={handleDeletePost}>
+              Удалить
             </button>
           </form>
 
