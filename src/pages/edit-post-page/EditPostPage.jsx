@@ -9,11 +9,15 @@ import './edit-post-page.css'
 import useUpdatePost from '../../hooks/useUpdatePost'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { PostsService } from '../../services/posts.service'
+import { DeleteModal } from '../../components/delete-modal/DeleteModal'
+import { useState } from 'react'
 
 export function EditPostPage() {
   const { user } = useUser()
   const { id } = useParams()
   const { data } = usePost(id)
+
+  const [isDelModal, setIsDelModal] = useState(false)
 
   const navigate = useNavigate()
 
@@ -35,7 +39,8 @@ export function EditPostPage() {
     updatePost.mutate({ id, form })
   }
 
-  async function handleDeletePost() {
+  function handleDeletePost() {
+    setIsDelModal(false)
     PostsService.deletePost(id)
     navigate('/')
   }
@@ -83,7 +88,7 @@ export function EditPostPage() {
             <button type="button" onClick={() => navigate(-1)}>
               Отмена
             </button>
-            <button type="button" onClick={handleDeletePost}>
+            <button type="button" onClick={() => setIsDelModal(true)}>
               Удалить
             </button>
           </form>
@@ -100,6 +105,9 @@ export function EditPostPage() {
           </div>
         </div>
       </div>
+      {isDelModal && (
+        <DeleteModal yesClick={handleDeletePost} closeClick={() => setIsDelModal(false)} />
+      )}
     </div>
   )
 }

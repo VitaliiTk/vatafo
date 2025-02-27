@@ -3,9 +3,12 @@ import './user-post-list-item.css'
 import useDeletepost from '../../hooks/useDeletepost'
 import { useNavigate } from 'react-router-dom'
 import { toNormalDate } from '../../utils/toNormalDate'
+import { useState } from 'react'
+import { DeleteModal } from '../delete-modal/DeleteModal'
 
 export default function UserPostListItem({ post }) {
   const { deleteMutation } = useDeletepost()
+  const [isDelModal, setIsDelModal] = useState(false)
   const navigate = useNavigate()
 
   // console.log(post)
@@ -13,6 +16,7 @@ export default function UserPostListItem({ post }) {
 
   function handleDelete() {
     // сначала надо сделать всплывающий алерт с подтверждением
+    setIsDelModal(false)
     deleteMutation.mutate(postId)
   }
 
@@ -37,9 +41,12 @@ export default function UserPostListItem({ post }) {
         </div>
         <div className="btn-block">
           <button onClick={handleEdit}>Редактировать</button>
-          <button onClick={handleDelete}>Удалить</button>
+          <button onClick={() => setIsDelModal(true)}>Удалить</button>
         </div>
       </div>
+      {isDelModal && (
+        <DeleteModal yesClick={handleDelete} closeClick={() => setIsDelModal(false)} />
+      )}
     </div>
   )
 }
