@@ -7,25 +7,20 @@ import { toNormalDate } from '../../utils/toNormalDate'
 // styles
 import './edit-post-page.css'
 import useUpdatePost from '../../hooks/useUpdatePost'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { PostsService } from '../../services/posts.service'
 import { DeleteModal } from '../../components/delete-modal/DeleteModal'
 import { useState } from 'react'
+import useDeletepost from '../../hooks/useDeletepost'
 
 export function EditPostPage() {
   const { user } = useUser()
   const { id } = useParams()
   const { data } = usePost(id)
+  const { deleteMutation } = useDeletepost()
+  const updatePost = useUpdatePost(id)
 
   const [isDelModal, setIsDelModal] = useState(false)
 
   const navigate = useNavigate()
-
-  const queryClient = useQueryClient()
-  const updatePost = useMutation({
-    mutationFn: PostsService.updatePost,
-    onSuccess: () => queryClient.invalidateQueries(['post', id])
-  })
 
   function formAction(formData) {
     const form = new FormData()
@@ -40,8 +35,8 @@ export function EditPostPage() {
   }
 
   function handleDeletePost() {
+    deleteMutation.mutate(id)
     setIsDelModal(false)
-    PostsService.deletePost(id)
     navigate('/')
   }
 
@@ -51,9 +46,11 @@ export function EditPostPage() {
     <div className="edit-page page-margin-tb">
       <h3>Редактировать пост с id: {id}</h3>
       <div className="content-wrapper">
-        <div className="image-box">
-          <img className="image" src={data?.main_image} alt="" />
-        </div>
+        {data?.Images.map((image, index) => (
+          <div key={index} className="image-box">
+            <img className="image" src={image.image_url} alt="" />
+          </div>
+        ))}
         <div className="info">
           {/* FORM ===========================================================*/}
           <form action={formAction}>

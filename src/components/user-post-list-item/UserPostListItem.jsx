@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import { toNormalDate } from '../../utils/toNormalDate'
 import { useState } from 'react'
 import { DeleteModal } from '../delete-modal/DeleteModal'
+import Spinner from '../spinner/Spinner'
 
 export default function UserPostListItem({ post }) {
   const { deleteMutation } = useDeletepost()
@@ -24,10 +25,12 @@ export default function UserPostListItem({ post }) {
     navigate(`/acount/edit-post/${post.id}`)
   }
 
+  if (!post) return <Spinner />
+
   return (
     <div className="user-post-list-item">
       <div className="image-box">
-        <img className="image" src={post.main_image} alt="" />
+        <img className="image" src={post.Images[0].image_url} alt="" />
       </div>
       <div className="content-box">
         <div className="info">

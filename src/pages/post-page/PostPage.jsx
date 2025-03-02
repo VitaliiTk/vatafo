@@ -53,7 +53,7 @@ export default function PostPage() {
             >
               {isFavorite ? <GoHeartFill /> : <GoHeart />}
             </span>
-            <img src={post?.main_image} alt="" />
+            <img src={post?.Images[0].image_url} alt="" />
           </div>
           <div className="post-info">
             <h3 className="post-title">{post?.info}</h3>

@@ -18,9 +18,9 @@ import { UserService } from '../../services/user.service'
 
 // master ==================================================================================
 export function AddForm() {
-  // const [images, setImages] = useState([])
-  // const [mainImage, setMainImage] = useState(null)
-  const [preview, setPreview] = useState(null)
+  // const [preview, setPreview] = useState(null)
+  const [images, setImages] = useState([])
+  const [mainImage, setMainImage] = useState(null)
 
   const queryClient = useQueryClient()
 
@@ -43,7 +43,7 @@ export function AddForm() {
   const formAction = (formData) => {
     const form = new FormData() // Создаем новый объект FormData
 
-    form.append('image', formData.get('image')) // Добавляем файл
+    // form.append('image', mainImage) // Добавляем файл
     form.append('price', formData.get('price'))
     form.append('category', formData.get('category'))
     form.append('info', formData.get('info'))
@@ -61,9 +61,24 @@ export function AddForm() {
     formData.getAll('payMethod').forEach((method) => form.append('payMethod[]', method))
     formData.getAll('fuel').forEach((fuel) => form.append('fuels[]', fuel))
 
+    // images
+    formData.getAll('images').forEach((image) => form.append('images[]', image))
+
     console.log('Отправляем FormData:', form) // Проверяем в консоли
 
     newPostMutation.mutate(form)
+  }
+
+  function handleFileChange(e) {
+    const selectedFiles = Array.from(e.target.files) // Преобразуем FileList в массив
+    if (selectedFiles) {
+      selectedFiles.map((file) => setImages((prev) => [...prev, URL.createObjectURL(file)]))
+      setMainImage(URL.createObjectURL(selectedFiles[0]))
+    }
+  }
+
+  function mainImageHandler(image) {
+    setMainImage(image)
   }
 
   if (!user) return <RegModal />
@@ -83,22 +98,19 @@ export function AddForm() {
               </div>
 
               <div className="inputs__wrapper" id="add-foto__box">
-                <h3>Устанавите фото URL* {/* (до 30 фото) */}</h3>
-                {/* <input type="url" name="image" id="image" multiple /> */}
-                <input
-                  type="file"
-                  name="image"
-                  id="image"
-                  onChange={(e) => {
-                    const file = e.target.files[0]
-                    if (file) {
-                      setPreview(URL.createObjectURL(file))
-                    }
-                  }}
-                />
-                {preview && (
+                <h3>Загрузка фото* {/* (до 30 фото) */}</h3>
+                <input type="file" name="images" id="image" onChange={handleFileChange} multiple />
+                {images && (
                   <div style={{ marginTop: '20px' }}>
-                    <img src={preview} width={200} />
+                    {images.map((image, index) => (
+                      <img
+                        onClick={() => mainImageHandler(image)}
+                        key={index}
+                        src={image}
+                        width={100}
+                        style={mainImage === image ? { border: '3px solid green' } : {}}
+                      />
+                    ))}
                   </div>
                 )}
                 {/* <DragDropImageUploader
