@@ -12,6 +12,8 @@ import Spinner from '../../components/spinner/Spinner'
 
 import './post-page.css'
 import { toNormalDate } from '../../utils/toNormalDate'
+import ReactImageGallery from 'react-image-gallery'
+import 'react-image-gallery/styles/css/image-gallery.css'
 
 export default function PostPage() {
   const { user } = useUser()
@@ -41,6 +43,17 @@ export default function PostPage() {
 
   if (isPending) return <Spinner />
 
+  // images for slider
+  const images = post.Images.map((image) => {
+    return {
+      original: image.image_url,
+      thumbnail: image.image_url,
+      thumbnailHeight: '70px',
+      thumbnailWidth: '100px',
+      originalHeight: '500px'
+    }
+  })
+
   return (
     <div className="post-page">
       <h3>Post page</h3>
@@ -53,7 +66,8 @@ export default function PostPage() {
             >
               {isFavorite ? <GoHeartFill /> : <GoHeart />}
             </span>
-            <img src={post?.Images[0].image_url} alt="" />
+            {/* <img src={post?.Images[0].image_url} alt="" /> */}
+            <ReactImageGallery items={images} showPlayButton={false} />
           </div>
           <div className="post-info">
             <h3 className="post-title">{post?.info}</h3>
