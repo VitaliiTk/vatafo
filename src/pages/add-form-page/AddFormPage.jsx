@@ -71,7 +71,8 @@ export function AddForm() {
 
   function handleFileChange(e) {
     const selectedFiles = Array.from(e.target.files) // Преобразуем FileList в массив
-    if (selectedFiles) {
+    console.log(selectedFiles)
+    if (selectedFiles != 0) {
       selectedFiles.map((file) => setImages((prev) => [...prev, URL.createObjectURL(file)]))
       setMainImage(URL.createObjectURL(selectedFiles[0]))
     }

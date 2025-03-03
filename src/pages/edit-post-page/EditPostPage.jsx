@@ -10,6 +10,7 @@ import useUpdatePost from '../../hooks/useUpdatePost'
 import { DeleteModal } from '../../components/delete-modal/DeleteModal'
 import { useState } from 'react'
 import useDeletepost from '../../hooks/useDeletepost'
+import { useEffect } from 'react'
 
 export function EditPostPage() {
   const { user } = useUser()
@@ -20,6 +21,15 @@ export function EditPostPage() {
 
   const [isDelModal, setIsDelModal] = useState(false)
 
+  // отключает скролл страницы когда модалка открыта
+  useEffect(() => {
+    if (isDelModal) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = ''
+    }
+  }, [isDelModal])
+
   const navigate = useNavigate()
 
   function formAction(formData) {
@@ -29,7 +39,9 @@ export function EditPostPage() {
     form.append('info', formData.get('info'))
     form.append('drive_length', formData.get('drive_length'))
     form.append('tel', formData.get('tel'))
-    form.append('image', formData.get('image'))
+    // form.append('image', formData.get('image'))
+
+    formData.getAll('images').forEach((image) => form.append('images[]', image))
 
     updatePost.mutate({ id, form })
   }
@@ -78,12 +90,12 @@ export function EditPostPage() {
             </div>
 
             <div className="input-block">
-              <input type="file" name="image" id="image" />
+              <input type="file" name="images" id="image" multiple />
             </div>
 
             <button type="submit">Сохранить</button>
             <button type="button" onClick={() => navigate(-1)}>
-              Отмена
+              Выйти
             </button>
             <button type="button" onClick={() => setIsDelModal(true)}>
               Удалить

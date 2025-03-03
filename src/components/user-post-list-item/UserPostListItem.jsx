@@ -6,6 +6,7 @@ import { toNormalDate } from '../../utils/toNormalDate'
 import { useState } from 'react'
 import { DeleteModal } from '../delete-modal/DeleteModal'
 import Spinner from '../spinner/Spinner'
+import { useEffect } from 'react'
 
 export default function UserPostListItem({ post }) {
   const { deleteMutation } = useDeletepost()
@@ -14,6 +15,15 @@ export default function UserPostListItem({ post }) {
 
   // console.log(post)
   const postId = post.id
+
+  // отключает скролл страницы когда модалка открыта
+  useEffect(() => {
+    if (isDelModal) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = ''
+    }
+  }, [isDelModal])
 
   function handleDelete() {
     // сначала надо сделать всплывающий алерт с подтверждением
@@ -30,7 +40,7 @@ export default function UserPostListItem({ post }) {
   return (
     <div className="user-post-list-item">
       <div className="image-box">
-        <img className="image" src={post.Images[0].image_url} alt="" />
+        <img className="image" src={post.Images[0]?.image_url} alt="" />
       </div>
       <div className="content-box">
         <div className="info">

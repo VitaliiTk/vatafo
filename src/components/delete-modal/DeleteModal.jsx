@@ -1,6 +1,12 @@
+import { useEffect } from 'react'
 import styles from './delete-modal.module.css'
+import { useAtomValue } from 'jotai'
+import { modalAtom } from '../../store/modalsAtom'
 
 export function DeleteModal({ yesClick, closeClick }) {
+  // const isModalOpen = useAtomValue(modalAtom)
+  // console.log(isModalOpen)
+
   function handleYesClick() {
     yesClick()
   }
