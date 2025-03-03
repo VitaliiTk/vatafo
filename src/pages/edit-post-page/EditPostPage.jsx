@@ -58,7 +58,8 @@ export function EditPostPage() {
     deleteImage.mutate(image_id)
   }
 
-  if (!user) return <RegModal />
+  // if (!user) return <RegModal />
+  if (!user) return navigate('/')
 
   return (
     <div className="edit-page page-margin-tb">
