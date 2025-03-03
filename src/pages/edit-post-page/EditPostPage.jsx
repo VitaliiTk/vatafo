@@ -11,6 +11,8 @@ import { DeleteModal } from '../../components/delete-modal/DeleteModal'
 import { useState } from 'react'
 import useDeletepost from '../../hooks/useDeletepost'
 import { useEffect } from 'react'
+import { TiDeleteOutline } from 'react-icons/ti'
+import useDeleteImage from '../../hooks/useDeleteImage'
 
 export function EditPostPage() {
   const { user } = useUser()
@@ -18,6 +20,8 @@ export function EditPostPage() {
   const { data } = usePost(id)
   const { deleteMutation } = useDeletepost()
   const updatePost = useUpdatePost(id)
+  const deleteImage = useDeleteImage(id) // hook for delet one image by image id
+  const navigate = useNavigate()
 
   const [isDelModal, setIsDelModal] = useState(false)
 
@@ -30,8 +34,6 @@ export function EditPostPage() {
     }
   }, [isDelModal])
 
-  const navigate = useNavigate()
-
   function formAction(formData) {
     const form = new FormData()
 
@@ -39,9 +41,8 @@ export function EditPostPage() {
     form.append('info', formData.get('info'))
     form.append('drive_length', formData.get('drive_length'))
     form.append('tel', formData.get('tel'))
-    // form.append('image', formData.get('image'))
 
-    formData.getAll('images').forEach((image) => form.append('images[]', image))
+    formData.getAll('images').forEach((image) => form.append('images[]', image)) // добавить массив картинок
 
     updatePost.mutate({ id, form })
   }
@@ -52,6 +53,11 @@ export function EditPostPage() {
     navigate('/')
   }
 
+  function handleDeleteImage(image_id) {
+    console.log(`>>>>>>>>>>>>> image id: ${image_id}`)
+    deleteImage.mutate(image_id)
+  }
+
   if (!user) return <RegModal />
 
   return (
@@ -60,6 +66,12 @@ export function EditPostPage() {
       <div className="content-wrapper">
         {data?.Images.map((image, index) => (
           <div key={index} className="image-box">
+            {data.Images.length === 1 ? null : (
+              <span className="delete-image-icon" onClick={() => handleDeleteImage(image.id)}>
+                <TiDeleteOutline />
+              </span>
+            )}
+
             <img className="image" src={image.image_url} alt="" />
           </div>
         ))}

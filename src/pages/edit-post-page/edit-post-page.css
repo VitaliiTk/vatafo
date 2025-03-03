@@ -10,3 +10,25 @@
   width: 100%;
   object-fit: cover;
 }
+
+.image-box {
+  position: relative;
+}
+
+.image {
+  display: block;
+}
+
+.delete-image-icon {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+  background-color: var(--accent-color);
+
+  font-size: 30px;
+
+  right: 0;
+}
