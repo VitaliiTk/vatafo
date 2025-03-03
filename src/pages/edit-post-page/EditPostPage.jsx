@@ -95,7 +95,7 @@ export function EditPostPage() {
 
             <button type="submit">Сохранить</button>
             <button type="button" onClick={() => navigate(-1)}>
-              Выйти
+              Назад
             </button>
             <button type="button" onClick={() => setIsDelModal(true)}>
               Удалить
