@@ -2,8 +2,10 @@ import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'
 import styles from './slider-mine.module.css'
 import { useState } from 'react'
 import { TiDeleteOutline } from 'react-icons/ti'
+import useDeleteImage from '../../hooks/useDeleteImage'
 
 export function SliderMine({ images, isAuthorOfPost }) {
+  const deleteImage = useDeleteImage()
   const [selectedIndex, setSelectedIndex] = useState(0)
 
   function toLeft() {
@@ -15,6 +17,11 @@ export function SliderMine({ images, isAuthorOfPost }) {
 
   function selectImage(index) {
     setSelectedIndex(index)
+  }
+
+  function handlleDelete(image) {
+    console.log(image)
+    deleteImage.mutate(image.id)
   }
 
   return (
@@ -34,7 +41,10 @@ export function SliderMine({ images, isAuthorOfPost }) {
               >
                 {images[0] === images[selectedIndex] ? 'Главное' : 'Сделать главным'}
               </span>
-              <span className={styles['delete-icon']}>
+              <span
+                className={styles['delete-icon']}
+                onClick={() => handlleDelete(images[selectedIndex])}
+              >
                 <TiDeleteOutline />
               </span>
             </div>

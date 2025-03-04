@@ -47,7 +47,7 @@ export function CardsListItem({ card }) {
 
   return (
     <Link
-      to={user?.id === card.user_id ? `/acount/edit-post/${card.id}` : `/posts/${card.id}`}
+      to={`/posts/${card.id}`}
       // target="_blank"
       className="card"
     >

@@ -113,7 +113,7 @@ export default function PostPage() {
               <div className="post-owner__name">{post?.User.username}</div>
               {/* <span>Был(а) в сети 7 ч. назад</span> */}
               <Link to={`/user/${post?.user_id}`}>
-                <button>Все объявления продавца</button>
+                <button>{isAuthorOfPost ? 'Мой профиль' : 'Все объявления продавца'}</button>
               </Link>
             </div>
           </div>
