@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from 'react-router-dom'
 import useUser from '../../hooks/useUser'
-import { RegModal } from '../../components/reg-modal/RegModal'
+// import { RegModal } from '../../components/reg-modal/RegModal'
 import usePost from '../../hooks/usePost'
 import { toNormalDate } from '../../utils/toNormalDate'
 
@@ -13,7 +13,6 @@ import useDeletepost from '../../hooks/useDeletepost'
 import { useEffect } from 'react'
 import { TiDeleteOutline } from 'react-icons/ti'
 import useDeleteImage from '../../hooks/useDeleteImage'
-// import { Slider } from '../../components/slider/Slider'
 
 export function EditPostPage() {
   const { user } = useUser()
@@ -87,7 +86,6 @@ export function EditPostPage() {
             <img className="image" src={image.image_url} alt="" />
           </div>
         ))}
-        {/* <Slider images={images} /> */}
         <div className="info">
           {/* FORM ===========================================================*/}
           <form action={formAction}>
