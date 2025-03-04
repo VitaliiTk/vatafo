@@ -1,8 +1,9 @@
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'
 import styles from './slider-mine.module.css'
 import { useState } from 'react'
+import { TiDeleteOutline } from 'react-icons/ti'
 
-export function SliderMine({ images }) {
+export function SliderMine({ images, isAuthorOfPost }) {
   const [selectedIndex, setSelectedIndex] = useState(0)
 
   function toLeft() {
@@ -24,6 +25,21 @@ export function SliderMine({ images }) {
             <FaChevronLeft />
           </span>
           <img className={styles['main-image']} src={images[selectedIndex].image_url} alt="" />
+          {isAuthorOfPost && (
+            <div className={styles['image-control-for-author']}>
+              <span
+                className={`${styles['do-main']} ${
+                  images[0] === images[selectedIndex] && styles['select']
+                }`}
+              >
+                {images[0] === images[selectedIndex] ? 'Главное' : 'Сделать главным'}
+              </span>
+              <span className={styles['delete-icon']}>
+                <TiDeleteOutline />
+              </span>
+            </div>
+          )}
+
           <span onClick={toRight} className={`${styles['slider-arrows']} ${styles['right']}`}>
             <FaChevronRight />
           </span>

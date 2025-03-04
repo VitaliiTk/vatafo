@@ -55,3 +55,35 @@
 .mini-image:hover {
   outline: 3px solid var(--primary-color);
 }
+
+.image-control-for-author {
+  position: absolute;
+  bottom: 15px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background-color: var(--theme-color);
+  border-radius: 15px;
+}
+
+.do-main {
+  padding: 5px 15px;
+  border-radius: 15px;
+  background: #fff;
+  color: #000;
+  cursor: pointer;
+}
+
+.do-main.select {
+  background: var(--primary-color);
+  color: #fff;
+}
+
+.delete-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  color: var(--accent-color);
+  cursor: pointer;
+}

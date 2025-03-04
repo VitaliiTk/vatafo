@@ -55,20 +55,26 @@ export default function PostPage() {
   //   }
   // })
 
+  const isAuthorOfPost = user?.id === post.user_id
+  // const isAuthorOfPost = true
+
   return (
     <div className="post-page">
       <h3>Post page</h3>
       <div className="post-page__wrapper">
         <div className="post-content">
           <div className="slider">
-            <span
-              onClick={toggleFavorites}
-              className={isFavorite ? 'favorite-icon like' : 'favorite-icon'}
-            >
-              {isFavorite ? <GoHeartFill /> : <GoHeart />}
-            </span>
+            {!isAuthorOfPost && (
+              <span
+                onClick={toggleFavorites}
+                className={isFavorite ? 'favorite-icon like' : 'favorite-icon'}
+              >
+                {isFavorite ? <GoHeartFill /> : <GoHeart />}
+              </span>
+            )}
+
             {/* <Slider images={images} /> */}
-            <SliderMine images={post.Images} />
+            <SliderMine images={post.Images} isAuthorOfPost={isAuthorOfPost} />
           </div>
           <div className="post-info">
             <h3 className="post-title">{post?.info}</h3>
