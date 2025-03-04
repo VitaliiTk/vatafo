@@ -12,8 +12,9 @@ import Spinner from '../../components/spinner/Spinner'
 
 import './post-page.css'
 import { toNormalDate } from '../../utils/toNormalDate'
-import ReactImageGallery from 'react-image-gallery'
+// import ReactImageGallery from 'react-image-gallery'
 import 'react-image-gallery/styles/css/image-gallery.css'
+import { Slider } from '../../components/slider/Slider'
 
 export default function PostPage() {
   const { user } = useUser()
@@ -66,8 +67,7 @@ export default function PostPage() {
             >
               {isFavorite ? <GoHeartFill /> : <GoHeart />}
             </span>
-            {/* <img src={post?.Images[0].image_url} alt="" /> */}
-            <ReactImageGallery items={images} showPlayButton={false} />
+            <Slider images={images} />
           </div>
           <div className="post-info">
             <h3 className="post-title">{post?.info}</h3>

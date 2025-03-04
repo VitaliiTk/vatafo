@@ -13,6 +13,7 @@ import useDeletepost from '../../hooks/useDeletepost'
 import { useEffect } from 'react'
 import { TiDeleteOutline } from 'react-icons/ti'
 import useDeleteImage from '../../hooks/useDeleteImage'
+// import { Slider } from '../../components/slider/Slider'
 
 export function EditPostPage() {
   const { user } = useUser()
@@ -58,6 +59,16 @@ export function EditPostPage() {
     deleteImage.mutate(image_id)
   }
 
+  // const images = data?.Images.map((image) => {
+  //   return {
+  //     original: image.image_url,
+  //     thumbnail: image.image_url,
+  //     thumbnailHeight: '70px',
+  //     thumbnailWidth: '100px',
+  //     originalHeight: '500px'
+  //   }
+  // })
+
   // if (!user) return <RegModal />
   if (!user) return navigate('/')
 
@@ -76,6 +87,7 @@ export function EditPostPage() {
             <img className="image" src={image.image_url} alt="" />
           </div>
         ))}
+        {/* <Slider images={images} /> */}
         <div className="info">
           {/* FORM ===========================================================*/}
           <form action={formAction}>
