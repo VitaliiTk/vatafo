@@ -2,7 +2,6 @@
 import { Link, useParams } from 'react-router-dom'
 import usePost from '../../hooks/usePost'
 
-import './post-page.css'
 import { GoHeart, GoHeartFill } from 'react-icons/go'
 import { useAddFavorite, useFavorites, useRemoveFavorite } from '../../hooks/useFavorites'
 import useUser from '../../hooks/useUser'
@@ -10,11 +9,12 @@ import { modalAtom } from '../../store/modalsAtom'
 import { useSetAtom } from 'jotai'
 import Spinner from '../../components/spinner/Spinner'
 
-import './post-page.css'
 import { toNormalDate } from '../../utils/toNormalDate'
-// import ReactImageGallery from 'react-image-gallery'
+// import { Slider } from '../../components/slider/Slider'
+import { SliderMine } from '../../components/slider/SliderMine'
+
+import './post-page.css'
 import 'react-image-gallery/styles/css/image-gallery.css'
-import { Slider } from '../../components/slider/Slider'
 
 export default function PostPage() {
   const { user } = useUser()
@@ -45,15 +45,15 @@ export default function PostPage() {
   if (isPending) return <Spinner />
 
   // images for slider
-  const images = post.Images.map((image) => {
-    return {
-      original: image.image_url,
-      thumbnail: image.image_url,
-      thumbnailHeight: '70px',
-      thumbnailWidth: '100px',
-      originalHeight: '500px'
-    }
-  })
+  // const images = post.Images.map((image) => {
+  //   return {
+  //     original: image.image_url,
+  //     thumbnail: image.image_url,
+  //     thumbnailHeight: '70px',
+  //     thumbnailWidth: '100px',
+  //     originalHeight: '500px'
+  //   }
+  // })
 
   return (
     <div className="post-page">
@@ -67,7 +67,8 @@ export default function PostPage() {
             >
               {isFavorite ? <GoHeartFill /> : <GoHeart />}
             </span>
-            <Slider images={images} />
+            {/* <Slider images={images} /> */}
+            <SliderMine images={post.Images} />
           </div>
           <div className="post-info">
             <h3 className="post-title">{post?.info}</h3>
