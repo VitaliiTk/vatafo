@@ -45,18 +45,15 @@ export function CardsListItem({ card }) {
     }
   }
 
+  console.log(card)
+
   return (
     <Link
       to={`/posts/${card.id}`}
       // target="_blank"
       className="card"
     >
-      <img
-        className="card__img"
-        src={card.Images[0]?.image_url}
-        alt=""
-        onError={() => '/wolf_logo.png'}
-      />
+      <img className="card__img" src={card?.main_image} alt="" onError={() => '/wolf_logo.png'} />
       <div className="card__content">
         <div className="card__info">
           {/* <div className="card__price-old">1600</div> */}

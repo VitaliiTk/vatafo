@@ -40,7 +40,7 @@ export default function UserPostListItem({ post }) {
   return (
     <div className="user-post-list-item">
       <div className="image-box">
-        <img className="image" src={post.Images[0]?.image_url} alt="" />
+        <img className="image" src={post.main_image} alt="" />
       </div>
       <div className="content-box">
         <div className="info">

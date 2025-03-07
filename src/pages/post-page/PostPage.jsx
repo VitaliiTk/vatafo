@@ -10,7 +10,6 @@ import { useSetAtom } from 'jotai'
 import Spinner from '../../components/spinner/Spinner'
 
 import { toNormalDate } from '../../utils/toNormalDate'
-// import { Slider } from '../../components/slider/Slider'
 import { SliderMine } from '../../components/slider/SliderMine'
 
 import './post-page.css'
@@ -44,17 +43,6 @@ export default function PostPage() {
 
   if (isPending) return <Spinner />
 
-  // images for slider
-  // const images = post.Images.map((image) => {
-  //   return {
-  //     original: image.image_url,
-  //     thumbnail: image.image_url,
-  //     thumbnailHeight: '70px',
-  //     thumbnailWidth: '100px',
-  //     originalHeight: '500px'
-  //   }
-  // })
-
   const isAuthorOfPost = user?.id === post.user_id
   // const isAuthorOfPost = true
 
@@ -74,7 +62,7 @@ export default function PostPage() {
             )}
 
             {/* <Slider images={images} /> */}
-            <SliderMine images={post.Images} isAuthorOfPost={isAuthorOfPost} />
+            <SliderMine images={post.Images} isAuthorOfPost={isAuthorOfPost} post={post} />
           </div>
           <div className="post-info">
             <h3 className="post-title">{post?.info}</h3>
