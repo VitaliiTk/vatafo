@@ -36,7 +36,7 @@ export function SliderMine({ images, isAuthorOfPost, post }) {
         if (images.length === 1) {
           setSelectedIndex(0) // Если это последняя картинка, сбрасываем индекс
         } else if (selectedIndex >= images.length - 1) {
-          setSelectedIndex(selectedIndex - 1) // Если удаляем последнюю, выбираем предыдущую
+          setSelectedIndex(selectedIndex - 1) // Если удаляем последнюю в массиве , выбираем предыдущую
         }
       }
     })
@@ -46,8 +46,6 @@ export function SliderMine({ images, isAuthorOfPost, post }) {
     setMainImage(images.find((img) => img.id === image_id).image_url) // Мгновенное обновление UI
     updateMainImageMutation.mutate(image_id)
   }
-
-  console.log(images[selectedIndex].image_url)
 
   if (!images) return <Spinner />
 

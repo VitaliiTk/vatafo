@@ -6,7 +6,6 @@ import { modalAtom } from '../../store/modalsAtom'
 
 // icons
 import { GoHeart, GoHeartFill } from 'react-icons/go'
-import { CiMail } from 'react-icons/ci'
 
 // components
 
@@ -45,8 +44,6 @@ export function CardsListItem({ card }) {
     }
   }
 
-  console.log(card)
-
   return (
     <Link
       to={`/posts/${card.id}`}
@@ -71,11 +68,6 @@ export function CardsListItem({ card }) {
             <div className="card__ac-status">{card?.User?.status === 'pro' ? 'Pro' : ''}</div>
           </div>
           <div className="card__bottom-info-right-side">
-            {/* <span className="card__icon">
-              <CiMail />
-            </span> */}
-
-            {/* на обьявлениях вошедшего пользователя не отображается сердечко */}
             {user?.id === card.user_id ? (
               <span>
                 <GrEdit />
@@ -91,16 +83,6 @@ export function CardsListItem({ card }) {
                 )}
               </span>
             )}
-
-            {/* <span onClick={toggleFavorites} className="card__icon favorite">
-              {isFavorite ? (
-                <span className="like">
-                  <GoHeartFill />
-                </span>
-              ) : (
-                <GoHeart />
-              )}
-            </span> */}
           </div>
         </div>
       </div>
