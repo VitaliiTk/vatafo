@@ -142,6 +142,13 @@
   font-size: 22px;
 }
 
+.header-favorite-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+}
+
 @media (max-width: 866px) {
   .header__wrapper {
     flex-direction: column;

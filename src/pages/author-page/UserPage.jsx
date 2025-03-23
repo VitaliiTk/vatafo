@@ -1,16 +1,16 @@
 import { useParams } from 'react-router-dom'
-import useAuthor from '../../hooks/useAuthor'
-import { toNormalDate } from '../../utils/toNormalDate'
-import { CardsList } from '../../components/cards-list/CardsList'
-import Spinner from '../../components/spinner/Spinner'
+import useAuthor from '../../hooks/useAuthor.js'
+import { toNormalDate } from '../../utils/toNormalDate.js'
+import { CardsList } from '../../components/cards-list/CardsList.jsx'
+import Spinner from '../../components/spinner/Spinner.jsx'
 
-import './author-page.css'
+import './user-page.css'
 import { useState } from 'react'
 import { useSiteName } from '../../hooks/useSiteName.js'
 
 const disactiveAdds = []
 
-export default function AuthorPage() {
+export default function UserPage() {
   const { id } = useParams()
   const { data, isPending } = useAuthor(id)
   const [active, setActive] = useState('active')
@@ -22,7 +22,6 @@ export default function AuthorPage() {
 
   return (
     <div className="user-page">
-      {/* <h3>Author Page</h3> */}
       <div className="author_info">
         <div className="img__box">
           <img src={author?.avatar} alt="" />
@@ -34,6 +33,7 @@ export default function AuthorPage() {
           </div>
         </div>
       </div>
+
       <div className="tabs">
         <p className={active === 'active' ? 'active' : ''} onClick={() => setActive('active')}>
           Активно
